@@ -3,13 +3,14 @@
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
-#define ptnumber 6
+#define ptnumber 7
 
 void hsito::Loop()
 {
    if (fChain == 0) return;
-   Double_t lowpt[ptnumber] ={20,25,30,40,50,65};
-   Double_t highpt[ptnumber]={25,30,40,50,65,400};
+   Double_t lowpt[ptnumber] ={20,25,30,40,50,65,0};
+   Double_t highpt[ptnumber]={25,30,40,50,65,400,400};
+   Bool_t LEP;
    TH1D* h1[ptnumber]; 
    TCanvas*c1[ptnumber];
    Long64_t nentries = fChain->GetEntriesFast();
@@ -24,6 +25,8 @@ void hsito::Loop()
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
+      LEP = lep==11 /*&& (HLT_Ele1>0 || HLT_Ele2>0)*/ && ptlep1 > 25. && ptlep2 > 25.&& abs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep >70. && massVlep < 110;
+      if(LEP==false)  continue;
       for(Int_t i=0;i<ptnumber;i++){    
         if(photon_pt[position]>lowpt[i]&&photon_pt[position]<highpt[i])
 		h1[i]->Fill(photon_pt[position],scalef);

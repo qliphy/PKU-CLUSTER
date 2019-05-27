@@ -17,7 +17,7 @@
 #define Pi 3.1415926
 using namespace std;
 
-TString rootfiles = "ptotal";
+TString rootfiles = "pele";
 TString sieiecut = "nosieiecut_elebarrel";
 //TString sieiecut = "sieiecut";
 TString dir = "./txt/";
@@ -200,8 +200,8 @@ for(Int_t j=0;j<21;j++){
    }
 //style();
 histo();
-//TFile *f1 = new TFile("/home/pku/anying/cms/file_in_cms/cutLEP/"+rootfiles+".root");     
-TFile *f1 = new TFile("./rootfiles/"+rootfiles+".root");     
+TFile *f1 = new TFile("/home/pku/anying/cms/file_in_cms/cutLEP/"+rootfiles+".root");     
+//TFile *f1 = new TFile("./rootfiles/"+rootfiles+".root");     
 //TFile *f1 = new TFile("./"+rootfiles+".root");     
 TFile *ff1;
 TTree *t1 =(TTree*)f1->Get("demo");

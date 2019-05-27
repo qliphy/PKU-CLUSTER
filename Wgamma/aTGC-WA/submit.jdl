@@ -1,0 +1,15 @@
+Universe = vanilla
+
+Executable = wrapper.sh
+
+should_transfer_files = YES
+transfer_input_files = /etc/ciconnect/templates/cmssw_setup.sh
+
+Error = log/job.err_$(Cluster)-$(Process)
+Output = log/job.out_$(Cluster)-$(Process)
+Log = log/job.log_$(Cluster)
+
+transfer_output_remaps = "SMP-RunIISummer15wmLHEGS-00183.root = SMP-RunIISummer15wmLHEGS-00183_$(Cluster)_$(Process).root"
+when_to_transfer_output = ON_EXIT
+
+Queue 2

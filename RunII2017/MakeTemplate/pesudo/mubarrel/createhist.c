@@ -194,7 +194,7 @@ for(Int_t i=2;i<6;i++){
 int createhist(){
 
 // TFile *f = new TFile("/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/ptotal.root");
- TFile *f = new TFile("./ptotal.root");
+ TFile *f = new TFile("./pele.root");
  TTree *t =(TTree*)f->Get("demo");
  tree(t);
  histo();

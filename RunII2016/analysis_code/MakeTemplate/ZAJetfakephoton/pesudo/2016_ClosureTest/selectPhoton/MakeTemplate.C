@@ -19,7 +19,7 @@ void MakeTemplate::Loop(TString name)
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
 
-   TFile *newfile = new TFile( "./out"+name+ "_fakephoton.root", "recreate"); 
+   TFile *newfile = new TFile( "./out"+name+ "_ele.root", "recreate"); 
    TTree *newtree = fChain->CloneTree(0);
 //   nentries = 100000;
    int cut0=0,cut2=0,cut3=0,cut4=0;
@@ -32,7 +32,7 @@ void MakeTemplate::Loop(TString name)
       if(jentry%1000000==0)  cout<<jentry<<" ; "<<nentries<<endl;
       Int_t cut1=0;
       for(Int_t j=0;j<6;j++){
-	      if (photon_isprompt[j]==1){
+	      if (photon_isprompt[j]==1&&photon_pev[j]==1){
 		      cut1++;
 		      continue;
 	      }

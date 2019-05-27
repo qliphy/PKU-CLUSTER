@@ -9,14 +9,13 @@
 #include <ostream>
 #include <fstream>
 
-
 using namespace RooFit;
 TString dir =  "../eleendcap/roofit/txt/";
 TString dir1 = "../eleendcap/root/";
 TString dir2 = "../eleendcap/roofit/eps/";
 ofstream file3("../eleendcap/roofit/info_roofit.txt");
 void fit(float lowpt, float highpt, float lowchiso, float highchiso){
-TFile* fdata = TFile::Open(dir1 + "ptotal.root");
+TFile* fdata = TFile::Open(dir1 + "pele.root");
 //TFile* ftrue = TFile::Open(dir1 + "realphoton.root");
 
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h11_pt%0.f_%0.f",lowpt,highpt));

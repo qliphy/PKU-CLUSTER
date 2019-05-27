@@ -1,4 +1,5 @@
- TString b ="shapeTest1";
+TString filename = "ptotal";
+TString b ="shapeSieie_" + filename;
  TString str="Z && lep && Leading photon && MediumID ";
  TH1D *h2[6];
  TH1D *h[6];
@@ -81,6 +82,7 @@ Double_t s[6];
  h2[4]->SetLineColor(kBlue);
  h2[5]->SetLineColor(kBlack);
  h2[1]->DrawNormalized("HIST e");
+ h2[1]->GetYaxis()->SetRangeUser(0,0.5);
 for(Int_t i=2;i<6;i++){
    h2[i]->SetLineWidth(3);
    h2[i]->SetLineStyle(2);
@@ -197,7 +199,7 @@ for(Int_t i=2;i<6;i++){
 int createhist(){
 
 // TFile *f = new TFile("/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/ptotal.root");
- TFile *f = new TFile("./pdata.root");
+ TFile *f = new TFile("./"+ filename + ".root");
  TTree *t =(TTree*)f->Get("demo");
  tree(t);
  histo();

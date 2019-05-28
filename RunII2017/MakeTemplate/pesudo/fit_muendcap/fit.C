@@ -16,7 +16,7 @@ TString dir1 = "../muendcap/root/";
 TString dir2 = "../muendcap/roofit/eps/";
 ofstream file3("../muendcap/roofit/info_roofit.txt");
 void fit(float lowpt, float highpt, float lowchiso, float highchiso){
-TFile* fdata = TFile::Open(dir1 + "pele.root");
+TFile* fdata = TFile::Open(dir1 + "ptotal.root");
 //TFile* ftrue = TFile::Open(dir1 + "realphoton.root");
 
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h11_pt%0.f_%0.f",lowpt,highpt));

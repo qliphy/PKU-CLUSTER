@@ -161,7 +161,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 		    h1[k]->Fill(photon_sieie[position],scalef);//data template
                     if(photon_sieie[position]< sieie)   
 			    m1[k] += scalef;// the number of data in medium sieie region
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1 && isTrue!=1){
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1&& (tta==false && za==false) ){
 			    FakeNumber[k]+=scalef;}
 		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && (tta==true||za==true)&&isTrue==1 )
 			    TrueNumber[k]+=scalef;
@@ -169,7 +169,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 			    hfake[k]->Fill(photon_sieie[position],scalef);
 		    if(photon_isprompt[position]==1)
 			    htrue[k]->Fill(photon_sieie[position],scalef);
-		    if(photon_isprompt[position]==1 && (tta==true||za==true) && isTrue==1 ) 
+		    if(photon_isprompt[position]==1 && (tta==true||za==true) && isprompt==1 ) 
 		            {h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;}//true template
 		    if(photon_sieie[position]< sieie) h_sieie[k]->Fill(photon_sieie[position],scalef);
 	    }//datamc
@@ -177,7 +177,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k]) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false)) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);m2[k][j] +=scalef;
 		    }  

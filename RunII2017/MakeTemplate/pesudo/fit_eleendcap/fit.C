@@ -16,7 +16,7 @@ TString dir1 = "../eleendcap/root/";
 TString dir2 = "../eleendcap/roofit/eps/";
 ofstream file3("../eleendcap/roofit/info_roofit.txt");
 void fit(float lowpt, float highpt, float lowchiso, float highchiso){
-TFile* fdata = TFile::Open(dir1 + "pdata.root");
+TFile* fdata = TFile::Open(dir1 + "ptotal.root");
 
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h11_pt%0.f_%0.f",lowpt,highpt));
 	TH1F* hfake_ = (TH1F*)fdata->Get(Form("h12_pt%0.f_%0.f_chiso%0.f_%0.f",lowpt,highpt,lowchiso,highchiso));

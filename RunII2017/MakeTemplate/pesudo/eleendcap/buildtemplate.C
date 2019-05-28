@@ -17,7 +17,7 @@
 #define Pi 3.1415926
 using namespace std;
 
-TString rootfiles = "pdata";
+TString rootfiles = "ptotal";
 TString sieiecut = "nosieiecut_eleendcap";
 //TString sieiecut = "sieiecut";
 TString dir = "./txt/";
@@ -161,7 +161,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 		    m2[k]+=scalef;
                     if(photon_sieie[position]< sieie)   
 			    m1[k] += scalef;// the number of data in medium sieie region
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt!=1){
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt!=1 && (tta ==false && za== false)){
 			    FakeNumber[k]+=scalef;}
 		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && (tta=true || za==true) )
 			    TrueNumber[k]+=scalef;
@@ -177,7 +177,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k]) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt!=1 && (za==false && tta ==false) ) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);
 		    }  

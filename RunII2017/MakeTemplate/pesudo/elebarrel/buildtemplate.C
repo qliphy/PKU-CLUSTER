@@ -36,7 +36,7 @@ double delta_R(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
  Double_t ptlep1,ptlep2,etalep1,etalep2,massVlep;
  Double_t scalef;
  Int_t nlooseeles,nloosemus,HLT_Ele1,HLT_Ele2,ngoodmus;//,ngoodeles;
- Bool_t photon_pevnew[6],ewk=false,tta=false,za=false;
+ Bool_t photon_pevnew[6],ewk=false,tta=false,za=false,photon_pev[6];
  Double_t photon_drla[6],photon_pt[6],photon_drla2[6],photon_sieie[6],photon_chiso[6],ak4jet_pt[6],ak4jet_eta[6],ak4jet_phi[6];
  double photon_hoe[6];
  double photon_nhiso[6];
@@ -46,7 +46,7 @@ double delta_R(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
  bool LEP,Leading_photon[6],medium_cut[6],loose_cut[6],JET[6],jet_flag;
  vector<double> vector_pt;
  vector<double>::iterator biggest_pt;
- Int_t position=0,size,m=0,jet;
+ Int_t position=0,size,m=0,jet,p=0,n=0;
  Double_t m1[ptnumber],m2[ptnumber][21],m3[ptnumber];
  Int_t nentries;
  Double_t lowchiso[21],highchiso[21];
@@ -63,7 +63,8 @@ double delta_R(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
  TH1D* h22[ptnumber][21];
  TH1D* h13[ptnumber];
  TH1D* h23[ptnumber];
- TH1D* h_sieie[ptnumber];
+ TH1D* h_sieieT[ptnumber];
+ TH1D* h_sieieF[ptnumber];
  TH1D* hfake[ptnumber];
  TH1D* htrue[ptnumber];
  TH1D* h31;
@@ -73,6 +74,7 @@ double delta_R(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
 void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnumber]){
  tree->SetBranchAddress("photon_hoe",photon_hoe);
  tree->SetBranchAddress("photon_pevnew",photon_pevnew);
+ tree->SetBranchAddress("photon_pev",photon_pev);
  tree->SetBranchAddress("photon_nhiso",photon_nhiso);
  tree->SetBranchAddress("photon_phoiso",photon_phoiso);
  tree->SetBranchAddress("photon_pt",photon_pt);
@@ -132,7 +134,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
     for(Int_t k=0;k<6;k++){if(photon_drla[k]==10) photon_drla[k]=0;if(photon_drla2[k]==10) photon_drla2[k]=0; }
     for(Int_t j=0;j<6;j++){
          Leading_photon[j]= photon_drla[j]>0.7 && photon_drla2[j]>0.7&&photon_drla[j]<9.&&photon_drla2[j]<9.;
-         medium_cut[j]=  photon_pevnew[j]==1 &&
+         medium_cut[j]=  photon_pev[j]==1 &&
                          photon_hoe[j]<0.02197 &&
                          photon_nhiso[j]<1.189 + 0.01512*photon_pt[j]+0.00002259*photon_pt[j]*photon_pt[j] &&
                          photon_phoiso[j]<2.08 + 0.004017*photon_pt[j]&&
@@ -152,32 +154,33 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 	    continue;}
     newtree->Fill();
     tta = false; za =false;
-    if(fabs(scalef)<0.0013&&fabs(scalef)>0.0004) tta=true;
+    if(fabs(scalef)<0.0013&&fabs(scalef)>0.0011) tta=true;
     if(fabs(scalef)<0.003&&fabs(scalef)>0.0028)  za=true;
     //   cout<<"the biggest pt"<<*biggest_pt<<endl;
     for(Int_t k=0;k<ptnumber;k++){
 	    if(photon_chiso[position]< chiso && *biggest_pt<highpt[k] && *biggest_pt>lowpt[k]) 
             {
 		    h1[k]->Fill(photon_sieie[position],scalef);//data template
-                    if(photon_sieie[position]< sieie)   
-			    m1[k] += scalef;// the number of data in medium sieie region
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1&& (tta==false && za==false) ){
-			    FakeNumber[k]+=scalef;}
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && (tta==true||za==true)&&isTrue==1 )
-			    TrueNumber[k]+=scalef;
-		    if(photon_isprompt[position]!=1)
-			    hfake[k]->Fill(photon_sieie[position],scalef);
-		    if(photon_isprompt[position]==1)
-			    htrue[k]->Fill(photon_sieie[position],scalef);
-		    if(photon_isprompt[position]==1 && (tta==true||za==true) && isprompt==1 ) 
-		            {h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;}//true template
-		    if(photon_sieie[position]< sieie) h_sieie[k]->Fill(photon_sieie[position],scalef);
+                    if(photon_sieie[position]< sieie){m1[k] += scalef;}// the number of data in medium sieie region
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) ){FakeNumber[k] += scalef;}
+		    if(photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) ){hfake[k]->Fill(photon_sieie[position],scalef);}
+//		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt==1 && (tta==true||za==true) ){TrueNumber[k] += scalef;h_sieieT[k]->Fill(photon_sieie[position],scalef);}
+		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta = true || za ==true) ) {htrue[k]->Fill(photon_sieie[position],scalef);}
+		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta==true||za==true)  ){
+			    h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;
+			    if(photon_sieie[position]<sieie) TrueNumber[k] += scalef;
+		    }//true template
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt ==1 && (tta = true || za ==true) ){ 
+			    h_sieieT[k]->Fill(photon_sieie[position],scalef);}
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1 &&(tta==false && za==false)){
+			    h_sieieF[k]->Fill(photon_sieie[position],scalef);}
+
 	    }//datamc
 	    for(Int_t j=0;j<21;j++){
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false)) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt!=1  && (tta==false && za==false)) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);m2[k][j] +=scalef;
 		    }  
@@ -213,26 +216,27 @@ ff1->cd();
 for(Int_t i=0;i<ptnumber;i++){
     cout<<"pt range "<<lowpt[i]<<" ~ "<<highpt[i]<<endl;
     ofstream myfile1(Form(dir + sieiecut+"datanumber_pt%0.f-%0.f.txt",lowpt[i],highpt[i]));
-    cout<<Form(" %0.f<photon_pt<%0.f",lowpt[i],highpt[i]);
-    cout<<"the number of data m1 in the medium sieie region = ";
-    cout<<" "<<m1[i]<<endl;
+//    cout<<Form(" %0.f<photon_pt<%0.f",lowpt[i],highpt[i]);
+//    cout<<"the number of data m1 in the medium sieie region = ";
+//    cout<<" "<<m1[i]<<endl;
     myfile1<<lowpt[i]<<"\t"<<highpt[i]<<"\t"<<m1[i]<<endl;
 
-    h_sieie[i]->Write();
+    h_sieieT[i]->Write();
+    h_sieieF[i]->Write();
     hfake[i]->Write();
     htrue[i]->Write();
     h11[i]->Write();
     h13[i]->Write();
     for(Int_t j=0;j<21;j++){
 	    h12[i][j]->Write();
-//       cout<<Form(" %0.f<pt<%0.f , %0.f<photon_chiso<%0.f",lowpt[i],highpt[i],lowchiso[j],highchiso[j])<<"the number  m2 is the number of fake photon in fake template = "<<m2[i][j]<<endl;
 	    cout<<Form(" %0.f<pt<%0.f , %0.f<photon_chiso<%0.f",lowpt[i],highpt[i],lowchiso[j],highchiso[j])<<"the FakeNumber is the number of fake photon medium sieie region = "<<FakeNumber[i]<<endl;
 	    ofstream myfile_fake(Form(dir + sieiecut+"mfakenumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt[i],highpt[i],lowchiso[j],highchiso[j]));
 	    myfile_fake<<lowpt[i]<<"\t"<<highpt[i]<<"\t"<<lowchiso[j]<<"\t"<<highchiso[j]<<"\t"<<FakeNumber[i]<<"\t"<<m2[i][j]<<endl;
     }
     ofstream myfile(Form(dir + sieiecut+"truenumber_pt%0.f-%0.f.txt",lowpt[i],highpt[i]));
-    cout<<Form(" %0.f<photon_pt<%0.f",lowpt[i],highpt[i])<<"  the TrueNumber is the number of real photons in medium sieie region "<<TrueNumber[i]<<endl;
-    myfile<<lowpt[i]<<"\t"<<highpt[i]<<"\t"<<m3[i]<<"\t"<<TrueNumber[i]<<endl;
+    cout<<Form(" %0.f<photon_pt<%0.f",lowpt[i],highpt[i])<<"  the TrueNumber is the number of real photons in medium sieie region "<<TrueNumber[i]<<"; "<< m3[i]<<endl;
+      myfile<<lowpt[i]<<"\t"<<highpt[i]<<"\t"<<m3[i]<<"\t"<<TrueNumber[i]<<endl;
+//    myfile<<lowpt[i]<<"\t"<<highpt[i]<<"\t"<<TrueNumber[i]<<"\t"<<m3[i]<<endl;
 } 
 cout<<"#####################################"<<endl;
 ff1->Close();
@@ -293,11 +297,12 @@ void draw(TCanvas *c,TH1D *h1,TH1D *h2,TH1D *h3,Double_t ptlow,Double_t pthigh){
  delete c;
 }
 void histo(){
- Int_t bin=60;
+ Int_t bin=20;
  Double_t xlow= 0.0;
  Double_t xhigh= 0.02215;
   for(Int_t i=0;i<ptnumber;i++){
-      h_sieie[i]=new TH1D(Form("hsieie_pt%0.f_%0.f",lowpt[i],highpt[i]),"medium photon",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
+      h_sieieT[i]=new TH1D(Form("hsieieT_pt%0.f_%0.f",lowpt[i],highpt[i]),"real photon in medium range",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
+      h_sieieF[i]=new TH1D(Form("hsieieF_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake photon medium range",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
       hfake[i]=new TH1D(Form("hfake_pt%0.f_%0.f",lowpt[i],highpt[i]),"isprompt!=1 with medium chiso",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
       htrue[i]=new TH1D(Form("htrue_pt%0.f_%0.f",lowpt[i],highpt[i]),"isprompt=1 with medium chiso ",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
       h11[i]=new TH1D(Form("h11_pt%0.f_%0.f",lowpt[i],highpt[i]),"medium chiso data template",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416

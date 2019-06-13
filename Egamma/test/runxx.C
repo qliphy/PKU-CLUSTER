@@ -5,7 +5,7 @@
 using namespace std;
 
 void runxx() {
-TString dir ="./rootfiles/";
+TString dir ="../";
 ifstream infile("file");
 string buffer; 
 TString name;

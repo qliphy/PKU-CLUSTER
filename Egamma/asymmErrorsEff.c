@@ -31,6 +31,9 @@ for(int i = 0;i<num;i++){
         yerror_SBhigh[i] = eS_barrel->GetEfficiencyErrorUp(i+1);
 	xerror_SBhigh[i]=h1->GetBinWidth(i+1)/2;
 	xerror_SBlow[i]=h1->GetBinWidth(i+1)/2;
+        if(name.Contains("Eta")&&eS_barrel->GetEfficiency(i+1)==0){
+		eff_SB[i]= 0;yerror_SBlow[i]=0;yerror_SBhigh[i]=0;
+	}
 
 	eff_SE[i]=eS_endcap->GetEfficiency(i+1);
         x_SE[i]=h1->GetBinCenter(i+1);
@@ -38,6 +41,9 @@ for(int i = 0;i<num;i++){
         yerror_SEhigh[i] = eS_endcap->GetEfficiencyErrorUp(i+1);
 	xerror_SEhigh[i] = h2->GetBinWidth(i+1)/2;
 	xerror_SElow[i] = h2->GetBinWidth(i+1)/2;
+        if(name.Contains("Eta")&&eS_endcap->GetEfficiency(i+1)==0){
+		eff_SE[i]= 0;yerror_SElow[i]=0;yerror_SEhigh[i]=0;
+	}
 
 	eff_USB[i]=eUS_barrel->GetEfficiency(i+1);
         x_USB[i]=h1->GetBinCenter(i+1);
@@ -45,6 +51,9 @@ for(int i = 0;i<num;i++){
         yerror_USBhigh[i] = eUS_barrel->GetEfficiencyErrorUp(i+1);
 	xerror_USBhigh[i]=h1->GetBinWidth(i+1)/2;
 	xerror_USBlow[i]=h1->GetBinWidth(i+1)/2;
+        if(name.Contains("Eta")&&eUS_barrel->GetEfficiency(i+1)==0){
+                eff_USB[i]= 0;yerror_USBlow[i]=0;yerror_USBhigh[i]=0;
+        }
 
 	eff_USE[i]=eUS_endcap->GetEfficiency(i+1);
         x_USE[i]=h1->GetBinCenter(i+1);
@@ -52,7 +61,14 @@ for(int i = 0;i<num;i++){
         yerror_USEhigh[i] = eUS_endcap->GetEfficiencyErrorUp(i+1);
 	xerror_USEhigh[i] = h2->GetBinWidth(i+1)/2;
 	xerror_USElow[i] = h2->GetBinWidth(i+1)/2;
-	cout<<"Seed barrel: "<<num<<"; eff: "<<eff_SB[i]<<"; eff error: "<<yerror_SBlow[i]<<" "<<yerror_SBhigh[i]<<"xbin "<<x_SB[i]<<endl;
+        if(name.Contains("Eta")&&eUS_endcap->GetEfficiency(i+1)==0){
+                eff_USE[i]= 0;yerror_USElow[i]=0;yerror_USEhigh[i]=0;
+        }
+
+	cout<<filename<<"; Seed barrel: "<<name<<"; eff = "<<eff_SB[i]<<"; errorLow = "<<yerror_SBlow[i]<<"; errorHigh = "<<yerror_SBhigh[i]<<"; xbin "<<x_SB[i]<<endl;
+	cout<<filename<<"; UnSeed barrel: "<<name<<"; eff =  "<<eff_USB[i]<<"; errorLow = "<<yerror_USBlow[i]<<"; errorHigh =  "<<yerror_USBhigh[i]<<"; xbin "<<x_USB[i]<<endl;
+	cout<<filename<<"; Seed endcap: "<<name<<"; eff =  "<<eff_SE[i]<<"; errorLow = "<<yerror_SElow[i]<<"; errorHigh = "<<yerror_SEhigh[i]<<"; xbin "<<x_SE[i]<<endl;
+	cout<<filename<<"; UnSeed endcap: "<<name<<"; eff = "<<eff_USE[i]<<"; errorLow = "<<yerror_USElow[i]<<"; errorHigh = "<<yerror_USEhigh[i]<<"; xbin "<<x_USE[i]<<endl;
 }
 effS_barrel = new TGraphAsymmErrors(num,x_SB,eff_SB,xerror_SBlow,xerror_SBhigh,yerror_SBlow,yerror_SBhigh);
 effS_endcap = new TGraphAsymmErrors(num,x_SE,eff_SE,xerror_SElow,xerror_SEhigh,yerror_SElow,yerror_SEhigh);
@@ -70,11 +86,11 @@ if(filename.Contains("200"))
 	effS_barrel->SetTitle("seed/gen efficiency vs "+ name + " "+tag2);
 else    effS_barrel->SetTitle("seed/gen efficiency vs "+ name + " "+tag1);
 cout<<"OK"<<endl;
-if(name.Contains("Eta")){
-	effS_barrel->GetXaxis()->SetRangeUser(0,2.5);}
+//if(name.Contains("Eta")){
+//	effS_barrel->GetXaxis()->SetRangeUser(0,2.5);}
 if(name.Contains("Nrgy")){
-	effS_barrel->GetYaxis()->SetRangeUser(0.1,1.1);}
-else    effS_barrel->GetYaxis()->SetRangeUser(0.3,1.1);
+	effS_barrel->GetYaxis()->SetRangeUser(0,1.1);}
+else    effS_barrel->GetYaxis()->SetRangeUser(0,1.1);
 effS_barrel->GetXaxis()->SetTitle(name);
 effS_barrel->GetYaxis()->SetTitle("efficiency");
 effS_barrel->SetLineColor(kRed-7);
@@ -96,11 +112,11 @@ c2->cd();
 if(filename.Contains("200"))
 	effUS_barrel->SetTitle("unseed/gen efficiency vs "+ name + " "+ tag2);
 else    effUS_barrel->SetTitle("unseed/gen efficiency vs "+ name + " "+ tag1);
-if(name.Contains("Eta")){
-	effUS_barrel->GetXaxis()->SetRangeUser(0,2.5);}
+//if(name.Contains("Eta")){
+//	effUS_barrel->GetXaxis()->SetRangeUser(0,2.5);}
 if(name.Contains("Nrgy")){
 	effUS_barrel->GetYaxis()->SetRangeUser(0.1,1.1);}
-else    effUS_barrel->GetYaxis()->SetRangeUser(0.35,1.1);
+else    effUS_barrel->GetYaxis()->SetRangeUser(0,1.1);
 effUS_barrel->GetXaxis()->SetTitle(name);
 effUS_barrel->GetYaxis()->SetTitle("efficiency");
 effUS_barrel->SetLineColor(kRed-7);

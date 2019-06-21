@@ -144,14 +144,15 @@ else  {c1->Print("./"+tag1+name+nameS+".pdf"); c2->Print("./"+tag1+name+nameUS+"
 int asymmErrorsEff() {
 	TCanvas* c1[4];
 	TCanvas* c2[4];
-	for(int i =0;i<4;i++){
+        const int n =4;
+	for(int i =0;i<n;i++){
         c1[i] = new TCanvas(Form("50_120_seed%i",i),"",900,600);
         c2[i] = new TCanvas(Form("50_120_unseed%i",i),"",900,600);
 	Eff(i,f1,f2,c1[i],c2[i]);
 	}
 	TCanvas* c3[4];
 	TCanvas* c4[4];
-	for(int i =0;i<4;i++){
+	for(int i =0;i<n;i++){
         c3[i] = new TCanvas(Form("120_200_seed%i",i),"",900,600);
         c4[i] = new TCanvas(Form("120_200_unseed%i",i),"",900,600);
 	Eff(i,f3,f4,c3[i],c4[i]);

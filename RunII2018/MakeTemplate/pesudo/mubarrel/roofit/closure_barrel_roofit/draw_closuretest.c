@@ -1,6 +1,9 @@
+#define num 7
 ofstream myfile("result.txt");
-Double_t lowpt[7] ={25,30,35,40,50,65,100};
-Double_t highpt[7]={30,35,40,50,65,100,400};
+//Double_t lowpt[num] ={20,25,30,35,40,45,50,60,80,120};
+//Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
+  Double_t lowpt[num]= {20,25,30,40,50,65,100};
+  Double_t highpt[num]={25,30,40,50,65,100,400};
 void get(Double_t lowpt,Double_t highpt){
 //TString dir = "./result_endcap/";
 TString dir = "./";
@@ -34,7 +37,7 @@ for(Int_t i=0;i<22;i++){
     }
 
 int draw_closuretest(){
-  for(Int_t i=0;i<7;i++){
+  for(Int_t i=0;i<num;i++){
      myfile<<fixed<<setprecision(0)<<"pt: "<<lowpt[i]<<" ~ "<<highpt[i]<<endl; 
      run(i);
      myfile<<"############################################################"<<endl;

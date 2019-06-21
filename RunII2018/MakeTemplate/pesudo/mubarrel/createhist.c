@@ -6,11 +6,11 @@
  Double_t xlow= 0.0;
  Double_t xhigh= 0.02;
  Double_t chiso = 1.141;
- void tree(TTree*t1);
- void histo();
- void select(TTree*t1);
- void draw(TCanvas*c1);
- Double_t s[6];
+void tree(TTree*t1);
+void histo();
+void select(TTree*t1);
+void draw(TCanvas*c1);
+Double_t s[6];
  //the needed variables in the root file
  Double_t ptlep1,ptlep2,etalep1,etalep2,massVlep;
  Double_t scalef;
@@ -61,8 +61,8 @@
  c1=new TCanvas("c1","",900,600);   
  //c1->SetGrid();
  TPad *top_pad=new TPad("top_pad", "top_pad",0,0.2, 1.0, 1.0);
- top_pad->cd();
  top_pad->Draw();
+ top_pad->cd();
  top_pad->SetBottomMargin(0.1);
 // c1->SetLogy();
  h2[1]->SetLineColor(1);
@@ -74,9 +74,9 @@
 // h2[1]->SetFillColor(51);
 // h2[1]->SetFillStyle(3002);
  h2[2]->SetLineColor(kRed);
- h2[3]->SetLineColor(kGreen);
+ h2[3]->SetLineColor(kGreen+1);
  h2[4]->SetLineColor(kBlue);
- h2[5]->SetLineColor(kBlack);
+ h2[5]->SetLineColor(kOrange);
  h2[1]->DrawNormalized("HIST e");
 for(Int_t i=2;i<6;i++){
    h2[i]->SetLineWidth(3);
@@ -100,9 +100,9 @@ for(Int_t i=2;i<6;i++){
 
  h[2]->SetTitle("");
  h[2]->SetLineColor(kRed);
- h[3]->SetLineColor(kGreen);
+ h[3]->SetLineColor(kGreen+1);
  h[4]->SetLineColor(kBlue);
- h[5]->SetLineColor(kBlack);
+ h[5]->SetLineColor(kOrange);
  h[2]->Draw("P");
  for(Int_t i=2;i<6;i++){
      h[i]->GetXaxis()->SetTitleOffset(0.9);
@@ -125,11 +125,12 @@ for(Int_t i=2;i<6;i++){
  line->SetLineWidth(2);
  line->SetLineStyle(2);
  line->Draw();
- c1->Draw();
+
  c1->Print("./"+b+"_sieie.eps");
+ c1->Print("./"+b+"_sieie.pdf");
  }
  void select(TTree*t1){
- bool LEP,Leading_photon[6],medium_cut[6],loose_cut[6];
+ bool Zjets[6],Leading_photon[6],medium_cut[6],loose_cut[6];
  Int_t nentries = t1->GetEntriesFast();
  cout<<"nentries = "<<nentries<<endl;
 // nentries=100;
@@ -138,16 +139,16 @@ for(Int_t i=2;i<6;i++){
  int position=0,size;
  for(Int_t i=0;i<nentries;i++){
     t1->GetEntry(i);
-          LEP  = ptlep1 > 20. && ptlep2 > 20.&& abs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep >70. && massVlep < 110;
     for(Int_t j=0;j<6;j++){
-         Leading_photon[j] = photon_isprompt[j] != 1  &&  photon_drla[j]>0.7 && photon_drla2[j]>0.7;// && photon_pt[j]<35.&&photon_pt[j]>25;
+         Zjets[j] = ptlep1 > 20. && ptlep2 > 20.&& abs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep >70. && massVlep < 110;
+         Leading_photon[j]=photon_isprompt[j] != 1  &&  photon_drla[j]>0.7 && photon_drla2[j]>0.7;// && photon_pt[j]<35.&&photon_pt[j]>25;
 	 medium_cut[j]= /*photon_pevnew[j]==1 &&*/
-                 photon_hoe[j]<0.02197  &&
-                 photon_nhiso[j]<1.819 + 0.01512*photon_pt[j] + 0.00002259*photon_pt[j]*photon_pt[j] &&
-                 photon_phoiso[j]<2.08 + 0.004017*photon_pt[j]&&
+                 photon_hoe[j]<0.0219  &&
+                 photon_nhiso[j]<1.715 + 0.0163*photon_pt[j] + 0.000014*photon_pt[j]*photon_pt[j] &&
+                 photon_phoiso[j]<3.863 + 0.0034*photon_pt[j]&&
 		 fabs(photon_eta[j])<1.4442 &&
                  photon_pt[j]>25&&photon_pt[j]<400;//muon barrel 
-         if(LEP&&Leading_photon[j]&&medium_cut[j]){
+         if(Zjets[j]&&Leading_photon[j]&&medium_cut[j]){
             vector_pt.push_back(photon_pt[j]);
             }
          else {vector_pt.push_back(0);}
@@ -192,12 +193,13 @@ for(Int_t i=2;i<6;i++){
  }
 int createhist(){
 
- TFile *f = new TFile("/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/pesudo.root");
+// TFile *f = new TFile("/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/ptotal.root");
+ TFile *f = new TFile("./pele.root");
  TTree *t =(TTree*)f->Get("demo");
  tree(t);
  histo();
  select(t);
- TCanvas *c1;//= new TCanvas("c1","test graph",750,500);
+ TCanvas *c1= new TCanvas("c1","test graph",750,500);
  draw(c1);
  return 0;
 }

@@ -115,7 +115,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
  TTree* newtree = tree->CloneTree(0);
  for(Int_t i=0;i<nentries;i++){
     tree->GetEntry(i);
-    LEP = lep==11 /*&& (HLT_Ele1>0 || HLT_Ele2>0)*/ && ptlep1 > 25. && ptlep2 > 25.&& abs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep >70. && massVlep < 110 ;
+    LEP = lep==11 && (HLT_Ele1>0 || HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25.&& abs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep >70. && massVlep < 110 ;
     jet=0;
     Int_t jetindexphoton12[2] = {-1,-1};
     for(Int_t j=0;j<6;j++){
@@ -160,17 +160,25 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
     for(Int_t k=0;k<ptnumber;k++){
 	    if(photon_chiso[position]< chiso && *biggest_pt<highpt[k] && *biggest_pt>lowpt[k]) 
             {
-		    h1[k]->Fill(photon_sieie[position],scalef);//data template
-                    if(photon_sieie[position]< sieie){m1[k] += scalef;}// the number of data in medium sieie region
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) ){FakeNumber[k] += scalef;}
-		    if(photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) ){hfake[k]->Fill(photon_sieie[position],scalef);}
-//		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt==1 && (tta==true||za==true) ){TrueNumber[k] += scalef;h_sieieT[k]->Fill(photon_sieie[position],scalef);}
-		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta = true || za ==true) ) {htrue[k]->Fill(photon_sieie[position],scalef);}
+		    if( ( photon_isprompt[position]==1 && isprompt ==1 && (tta == true || za ==true) ) ||
+                        ( photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) )  )
+			    h1[k]->Fill(photon_sieie[position],scalef);//data template
+                    if(photon_sieie[position]< sieie){m1[k] += scalef;}//data in medium sieie region
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 &&
+		       isprompt !=1 && (tta==false && za==false) ){
+		           FakeNumber[k] += scalef;}
+		    if(photon_isprompt[position]!=1 && isprompt !=1 && (tta==false && za==false) ){
+			    hfake[k]->Fill(photon_sieie[position],scalef);}//mcTruth fake 
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && 
+		      isprompt==1 && (tta==true||za==true) ){
+		            TrueNumber[k] += scalef;}
+		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta == true || za ==true) ) {
+			    htrue[k]->Fill(photon_sieie[position],scalef);}//mcTruth real
 		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta==true||za==true)  ){
-			    h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;
-			    if(photon_sieie[position]<sieie) TrueNumber[k] += scalef;
+			    h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;//true template
+//			    if(photon_sieie[position]<sieie) TrueNumber[k] += scalef;
 		    }//true template
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt ==1 && (tta = true || za ==true) ){ 
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt ==1 && (tta == true || za ==true) ){ 
 			    h_sieieT[k]->Fill(photon_sieie[position],scalef);}
 		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt !=1 &&(tta==false && za==false)){
 			    h_sieieF[k]->Fill(photon_sieie[position],scalef);}
@@ -180,7 +188,9 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt!=1  && (tta==false && za==false)) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&
+                       *biggest_pt<highpt[k] && *biggest_pt>lowpt[k] &&
+		       photon_isprompt[position]!=1 && isprompt!=1  && (tta==false && za==false)) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);m2[k][j] +=scalef;
 		    }  

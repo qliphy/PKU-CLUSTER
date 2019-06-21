@@ -16,17 +16,17 @@ TString dir1 = "../mubarrel/root/";
 TString dir2 = "../mubarrel/roofit/eps/";
 ofstream file3("../mubarrel/roofit/info_roofit.txt");
 void fit(float lowpt, float highpt, float lowchiso, float highchiso){
-TFile* fdata = TFile::Open(dir1 + "pesudo.root");
-TFile* ftrue = TFile::Open(dir1 + "ZA.root");
+TFile* fdata = TFile::Open(dir1 + "ptotal.root");
+//TFile* ftrue = TFile::Open(dir1 + "ZA.root");
 
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h11_pt%0.f_%0.f",lowpt,highpt));
 	TH1F* hfake_ = (TH1F*)fdata->Get(Form("h12_pt%0.f_%0.f_chiso%0.f_%0.f",lowpt,highpt,lowchiso,highchiso));
-	TH1F* htrue_ = (TH1F*)ftrue->Get(Form("h23_pt%0.f_%0.f",lowpt,highpt));
+	TH1F* htrue_ = (TH1F*)fdata->Get(Form("h13_pt%0.f_%0.f",lowpt,highpt));
 	TH1F* hist_ = (TH1F*) fdata->Get(Form("hfake_pt%0.f_%0.f",lowpt,highpt));
 	TH1F* hist1_ = (TH1F*)fdata->Get(Form("htrue_pt%0.f_%0.f",lowpt,highpt));
 
 	Int_t nBins = 6;
-    Int_t sieie_bin=2;
+	Int_t sieie_bin=2;
 	Double_t bins[7];
 	for (Int_t i=0;i<7;i++){
 		bins[i] = 0.00515 + 0.0025*i;
@@ -96,11 +96,11 @@ TFile* ftrue = TFile::Open(dir1 + "ZA.root");
 	hist->SetLineColor(kOrange);
 	hist->SetLineStyle(2);
 	hist->SetLineWidth(3);
-    //    hist->Draw("same hist"); 
+        hist->Draw("same hist"); 
 	hist1->SetLineColor(kMagenta);
 	hist1->SetLineStyle(2);
 	hist1->SetLineWidth(3);
-    //    hist1->Draw("same hist"); 
+        hist1->Draw("same hist"); 
 	TLegend *leg = new TLegend(0.7, 0.8, 0.88, 0.88, NULL, "brNDC");
 	leg->SetFillColor(10);
 	leg->AddEntry(hdata, "Fit result", "L");
@@ -153,8 +153,7 @@ TFile* ftrue = TFile::Open(dir1 + "ZA.root");
 
 	Double_t fakerate = nFake_inwindow/nDataInWindow;
 	Double_t fakerateErr = sqrt(nFake_inwindowErr*nFake_inwindowErr/(nDataInWindow*nDataInWindow)
-								+ nFake_inwindow*nFake_inwindow*nDataInWindowErr*nDataInWindowErr/(nDataInWindow
-									*nDataInWindow*nDataInWindow*nDataInWindow));
+			     + nFake_inwindow*nFake_inwindow*nDataInWindowErr*nDataInWindowErr/(nDataInWindow*nDataInWindow*nDataInWindow*nDataInWindow));
 	ofstream myfile(dir + TString("fakerate_") + Form("photon_pt%0.f_%0.f_chiso%0.f-%0.f.txt", lowpt, highpt,lowchiso,highchiso),ios::out);
 	ofstream file(dir + TString("TrueNumber_") + Form("pt%0.f-%0.f_chiso%0.f-%0.f.txt", lowpt, highpt,lowchiso,highchiso),ios::out);
 	ofstream file1(dir + TString("FakeNumber_") + Form("pt%0.f-%0.f_chiso%0.f-%0.f.txt", lowpt, highpt,lowchiso,highchiso),ios::out);
@@ -193,6 +192,6 @@ TFile* ftrue = TFile::Open(dir1 + "ZA.root");
 	sprintf(buffer, "pt%0.f-%0.f_chiso%0.f-%0.f.eps",lowpt,highpt,lowchiso,highchiso);
 	c1->Print(dir2 + buffer);
     fdata->Close();
-    ftrue->Close();
+//    ftrue->Close();
     delete c1;
 }

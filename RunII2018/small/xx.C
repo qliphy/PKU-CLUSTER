@@ -140,7 +140,7 @@ void xx::Loop(TString name)
       JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
       DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
       if(jentry%1000000==0)   cout<<jentry<<"; "<<nentries<<"; cut1 = "<<cut1<<endl;
-      if( ! ( (LEPmu || LEPele) && PHOTON && JET   ) )
+      if( ! ( (LEPmu || LEPele) && PHOTON && JET && SignalRegion  ) )
 	      continue;
       if(m_dataset.Contains("contamination")){
 	      if(isprompt!=1 ) continue;

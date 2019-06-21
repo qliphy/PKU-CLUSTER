@@ -2,14 +2,14 @@
 #include <ostream>
 #include <fstream>
 #include <TROOT.h>
-#define ptnumber 6
+#define ptnumber 5
 using namespace std;
 // Double_t lowpt[ptnumber]= {20,30,40,60,80,120};
 // Double_t highpt[ptnumber]={30,40,60,80,120,400};
 // Double_t lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
- Double_t lowpt[ptnumber]= {20,25,30,35,50,60};
- Double_t highpt[ptnumber]={25,30,35,50,60,400};
+ Double_t lowpt[ptnumber]= {20,25,30,35,60};
+ Double_t highpt[ptnumber]={25,30,35,60,400};
 Double_t closureFake_test;
 Double_t closureTrue_test;
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso);

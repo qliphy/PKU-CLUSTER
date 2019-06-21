@@ -1,8 +1,8 @@
-data in window = 120.432+-1.62306 6.46719 113.965 22.4315 23.7238 11.451 4.36123 1.43753
-nDatatotal = 182.4
-fake number = 116.405+-16.0612
-true number = 65.9679+-14.4449
-fake in window = 56.8694+-7.84664
-true in window = 62.5511+-13.6968
-fakerate = 0.472211+-0.065464
-chi2ToNDF = 25.4776
+data in window = 113.269+-1.59891 6.12756 107.141 19.066 23.4145 11.1717 4.35367 1.51968
+nDatatotal = 171.275
+fake number = 113.28+-14.7735
+true number = 57.936+-12.8125
+fake in window = 55.4108+-7.22641
+true in window = 57.9302+-12.8112
+fakerate = 0.489196+-0.0641713
+chi2ToNDF = 26.4392

@@ -1,6 +1,9 @@
 void draw(){
 	//TFile* f1 = new TFile("50_120.root");
-	TFile* f1 = new TFile("120_200.root");
+//	TFile* f1 = new TFile("120_200_barrel.root");
+//	TFile* f1 = new TFile("120_200_endcap.root");
+//	TFile* f1 = new TFile("50_120_barrel.root");
+	TFile* f1 = new TFile("50_120_endcap.root");
 	TString filename = f1->GetName();
 	TH1D*het[2];
 	TH1D*heta[2];
@@ -11,6 +14,7 @@ void draw(){
 	TH1D*hsieie[2];
 	TH1D*hmhits[2];
 	TH1D*h3[8];
+//	TEfficiency* h3[8];
 	TLegend *l1[8];
 	TLine* line[8];
 	TCanvas* c1[8];
@@ -36,6 +40,8 @@ void draw(){
 		sprintf(hname,"h_%d",i);
 		h3[i]= (TH1D *)hegHLT[i]->Clone();
 		h3[i]->Divide(hele[i]);
+//		if(TEfficiency::CheckConsistency(*hele[i], *hegHLT[i]))
+//			h3[i] = new TEfficiency(*hele[i],*hegHLT[i]);
 
 		TString name = hegHLT[i]->GetTitle();
 		cout<<name<<endl;
@@ -45,23 +51,25 @@ void draw(){
 		TPad *top_pad=new TPad("top_pad", "top_pad",0,0.2, 1.0, 1.0);
 		top_pad->Draw();
 		top_pad->cd();
+		top_pad->SetGrid();
 		top_pad->SetBottomMargin(0.005);
-		hele[i]->SetTitle(name);
+		hele[i]->SetTitle(name+"\t"+filename);
 		hele[i]->SetLineColor(kAzure+6);
 		hele[i]->SetLineWidth(3);
-		hele[i]->SetMarkerStyle(20);
-		hele[i]->Draw("HIST");
+//		hele[i]->SetMarkerStyle(20);
+		hele[i]->Draw("normalized");
 		hegHLT[i]->SetLineColor(kAzure-2);
 		hegHLT[i]->SetLineWidth(4);
 		hegHLT[i]->SetLineStyle(5);
-		hegHLT[i]->SetMarkerStyle(20);
-		hegHLT[i]->Draw("HIST same");
+//		hegHLT[i]->SetMarkerStyle(20);
+		hegHLT[i]->Draw("normalized same");
 		l1[i]->AddEntry(hele[i],"reco ele");
 		l1[i]->AddEntry(hegHLT[i],"HLT ele");
 		l1[i]->SetBorderSize(1);
 		l1[i]->SetFillColor(0);
 
 		c1[i]->cd();
+		c1[i]->SetGrid();
 		double xmin,xmax;
 		xmin=hele[i]->GetXaxis()->GetXmin();
 		xmax=hele[i]->GetXaxis()->GetXmax();
@@ -70,10 +78,10 @@ void draw(){
 		bottom_pad->Draw();
 		bottom_pad->cd();
 		bottom_pad->SetTopMargin(0);
-//                h3[i]->Sumw2();
-		h3[i]->SetMarkerStyle(22);
-		h3[i]->SetMarkerSize(1.5);
-		h3[i]->Draw("P");
+                h3[i]->Sumw2();
+		h3[i]->Draw("EP");
+		h3[i]->SetMarkerStyle(20);
+		h3[i]->SetMarkerSize(1.0);
 		h3[i]->SetTitle("");
 		h3[i]->GetXaxis()->SetTitle( name );
 		h3[i]->GetYaxis()->SetTitle("K factor ");
@@ -97,7 +105,7 @@ void draw(){
 		l1[i]->AddEntry(h3[i],"HLT/reco");
 		top_pad->cd();
 		l1[i]->Draw();
-		c1[i]->Draw();
+//		c1[i]->Draw();
 		c1[i]->Print("./"+filename+name+".pdf");
 	}
 }

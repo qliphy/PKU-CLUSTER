@@ -51,14 +51,14 @@ void loopPlot() {
 		fData.push_back(pathToTrees + "cutla-outD" + dataLabels[ii] + ".root");
 	}
 // set mc imformation
-		const int nMC = 6;
+		const int nMC = 1;
 		std::cout << "set data imformation, we have " << nMC << "mc file"
 				<< std::endl;
-		std::string mcLabels[nMC] = { "JEC-ZA-EWK", "JEC-ZA-EWK","JEC-ZA-EWK","JEC-ZA-EWK","JEC-ZA-EWK","JEC-ZA-EWK" };
+		std::string mcLabels[nMC] = { "JEC-ZA-EWK" };
 		//std::string mcLabels[nMC] = {"ST","TTA","VV","WA", "ZJets_FX","WJets","TTJets","ZA" };
 		//std::string mcLabels[nMC] = {"ST", "TTA", "VV","WA", 
                 //                             "plj_weightb", "ZA" };
-		double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,1,lumiValue};
+		double kFactorsMC_array[nMC] = { lumiValue};
 		//double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue};
 		std::vector< std::string > fMC;
 		for (int ii = 0; ii < nMC; ii++) {

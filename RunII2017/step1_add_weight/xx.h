@@ -566,7 +566,7 @@ void xx::Init(TTree *tree)
     fout = new TFile(m_dataset, "RECREATE");
     ExTree = new TTree("demo","demo");
 //Add
-    ExTree->Branch("scalef",&scalef_tmp,"scalef/D");
+    ExTree->Branch("scalef",&scalef,"scalef/D");
     ExTree->Branch("run_period", &run_period, "run_period/I");
  // ExTree->Branch("pweight", &pweight, "pweight[703]/D");
  

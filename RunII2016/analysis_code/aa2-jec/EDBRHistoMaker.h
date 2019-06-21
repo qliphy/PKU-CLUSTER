@@ -487,7 +487,6 @@ class EDBRHistoMaker {
    Double_t        ele1_reco_scale;
    Double_t        ele2_reco_scale;
    Double_t        photon_id_scale;
-
    Double_t        muon1_id_scale;
    Double_t        muon2_id_scale;
    Double_t        muon1_iso_scale;
@@ -507,6 +506,19 @@ class EDBRHistoMaker {
 // for muon rochester correction
 
    // List of branches
+   TBranch        *b_ele1_id_scale;
+   TBranch        *b_ele2_id_scale;
+   TBranch        *b_ele1_reco_scale;
+   TBranch        *b_ele2_reco_scale;
+   TBranch        *b_photon_id_scale;
+   TBranch        *b_muon1_id_scale;
+   TBranch        *b_muon2_id_scale;
+   TBranch        *b_muon1_iso_scale;
+   TBranch        *b_muon2_iso_scale;
+   TBranch        *b_muon1_track_scale;
+   TBranch        *b_muon2_track_scale;
+   TBranch        *b_muon_hlt_scale;
+
    TBranch        *b_scalef;
    TBranch        *b_event;   //!
    TBranch        *b_nVtx;   //!
@@ -1008,7 +1020,18 @@ void EDBRHistoMaker::Init(TTree *tree) {
 	cout<<"begin make outfile tree"<<endl;
 	treename = fChain->CloneTree(0);
 	cout<<"make outfile tree end"<<endl;
-
+   fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale, &b_ele1_id_scale);
+   fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale, &b_ele2_id_scale);
+   fChain->SetBranchAddress("ele1_reco_scale", &ele1_reco_scale, &b_ele1_reco_scale);
+   fChain->SetBranchAddress("ele2_reco_scale", &ele2_reco_scale, &b_ele2_reco_scale);
+   fChain->SetBranchAddress("photon_id_scale", &photon_id_scale, &b_photon_id_scale);
+   fChain->SetBranchAddress("muon1_id_scale", &muon1_id_scale, &b_muon1_id_scale);
+   fChain->SetBranchAddress("muon2_id_scale", &muon2_id_scale, &b_muon2_id_scale);
+   fChain->SetBranchAddress("muon1_iso_scale", &muon1_iso_scale, &b_muon1_iso_scale);
+   fChain->SetBranchAddress("muon2_iso_scale", &muon2_iso_scale, &b_muon2_iso_scale);
+   fChain->SetBranchAddress("muon1_track_scale", &muon1_track_scale, &b_muon1_track_scale);
+   fChain->SetBranchAddress("muon2_track_scale", &muon2_track_scale, &b_muon2_track_scale);
+   fChain->SetBranchAddress("muon_hlt_scale", &muon_hlt_scale, &b_muon_hlt_scale);
    fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
    fChain->SetBranchAddress("event", &event, &b_event);
    fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
@@ -1657,7 +1680,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                                 && !(filename.Contains("TTJets"))) {
                         isnotwets = 1;
                 }
-		if (drll>0.3 && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)&&l1_weight==1&&lep == 13 &&  ((run_period<7 && HLT_Mu5 > 0)|| (run_period==7 && HLT_Mu2 > 0)) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 25.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150) {
+		if (drll>0.3 && lep == 13 &&  ((HLT_Mu1 > 0)|| (HLT_Mu2 > 0)) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442/* && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150*/) {
 			numbe_out++;
 			treename->Fill();
 		}
@@ -1790,17 +1813,15 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                         isnotwets = 1;
                 }
                 //cout<<"drll = "<<drll<<endl;
-		if (drll>0.3/* && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)*/&&l1_weight==1&&lep == 13 && HLT_Mu2 > 0 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 25.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150) {
-                        cout<<"hello"<<endl;
+		if (drll>0.3 && lep == 13 && (HLT_Mu1>0 || HLT_Mu2 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20. && fabs(photoneta) < 1.4442 /* && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150*/) {
 			numbe_out++;
 			treename->Fill();
-                if(filename.Contains("JEC")){  cout<<"actualWeight"<<actualWeight<<endl;cout<<"lumiWeight:"<<lumiWeight<<"; pileupWeight:"<<pileupWeight<<"; scalef = "<<scalef<<"; muon1_id_scale = "<<muon1_id_scale<<"; muon2_id_scale = "<<muon2_id_scale<<"; muon1_track_scale = "<<muon1_track_scale<<"; muon_hlt_scale = "<<muon_hlt_scale<<endl;
-}
 		}
 		else
 			continue;
 
 		actualWeight = actualWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale*muon1_track_scale*muon2_track_scale*muon_hlt_scale;
+                if(filename.Contains("JEC")){  cout<<"actualWeight"<<actualWeight<<endl;cout<<"lumiWeight:"<<lumiWeight<<"; pileupWeight:"<<pileupWeight<<"; scalef = "<<scalef<<"; muon1_id_scale = "<<muon1_id_scale<<"; muon2_id_scale = "<<muon2_id_scale<<"; muon1_track_scale = "<<muon1_track_scale<<"; muon_hlt_scale = "<<muon_hlt_scale<<endl;}
                 if(filename.Contains("plj")) {
                      actualWeight = scalef;
                      if(jentry%1000==0) cout<<"photonet = "<<photonet<<"; actualWeight = "<<actualWeight<<endl;

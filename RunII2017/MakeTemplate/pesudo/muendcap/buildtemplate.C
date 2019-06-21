@@ -157,27 +157,29 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
     for(Int_t k=0;k<ptnumber;k++){
 	    if(photon_chiso[position]< chiso && *biggest_pt<highpt[k] && *biggest_pt>lowpt[k]) 
             {
-		    h1[k]->Fill(photon_sieie[position],scalef);//data template
+		   if( (photon_isprompt[position]!=1 && isprompt!=1 && (tta ==false && za==false)) ||
+                       (photon_isprompt[position]==1 && isprompt ==1 && (tta==true || za==true))  ) 
+			   h1[k]->Fill(photon_sieie[position],scalef);//data template
 		    m2[k]+=scalef;
                     if(photon_sieie[position]< sieie)   
 			    m1[k] += scalef;// the number of data in medium sieie region
 		    if(photon_sieie[position]< sieie && photon_isprompt[position]!=1 && isprompt!=1 && (tta ==false && za==false)){
 			    FakeNumber[k]+=scalef;}
-		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && (tta=true || za==true) )
-			    TrueNumber[k]+=scalef;
-		    if(photon_isprompt[position]!=1)
-			    hfake[k]->Fill(photon_sieie[position],scalef);
-		    if(photon_isprompt[position]==1)
-			    htrue[k]->Fill(photon_sieie[position],scalef);
-		    if(photon_isprompt[position]==1 && (za==true||tta==true) ) 
-		            {h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;}//true template
+		    if(photon_sieie[position]< sieie && photon_isprompt[position]==1 && isprompt ==1 && (tta==true || za==true) ){
+			    TrueNumber[k]+=scalef;}
+		    if(photon_isprompt[position]!=1 && isprompt!=1 && (tta ==false && za==false)){
+			    hfake[k]->Fill(photon_sieie[position],scalef);}
+		    if(photon_isprompt[position]==1 && isprompt ==1 && (tta==true || za==true)){
+			    htrue[k]->Fill(photon_sieie[position],scalef);}
+		    if(photon_isprompt[position]==1 && isprompt ==1 &&  (za==true||tta==true) ){ 
+		            h3[k]->Fill(photon_sieie[position],scalef);m3[k] +=scalef;}//true template
 		    if(photon_sieie[position]< sieie) h_sieie[k]->Fill(photon_sieie[position],scalef);
 	    }//datamc
 	    for(Int_t j=0;j<21;j++){
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 && isprompt!=1 && (tta ==false && za==false)) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] /*&& photon_isprompt[position]!=1  && isprompt!=1*/ && (tta ==false && za==false)) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);
 		    }  
@@ -295,9 +297,9 @@ void draw(TCanvas *c,TH1D *h1,TH1D *h2,TH1D *h3,Double_t ptlow,Double_t pthigh){
  delete c;
 }
 void histo(){
- Int_t bin=60;
- Double_t xlow= 0.018;
- Double_t xhigh= 0.058;
+ Int_t bin=16;
+ Double_t xlow= 0.0172;
+ Double_t xhigh= 0.0572;
   for(Int_t i=0;i<ptnumber;i++){
       h_sieie[i]=new TH1D(Form("hsieie_pt%0.f_%0.f",lowpt[i],highpt[i]),"medium photon",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416
       hfake[i]=new TH1D(Form("hfake_pt%0.f_%0.f",lowpt[i],highpt[i]),"isprompt!=1 with medium chiso",bin,0,xhigh);//Zjets && leding_photon && medium_cut && photon_chiso<1.416

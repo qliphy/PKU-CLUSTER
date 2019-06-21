@@ -50,10 +50,10 @@ dphiin[1] = new TH1D("hphiin_eghlt","dPhiIn",40,0,0.05);
 hMhits[0]= new TH1D("hMHits_ele","missing hits",7,0,6);
 hMhits[1]= new TH1D("hMHits_eghlt","missing hits",7,0,6);
 TH2D* h2eta[4];TH2D*h2phi[4];TH2D*h2nrgy[4];TH2D*h2et[4];
-h2eta[0] = new TH2D("heta1_seed","eleTruthEta",20,0,2.5,1,-2000,2000);
-h2eta[1] = new TH2D("heta2_seed","eleTruthEta",20,0,2.5,1,-2000,2000);
-h2eta[2] = new TH2D("heta1_US","eleTruthEta",  20,0,2.5,1,-2000,2000);
-h2eta[3] = new TH2D("heta2_US","eleTruthEta",  20,0,2.5,1,-2000,2000);
+h2eta[0] = new TH2D("heta1_seed","eleTruthEta",20,-2.5,2.5,1,-2000,2000);
+h2eta[1] = new TH2D("heta2_seed","eleTruthEta",20,-2.5,2.5,1,-2000,2000);
+h2eta[2] = new TH2D("heta1_US","eleTruthEta",  20,-2.5,2.5,1,-2000,2000);
+h2eta[3] = new TH2D("heta2_US","eleTruthEta",  20,-2.5,2.5,1,-2000,2000);
 h2phi[0] = new TH2D("hphi1_seed","eleTruthPhi",8,0,3.2,1,-2000,2000);
 h2phi[1] = new TH2D("hphi2_seed","eleTruthPhi",8,0,3.2,1,-2000,2000);
 h2phi[2] = new TH2D("hphi1_US","eleTruthPhi",8,0,3.2,1,-2000,2000);
@@ -64,8 +64,8 @@ h2nrgy[2] = new TH2D("hnrgy1_US","eleTruthNrgy",25,0,1000,1,-2000,2000);
 h2nrgy[3] = new TH2D("hnrgy2_US","eleTruthNrgy",25,0,1000,1,-2000,2000);
 h2et[0] = new TH2D("het1_seed","eleTruthEt",15,0,200,1,-2000,2000);
 h2et[1] = new TH2D("het2_seed","eleTruthEt",15,0,200,1,-2000,2000);
-h2et[2] = new TH2D("het1_US","eleTruthEt",15,0,200,1,-2000,2000);
-h2et[3] = new TH2D("het2_US","eleTruthEt ",15,0,200,1,-2000,2000);
+h2et[2] = new TH2D("het1_US","eleTruthEt",  15,0,200,1,-2000,2000);
+h2et[3] = new TH2D("het2_US","eleTruthEt ", 15,0,200,1,-2000,2000);
 vector<TH2D*> hseed;vector<TH2D*> hunseed;
 vector<TH2D*> hseed2;vector<TH2D*> hunseed2;
 /*TFile* f1 = new TFile("./matching.root","RECREATE");
@@ -81,8 +81,8 @@ tree->Branch("eleTruthNrgy",&eleTruthNrgy,"eleTruthNrgy/F");*/
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      if( !(  (fabs(eleTruthEta)>1.566)&&(fabs(eleTruthEta)<2.5) ) ) continue;
-//      if( !( (fabs(eleTruthEta)<1.4442) ) ) continue;
+//      if( !(  (fabs(eleTruthEta)>1.566)&&(fabs(eleTruthEta)<2.5) ) ) continue;
+      if( !( (fabs(eleTruthEta)<1.4442) ) ) continue;
 //     if(jentry%1000==0&&egHLT_et>0){ cout<<jentry<<";"<<egHLT_et<<"; "<<egHLT_eta<<";"<<egHLT_nrgy<<endl;}
       het[0]->Fill(clusEt);het[1]->Fill(egHLT_et);hnrgy[0]->Fill(clusNrgy);hnrgy[1]->Fill(egHLT_nrgy);
       heta[0] ->Fill(detEta);heta[1] ->Fill(egHLT_eta);	hphi[0]->Fill(detPhi);hphi[1]->Fill(egHLT_phi);
@@ -90,6 +90,7 @@ tree->Branch("eleTruthNrgy",&eleTruthNrgy,"eleTruthNrgy/F");*/
       detain[0]->Fill(dEtaInSeed);detain[1]->Fill(egHLT_dEtaIn);
       dphiin[0]->Fill(dPhiIn);dphiin[1]->Fill(egHLT_dPhiIn);
       hMhits[0]->Fill(nrMissHits);hMhits[1]->Fill(egHLT_nrMissHits);
+      if(eleTruthEt>200) eleTruthEt =199;
 	if(egHLT_nrgy>0) {h2eta[0]->Fill(eleTruthEta,egHLT_nrgy);}  hseed2.push_back(h2eta[0]);
 	h2eta[1]->Fill(eleTruthEta,egHLT_nrgy);  hseed.push_back(h2eta[1]);
 	if(egHLTUS_nrgy>0) {h2eta[2]->Fill(eleTruthEta,egHLTUS_nrgy);}hunseed2.push_back(h2eta[2]);
@@ -138,7 +139,6 @@ tree->Branch("eleTruthNrgy",&eleTruthNrgy,"eleTruthNrgy/F");*/
 	     gr_US[i] = new TGraph(count_US[i]);
 //	     h1[i]= new TH1D(Form("h1_%i",i+1),hseed[i]->GetName(),count_seed[i],hseed[i]->GetXaxis()->GetXmin(),hseed[i]->GetXaxis()->GetXmax());
 //	     h2[i]= new TH1D(Form("h2_%i",i+1),hunseed[i]->GetName(),count_US[i],hunseed[i]->GetXaxis()->GetXmin(),hunseed[i]->GetXaxis()->GetXmax());
-	     cout<<"OK"<<endl;
            for(int j=0;j<count_seed[i];j++){
               grXseed = hseed[i]->GetXaxis()->GetBinCenter(j+1);
               grYseed = hseed2[i]->GetBinContent(j+1,1)/hseed[i]->GetBinContent(j+1,1);
@@ -146,46 +146,28 @@ tree->Branch("eleTruthNrgy",&eleTruthNrgy,"eleTruthNrgy/F");*/
               grXseedError =( hseed[i]->GetXaxis()->GetBinWidth(j+1) ) /2;
 //	      cout<<name1<<";"<< hseed[i]->GetBinContent(j+1,1)<<";"<<hseed2[i]->GetBinContent(j+1,1)<<endl;
               gr_seed[i] -> SetPoint(j,grXseed,grYseed);
-//              gre_seed[i]-> SetPoint(j,grXseed,grYseed);
-              //gre_seed[i]-> SetPointError(j,grXseedError,grYseedError);
 	      gr_seed[i]->SetTitle(title1);
-//	      h1[i]->SetBinContent(j+1,hseed2[i]->GetBinContent(j+1,1)/hseed[i]->GetBinContent(j+1,1));
-//            h1[i]->SetBinError(j+1,sqrt( pow(-hseed2[i]->GetBinContent(j+1,1)/(hseed[i]->GetBinContent(j+1,1)*hseed[i]->GetBinContent(j+1,1)),2)*pow(hseed[i]->GetBinError(j+1,1),2) + pow(hseed[i]->GetBinContent(j+1,1),-2)*pow(hseed2[i]->GetBinError(j+1,1),2) ) );
-//	      h1[i]->GetYaxis()->SetRangeUser(0,1.1);
-//	      h1[i]->SetTitle(title1);
-	     // gStyle->SetOptStat(0);
 	   }
-	   //gre_seed[i]  = new TGraphErrors(count_seed[i],grXseed[4],grYseed[4],grXseedError[4],grYseedError[4]);
            for(int j=0;j<count_US[i];j++){
               grYUS = hunseed2[i]->GetBinContent(j+1,1)/hunseed[i]->GetBinContent(j+1,1); 
               grXUS = hunseed[i]->GetXaxis()->GetBinCenter(j+1);
               grYUSerror = 0;
               grXUSerror = hunseed[i]->GetXaxis()->GetBinWidth(j+1)/2;
               gr_US[i] -> SetPoint(j,grXUS,grYUS);
-//              gre_US[i]-> SetPoint(j,grXUS,grYUS);
-//              gre_US[i]-> SetPointError(grXUSerror,grYUSerror);
 	      gr_US[i]->SetTitle(title2);
-//	      h2[i]->SetBinContent(j+1,hunseed2[i]->GetBinContent(j+1,1)/hunseed[i]->GetBinContent(j+1,1));
-//            h2[i]->SetBinError(j+1,sqrt( pow(-hunseed2[i]->GetBinContent(j+1,1)/(hunseed[i]->GetBinContent(j+1,1)*hunseed[i]->GetBinContent(j+1,1)),2)*pow(hunseed[i]->GetBinError(j+1,1),2) + pow(hunseed[i]->GetBinContent(j+1,1),-2)*pow(hunseed2[i]->GetBinError(j+1,1),2) ) );
-//	      h2[i]->GetYaxis()->SetRangeUser(0,1.1);
-//	      h2[i]->SetTitle(title2);
 	   }
-	   // gre_US[i]  = new TGraphErrors(count_US[i],grXUS[i],grYUS[i],grXUSerror[i],grYUSerror[i]);
-	  //	   gr_seed[i]->Draw("AP");
-	     cout<<"OK1"<<endl;
    }
 
-	     cout<<"OK2"<<endl;
 file->cd();
 for(Int_t i=0;i<2;i++){
-//	het[i]->Write();
-//	hnrgy[i]->Write();
-//	heta[i]->Write();
-//	hphi[i]->Write();
-//	hsieie[i]->Write();
-//	detain[i]->Write();
-//	dphiin[i]->Write();
-//	hMhits[i]->Write();
+	het[i]->Write();
+	hnrgy[i]->Write();
+	heta[i]->Write();
+	hphi[i]->Write();
+	hsieie[i]->Write();
+	detain[i]->Write();
+	dphiin[i]->Write();
+	hMhits[i]->Write();
 /*	hseed->Write();
 	hseed2->Write();
 	hunseed->Write();
@@ -196,8 +178,6 @@ for(int i=0;i<4;i++){
         hsD[i]->Write();
         husN[i]->Write();
         husD[i]->Write();
-//	gre_seed[i]->Write(Form("Eseed_%i",i+1));
-//	gre_US[i]->Write(Form("Eunseed_%i",i+1));
 	gr_seed[i]->Write(Form("seed_%i",i+1));
 	gr_US[i]->Write(Form("unseed_%i",i+1));
         h2eta[i]->Write();
@@ -206,6 +186,5 @@ for(int i=0;i<4;i++){
         h2et[i]->Write();
 }
 file->Close();
-cout<<"OK3"<<endl;
-//delete h2;
+cout<<"*******************************end***************************"<<endl;
 }

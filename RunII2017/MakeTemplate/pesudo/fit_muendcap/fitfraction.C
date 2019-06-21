@@ -27,8 +27,8 @@ void fitf(float lowpt, float highpt, float lowchiso, float highchiso){
         TH1F* hmc = (TH1F*)fdata->Get(Form("htrue_pt%0.f_%0.f",lowpt,highpt));
         TH1F* hsieie = (TH1F*)fdata->Get(Form("hsieie_pt%0.f_%0.f",lowpt,highpt));
  
-
-        Int_t nBins = 4;
+	Int_t nBins = hdata->GetNbinsX();
+/*        Int_t nBins = 4;
         Int_t sieie_bin=1;
         Double_t bins[5];
         for (Int_t i=0;i<(nBins+1);i++){
@@ -41,7 +41,7 @@ void fitf(float lowpt, float highpt, float lowchiso, float highchiso){
                 if (hdata->GetBinContent(i+1)<=0) hdata->SetBinContent(i+1,0.000000);
                 if (hdt->GetBinContent(i+1)<=0) hdt->SetBinContent(i+1,0.000000);
                 if (hdf->GetBinContent(i+1)<=0) hdf->SetBinContent(i+1,0.000000);
-        }
+        }*/
         Double_t nFake=hdf->Integral();      
         Double_t nTrue=hdt->Integral();      
         Double_t nMax = hdata->GetSumOfWeights();

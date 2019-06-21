@@ -17,14 +17,14 @@ while (k>0){
 getline (infile, buffer) ;
 infilename = buffer;
 if(infilename.Contains(".root")==0) {k=-2; continue;}
-TString outname="cutlep-"+infilename;
+TString outname="cutla-"+infilename;
 infilename = /*"cutlep-"+*/ infilename;
 
 cout<<infilename<<endl;
 cout<<outname<<endl;
 
 TFile *file1 =new TFile(dir+infilename);
-TTree *tree1 = (TTree*) file1->Get("demo");
+TTree *tree1 = (TTree*) file1->Get("ZPKUCandidates");
 xx m1(tree1,outname);
 m1.Loop();
 m1.endJob();

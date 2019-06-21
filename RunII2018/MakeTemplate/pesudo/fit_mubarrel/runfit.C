@@ -1,12 +1,14 @@
 #include "fit.C"
-#define ptnumber 10
+#define ptnumber 6
 using namespace std;
 void run_fit(Int_t b,Int_t a);
 void run_fit(Int_t b,Int_t a){
     float lowchiso[21];
     float highchiso[21];
-  Double_t lowpt[10] ={20,25,30,35,40,45,50,60,80,120};
-  Double_t highpt[10]={25,30,35,40,45,50,60,80,120,400};
+//  Double_t lowpt[10] ={20,25,30,35,40,45,50,60,80,120};
+//  Double_t highpt[10]={25,30,35,40,45,50,60,80,120,400};
+  Double_t lowpt[ptnumber]= {20,25,30,40,50,65};
+  Double_t highpt[ptnumber]={25,30,40,50,65,400};
 //Double_t lowpt[ptnumber] ={25,30,35,40,50,65,100};
 //Double_t highpt[ptnumber]={30,35,40,50,65,100,400};
     for(Int_t j=0;j<21;j++){

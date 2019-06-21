@@ -710,7 +710,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 //data
-		if (drll>0.3 && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)&&lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30 && Mjj>150 && Mjj<400 /*&& drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && ZGmass>100*/) {
+		if (drll>0.3 && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)&&lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30 && Mjj>150/* && Mjj<400 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && ZGmass>100*/) {
 			//if(Mjj<400) 
 			sum = sum + actualWeight;
 			numbe_out++;
@@ -860,7 +860,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 // mc
-		if (drll>0.3 && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)&&lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet2pt>30 && jet1pt>30 && Mjj>150 && Mjj<400 /*&& drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && ZGmass>100*/){
+		if (drll>0.3 && (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0)&&lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet2pt>30 && jet1pt>30 && Mjj>150 /*&& Mjj<400 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && ZGmass>100*/){
 			//if(Mjj<400)	
 			if(theWeight>0) npp++;
 			if(theWeight<0) nmm++;
@@ -910,7 +910,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 		}
           //if(Mjj<400) 
 	}
-	cout << "after cut: " << numbe_out << "; actualweight" << actualWeight<<"; theWeight>0 "<<npp<<"; theWeight<0 "<<nmm<<"; (npp-nmm) = "<<npp-nmm<<"; yields = "<<(npp-nmm)*scalef*41.52<<endl;
-		cout<< " result " << sum <<"; yields "<<sum*41.52<<endl;
+	cout << "after cut: " << numbe_out << "; actualweight" << actualWeight<<"; theWeight>0 "<<npp<<"; theWeight<0 "<<nmm<<"; (npp-nmm) = "<<npp-nmm<<"; yields = "<<(npp-nmm)*scalef*59.97<<endl;
+		cout<< " result " << sum <<"; yields "<<sum*59.97<<endl;
 	this->saveAllHistos(outFileName);
 }

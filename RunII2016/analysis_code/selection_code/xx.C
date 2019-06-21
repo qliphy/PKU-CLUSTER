@@ -68,15 +68,13 @@ void xx::Loop()
       LEPele = lep==11 && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
       SignalRegion= Mjj>500 && deltaetajj>2.5 && zepp<1.8;
       PHOTON= photonet>20 &&( (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) || (fabs(photoneta)<1.4442) );
-      JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
-      DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
+//      JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
+//      DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
       if(jentry%1000000==0)   cout<<jentry<<"; "<<nentries<<"; cut1 = "<<cut1<<endl;
-//      if( ( (LEPele||LEPmu)&& PHOTON ) )
-      if(  (LEPele||LEPmu) /*&& PHOTON*/ )
+      if(  (LEPele||LEPmu) && PHOTON )
          {
              cut1++;//how many events passing the selection 
              newtree->Fill(); //fill the brach when this entry pass the both selection
-//                 cout<<"jentry = "<<jentry<<"; cut1 = "<<cut1<<endl;
          }
 
     }

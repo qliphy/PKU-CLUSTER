@@ -17,8 +17,8 @@ getline (infile, buffer) ;
 name = buffer;
 if(name.Contains("0")==0) {k=-2; continue;}
 TString inname="zToEE_M_" +name+"_102X_TrigNtup.root";
-TString outname=name+"_endcap.root";
-//TString outname=name+"_barrel.root";
+//TString outname=name+"_endcap.root";
+TString outname=name+"_barrel.root";
 
 cout<<inname<<endl;
 

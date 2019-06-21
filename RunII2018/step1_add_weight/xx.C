@@ -44,18 +44,18 @@ void xx::Loop()
 
 	Long64_t npp = fChain->GetEntries("theWeight>0.");
 	Long64_t nmm = fChain->GetEntries("theWeight<0.");
-	/*std::cout<< "numberofnp:" << npp << "  numberofnm:" <<nmm << std::endl;
+	std::cout<< "numberofnp:" << npp << "  numberofnm:" <<nmm << std::endl;
 	TFile * input13 = new TFile ("./puweight.root");//puweight.root
 	TH1D* h13 = NULL;
 	input13->GetObject("h2",h13);
-        cout<<"open the file: puweight.root"<<endl;*/
+        cout<<"open the file: puweight.root"<<endl;
 
 	double lep1_phi_station2_tmp = 0;
 	double lep2_phi_station2_tmp = 0;
 
 	// for lep and photon scales
 	// muon ID
-	/*TFile * f_BF= TFile::Open("./muon_SFs/RunBCDEF_SF_ID.root");
+	TFile * f_BF= TFile::Open("./muon_SFs/RunBCDEF_SF_ID.root");
 	TH2D* ID_BF=0;
 	f_BF->GetObject("NUM_TightID_DEN_genTracks_pt_abseta", ID_BF);
         cout<<"open the muon ID file: RunBCDEF_SF_ID.root"<<endl;
@@ -95,7 +95,7 @@ void xx::Loop()
 	TFile* ID_photon_file = TFile::Open("./ele_SFs/2017_PhotonsMedium.root");
 	TH2F* ID_photon=0;
 	ID_photon_file->GetObject("EGamma_SF2D", ID_photon);
-	cout<<"open the photon ID file: 2017_PhotonsMedium.root"<<endl;*/
+	cout<<"open the photon ID file: 2017_PhotonsMedium.root"<<endl;
 	// for lep and photon scales
 
 	Long64_t nbytes = 0, nb = 0;
@@ -125,58 +125,22 @@ void xx::Loop()
 		// if (Cut(ientry) < 0) continue;
 		if(jentry%100000==0) cout<<" "<<HLT_Ele1<<" "<<HLT_Mu2<<" "<<fabs(theWeight)/theWeight<<" "<<m_dataset<<" "<<jentry<<" "<<nentries<<endl;
 
-		if(m_dataset.Contains("outDMuonB.root")){ scalef=1.0; run_period=1;}
-		if(m_dataset.Contains("outDMuonC.root")){ scalef=1.0; run_period=2;}
-		if(m_dataset.Contains("outDMuonD.root")){ scalef=1.0; run_period=3;}
-		if(m_dataset.Contains("outDMuonE.root")){ scalef=1.0; run_period=4;}
-		if(m_dataset.Contains("outDMuonF.root")){ scalef=1.0; run_period=5;}
-
-		if(m_dataset.Contains("outDEleB.root")){ scalef=1.0; run_period=1;}
-		if(m_dataset.Contains("outDEleC.root")){ scalef=1.0; run_period=2;}
-		if(m_dataset.Contains("outDEleD.root")){ scalef=1.0; run_period=3;}
-		if(m_dataset.Contains("outDEleA.root")){ scalef=1.0; run_period=4;}
-		if(m_dataset.Contains("outDEleF.root")){ scalef=1.0; run_period=5;}
-		if(m_dataset.Contains("outDEle.root")) { scalef=1.0; run_period=5;}
-
-		if(m_dataset.Contains("outWA.root")){ scalef=1000.*191.9/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outWJets_FX.root")){ scalef=1000.*61526.7/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outWJets_HT.root")){ scalef=1000.*0.008001/float(npp-nmm)*fabs(theWeight)/theWeight;run_period=8; }
-		if(m_dataset.Contains("outWJets_MLM.root")){ scalef=1000.*52940.0 /float(npp-nmm)*fabs(theWeight)/theWeight;run_period=8; }
-		if(m_dataset.Contains("outZJets_MLM.root")){ scalef=1000.*6225.42/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZJets_FX.root")){ scalef=1000.*6259.0/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZA.root")){ scalef=1000.*55.49/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-//		if(m_dataset.Contains("outZA.root")){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outprivate_ZA.root")){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outofficial_ZA.root")){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outTTA.root")){ scalef=1000.*4.078/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outTTJets_FX.root")){ scalef=1000.*831.76/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outSTs.root")){ scalef=1000.*3.74/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outSTt.root")){ scalef=1000.*115.3/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outSTtbar.root")){ scalef=1000.*69.1/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outST_tW.root")){ scalef=1000.*34.91/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outST_tbarW.root")){ scalef=1000.*34.97/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outWW.root")){ scalef=1000.*75.8/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outWZ.root")){ scalef=1000.*27.6/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZZ.root")){ scalef=1000.*12.14/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZA-EWK.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZA-sig-muonid-correct.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("ZA-EWK")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight;}
 
 		if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
 		if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
 		l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
 		//cout<<"OK1"<<endl;
 
-		if(m_dataset !="outDMuonB.root" && m_dataset !="outDMuonC.root" && m_dataset !="outDMuonD.root" && m_dataset !="outDMuonE.root" && m_dataset !="outDMuonF.root" && m_dataset !="outDMuonG.root" && m_dataset !="outDMuon.root"&&m_dataset !="outDEleB.root" && m_dataset !="outDEleC.root" && m_dataset !="outDEleD.root" && m_dataset !="outDEleE.root" && m_dataset !="outDEleF.root" && m_dataset !="outDEleG.root" && m_dataset !="outDEle.root" ){	
-		//	pileupWeight=h13->GetBinContent(h13->GetXaxis()->FindBin(npT));
-			// cout<<pileupWeight<<endl;
-		}
-		else {pileupWeight=-1;}
+		pileupWeight=h13->GetBinContent(h13->GetXaxis()->FindBin(npT));
 		//////  lep and photon scales
-/*		if(lep==11){
+		if(lep==11){
+		//	cout<<"OK2"<<endl;
 			ele1_id_scale=get_ele_ID(etalep1, ptlep1, ID);
 			ele2_id_scale=get_ele_ID(etalep2, ptlep2, ID);
 			ele1_reco_scale=get_ele_Reco(etalep1, ptlep1,Reco);
 			ele2_reco_scale=get_ele_Reco(etalep2, ptlep2,Reco);
+		//	cout<<"OK3"<<endl;
 		}
 		if(lep==13){
 			muon1_id_scale=get_muon_ID(etalep1,ptlep1,ID_BF);
@@ -188,39 +152,25 @@ void xx::Loop()
 			muon_hlt_scale=muon_HLT_scale(ptlep1,ptlep2,di_lep_trigger);
 		}
 
-		if(photonet>0) photon_id_scale=get_photon_ID(photoneta,photonet,ID_photon);*/
-		//////  lep and photon scacles
-/*
-		// for rochester muon correstion
-		if(m_dataset.Contains("DEle")) {mu1_rochester_scale=-1e2;mu2_rochester_scale=-1e2;}
-		if(m_dataset.Contains("DMuon")) {
-			mu1_rochester_scale=get_rochester_scale(true, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
-			mu2_rochester_scale=get_rochester_scale(true, lep2_sign, ptlep2,etalep2, philep2, muon2_trackerLayers, matchedgenMu2_pt,r1, r2);
-		}
-		if(!(m_dataset.Contains("DEle")||m_dataset.Contains("DMuon")) && lep==13){
-			mu1_rochester_scale=get_rochester_scale(false, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
-                        mu2_rochester_scale=get_rochester_scale(false, lep2_sign, ptlep2,etalep2, philep2, muon2_trackerLayers, matchedgenMu2_pt,r1, r2);
-		}
-		if(!(m_dataset.Contains("DEle")||m_dataset.Contains("DMuon")) && lep!=13){mu1_rochester_scale=-1e2;mu2_rochester_scale=-1e2;}
-*/
+		if(photonet>0) photon_id_scale=get_photon_ID(photoneta,photonet,ID_photon);
 		LEPmu = lep==13 && (HLT_Mu1>0||HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles==0 && nloosemus <3  && massVlep >70. ;
 		LEPele = lep==11 && HLT_Ele1>0 && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
-		SignalRegion= deltaetajj>2.5 && zepp<1.8&&Mjj>500;
+		SignalRegion= deltaeta>2.5 && zepp<1.8&&Mjj>500;
 		PHOTON= photonet>10 ;
 		JET=jet1pt> 10 && jet2pt > 10 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 ;
                 cut0++;
 		if( ! (LEPmu||LEPele) )
 			continue;
                 cut1++;
-		ExTree->Fill();
+		newtree->Fill();
 	}
-/*	f->Close();
+	f->Close();
 	ID_photon_file->Close();
 	Reco_egamma->Close();
 	f_BF->Close();
 	f_iso_BF->Close();
 	Track_eff->Close();
 	trigger_eff->Close();
-	input13->Close();*/
+	input13->Close();
 //        cout<<"before cut: "<<cut0<<"; after cut: "<<cut1<<endl;
 }

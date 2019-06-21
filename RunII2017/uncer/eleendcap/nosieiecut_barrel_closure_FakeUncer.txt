@@ -1,0 +1,9 @@
+pt range	chiso range	FakeNumber	fitFake_number	closure uncertainty
+20<pt<25	4<chiso range<13	92.81	94.24	0.02
+25<pt<30	4<chiso range<13	38.89	45.29	0.16
+30<pt<40	4<chiso range<13	33.81	33.17	0.02
+40<pt<50	4<chiso range<13	13.77	15.54	0.13
+50<pt<70	4<chiso range<13	9.62	6.30	0.35
+70<pt<100	4<chiso range<13	3.61	3.42	0.05
+100<pt<120	4<chiso range<13	0.33	0.52	0.60
+120<pt<400	4<chiso range<13	1.23	0.80	0.35

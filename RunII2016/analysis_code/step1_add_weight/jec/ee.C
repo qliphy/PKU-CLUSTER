@@ -47,7 +47,7 @@ void ee::Loop()
 	TFile * input13 = new TFile ("./pu_calc/puweight.root");
 	TH1* h13 = NULL;
 	input13->GetObject("h2",h13);
-
+	bool LEPele,LEPmu,JET,PHOTON,SignalRegion,DR;
 	double lep1_phi_station2_tmp = 0;
 	double lep2_phi_station2_tmp = 0;
 
@@ -207,6 +207,15 @@ void ee::Loop()
 		if(!(m_dataset.Contains("DEle")||m_dataset.Contains("DMuon")) && lep!=13){mu1_rochester_scale=-1e2;mu2_rochester_scale=-1e2;}
 */
 //                cout<<"scalef = "<<scalef<<endl;
+      LEPele = lep==11 && HLT_Ele1>0 && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
+      LEPmu = lep==13 && (HLT_Mu1>0||HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles==0 && nloosemus <3  && massVlep >70. ;//&& ngoodmus>1 ;
+      SignalRegion= Mjj>500 && deltaeta>2.5;// && zepp<1.8;
+      PHOTON= photonet>20 &&( (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) || (fabs(photoneta)<1.4442) );
+      JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
+      DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
+      if(  !( (LEPmu || LEPele) && PHOTON && JET /*&& SignalRegion*/) )
+              continue;
+
 		ExTree->Fill();
 	}
 	f->Close();

@@ -644,7 +644,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
 		nb = fChain->GetEntry(jentry);
 		nbytes += nb;
 		//rochester correction
-/*		muon1_rochester=get_rochester_scale(true, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
+		muon1_rochester=get_rochester_scale(true, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
 		muon2_rochester=get_rochester_scale(true, lep2_sign, ptlep2,etalep2, philep2, muon2_trackerLayers, matchedgenMu2_pt,r1, r2);
 		ptlep1*=muon1_rochester;
 		ptlep2*=muon2_rochester;
@@ -655,7 +655,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
 		yVlep=(lep1p4+lep2p4).Eta();
 		phiVlep=(lep1p4+lep2p4).Phi();
 		ptVlep=(lep1p4+lep2p4).Pt();
-*/		//rochester correction
+		//rochester correction
 
 		//if (jentry % 1000000 == 0)
 			//std::cout << "Entry num " << jentry << std::endl;
@@ -713,7 +713,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 //data
-		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7  && fabs(jet2eta)<4.7 && jet1pt> 30 && jet2pt > 30  && drj1a>0.5 &&drj2a>0.5 && drj2l>0.5 && drj1l>0.5 && drjj>0.5 && Mjj > 150 && Mjj<400/* && ZGmass>100*/) {
+		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7  && fabs(jet2eta)<4.7 && jet1pt> 30 && jet2pt > 30  && drj1a>0.5 &&drj2a>0.5 && drj2l>0.5 && drj1l>0.5 && drjj>0.5 && Mjj > 150 /*&& Mjj<400 && ZGmass>100*/) {
 			//if(Mjj<400) 
 			sum = sum + actualWeight;
 			numbe_out++;
@@ -792,7 +792,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 		nbytes += nb;
 
 		//rochester correction
-/*		muon1_rochester=get_rochester_scale(false, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
+		muon1_rochester=get_rochester_scale(false, lep1_sign, ptlep1,etalep1, philep1, muon1_trackerLayers, matchedgenMu1_pt,r1, r2);
 		muon2_rochester=get_rochester_scale(false, lep2_sign, ptlep2,etalep2, philep2, muon2_trackerLayers, matchedgenMu2_pt,r1, r2);
 		ptlep1*=muon1_rochester;
 		ptlep2*=muon2_rochester;
@@ -803,7 +803,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 		yVlep=(lep1p4+lep2p4).Eta();
 		phiVlep=(lep1p4+lep2p4).Phi();
 		ptVlep=(lep1p4+lep2p4).Pt();
-*/		//rochester correction
+		//rochester correction
 		if (jentry % 100000 == 0)
 			std::cout << "Entry num " << jentry << std::endl;
 
@@ -863,7 +863,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 // mc
-		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 &&  fabs(jet2eta)<4.7 && jet2pt > 30 && jet1pt> 30 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj > 150 && Mjj < 400 /*&& ZGmass>100 && ngoodmus>1*/){
+		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 &&  fabs(jet2eta)<4.7 && jet2pt > 30 && jet1pt> 30 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj > 150 /*&& Mjj < 400 && ZGmass>100 && ngoodmus>1*/){
 			//if(Mjj<400)	
 			if(theWeight>0) npp++;
 			if(theWeight<0) nmm++;

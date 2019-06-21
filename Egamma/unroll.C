@@ -18,7 +18,7 @@ TH1D* unroll(TH2D* th2_in,char *hname, TString title)
 	    for(Int_t ix=1; ix<=xbin; ix++){
 		    h1_out->SetBinContent(ix+(iy-1)*xbin,th2->GetBinContent(ix,1));
 		    h1_out->SetBinError(ix+(iy-1)*xbin,th2->GetBinError(ix,1));
-		    cout<<"ix = "<<ix<<", iy = "<<iy<<"; bin = "<<ix+(iy-1)*xbin<<", BinContent"<<th2->GetBinContent(ix,1)<<endl;
+//		    cout<<"ix = "<<ix<<", iy = "<<iy<<"; bin = "<<ix+(iy-1)*xbin<<", BinContent"<<th2->GetBinContent(ix,1)<<endl;
 	    }
     }
     return h1_out;

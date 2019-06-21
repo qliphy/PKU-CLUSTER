@@ -699,7 +699,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
                 if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
 		l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
-		if (lep == 11 &&  (HLT_Ele2 > 0|| HLT_Ele1 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 ) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150 && Mjj<400) {
+		if (lep == 11 &&  (HLT_Ele2 > 0|| HLT_Ele1 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 ) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150 /*&& Mjj<400*/) {
 			if(Mjj<400) numbe_out++;
 			treename->Fill();
 		}
@@ -842,7 +842,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
                 l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
 
-		if (lep == 11 && (HLT_Ele2 > 0|| HLT_Ele1 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 ) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150 && Mjj<400) {
+		if (lep == 11 && (HLT_Ele2 > 0|| HLT_Ele1 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 ) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150 /*&& Mjj<400*/) {
 			if(Mjj<400)numbe_out++;
 			treename->Fill();
                 //if(filename.Contains("ST")){  cout<<"actualWeight"<<actualWeight<<endl;cout<<"lumiWeight:"<<lumiWeight<<"; pileupWeight:"<<pileupWeight<<"; scalef = "<<scalef<<"; muon1_id_scale = "<<muon1_id_scale<<"; muon2_id_scale = "<<muon2_id_scale<<"; muon1_track_scale = "<<muon1_track_scale<<"; muon_hlt_scale = "<<muon_hlt_scale<<endl;}

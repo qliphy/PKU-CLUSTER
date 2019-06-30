@@ -1,5 +1,5 @@
 #include "fit.C"
-#define num 8
+#define num 7
 void run_fit(){
     float lowchiso[21];
     float highchiso[21];
@@ -13,8 +13,8 @@ for(Int_t j=0;j<21;j++){
   }
 // Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,120};
-  Double_t highpt[num]={25,30,40,50,70,100,120,400};
+  Double_t lowpt[num]= {20,25,30,40,50,70,100};
+  Double_t highpt[num]={25,30,40,50,70,100,400};
 
 
 // Double_t lowpt[num]= {25,30,40,50,65,80,130};

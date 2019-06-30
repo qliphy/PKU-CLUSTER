@@ -1000,7 +1000,7 @@ void ee::Init(TTree *tree)
    ExTree->Branch("l1_weight", &l1_weight, "l1_weight/D");
    ExTree->Branch("run_period", &run_period, "run_period/I");
    ExTree->Branch("scalef",&scalef,"scalef/D");
-   ExTree->Branch("test",&test,"test/D");
+//   ExTree->Branch("test",&test,"test/D");
 
 // lep and photon scales
    ExTree->Branch("ele1_id_scale", &ele1_id_scale, "ele1_id_scale/D");

@@ -1,5 +1,5 @@
 #include "fit.C"
-#define ptnumber 6
+#define ptnumber 5
 using namespace std;
 void run_fit(Int_t b,Int_t a);
 void run_fit(Int_t b,Int_t a){
@@ -7,8 +7,8 @@ void run_fit(Int_t b,Int_t a){
     float highchiso[21];
 //    lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 //    highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
- Double_t lowpt[ptnumber] ={20,25,30,40,50,65};
- Double_t highpt[ptnumber]={25,30,40,50,65,400};
+ Double_t lowpt[ptnumber] ={20,25,30,40,65};
+ Double_t highpt[ptnumber]={25,30,40,65,400};
 //Double_t lowpt[ptnumber] ={25,30,35,40,50,65,100};
 //Double_t highpt[ptnumber]={30,35,40,50,65,100,400};
     for(Int_t j=0;j<21;j++){

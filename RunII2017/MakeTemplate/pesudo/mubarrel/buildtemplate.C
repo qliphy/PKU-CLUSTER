@@ -13,7 +13,7 @@
 #include "TObject.h"
 #include <algorithm>
 #include <vector>
-#define ptnumber 7
+#define ptnumber 6
 #define Pi 3.1415926
 using namespace std;
 
@@ -55,8 +55,8 @@ double delta_R(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
 // Double_t highpt[ptnumber]={30,40,60,80,120,400};
 // Double_t lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
-Double_t lowpt[ptnumber] ={20,25,30,40,50,65,100,};
-Double_t highpt[ptnumber]={25,30,40,50,65,100,400};
+Double_t lowpt[ptnumber] ={20,25,30,40,50,70};
+Double_t highpt[ptnumber]={25,30,40,50,70,400};
  TH1D* h11[ptnumber];
  TH1D* h21[ptnumber];
  TH1D* h12[ptnumber][21];

@@ -33,10 +33,10 @@ void hltGenTree::Loop(TString name)
 //by  b_branchname->GetEntry(ientry); //read only this branch
    if (fChain == 0) return;
 file = new TFile(name,"RECREATE");
-het[0] = new TH1D("hclusEt_ele","clusEt",120,0,120);
-het[1] = new TH1D("het_eghlt","et",120,0,120);
-hnrgy[0] = new TH1D("hclusNrgy_ele","clusNrgy",100,0,400);
-hnrgy[1] = new TH1D("hnrgy_eghlt","nrgy",100,0,400);
+het[0] = new TH1D("hclusEt_ele","clusEt",30,0,120);
+het[1] = new TH1D("het_eghlt","et",30,0,120);
+hnrgy[0] = new TH1D("hclusNrgy_ele","clusNrgy",40,0,400);
+hnrgy[1] = new TH1D("hnrgy_eghlt","nrgy",40,0,400);
 heta[0] = new TH1D("hdetEta_ele","detEta",12,-6,6);
 heta[1] = new TH1D("heta_eghlt","eta",12,-6,6);
 hphi[0] = new TH1D("hdetPhi_ele","detPhi",13,-6.5,6.5);

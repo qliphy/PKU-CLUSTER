@@ -8,8 +8,8 @@ using namespace RooFit;
 ofstream file3("info_fit.txt");
 TString name ;
 TFile* fdata = TFile::Open("../root/Data_template-outDEle.root");
-//TFile* ftrue = TFile::Open("../root/True_template-outZA-EWK.root");
-TFile* ftrue = TFile::Open("../root/True_template-outZA.root");
+TFile* ftrue = TFile::Open("../root/True_template-outZA-EWK.root");
+//TFile* ftrue = TFile::Open("../root/True_template-outZA.root");
 //TFile* ftrue = TFile::Open("/Users/andy/tmp/True_template-cutLEP-outZA.root");
 TFile* ffake = TFile::Open("../root/Fake_template-outDEle.root");
 void fit(float lowpt, float highpt){

@@ -1,9 +1,9 @@
-#define num 8
+#define num 5
 ofstream myfile("result.txt");
 //Double_t lowpt[num] ={20,25,30,35,40,45,50,60,80,120};
 //Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,120};
-  Double_t highpt[num]={25,30,40,50,70,100,120,400};
+  Double_t lowpt[num]= {20,25,30,35,60};
+  Double_t highpt[num]={25,30,35,60,400};
 void get(Double_t lowpt,Double_t highpt){
 //TString dir = "./result_endcap/";
 TString dir = "./";

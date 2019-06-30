@@ -4,7 +4,6 @@
 // from TTree demo/demo
 // found on file: outDMuon.root
 //////////////////////////////////////////////////////////
-
 #ifndef MakeTemplate_h
 #define MakeTemplate_h
 
@@ -508,8 +507,8 @@ public :
  Double_t TrueNumber[num],FakeNumber[num];
 // Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,120};
-  Double_t highpt[num]={25,30,40,50,70,100,120,400};
+  Double_t lowpt[num]= {20,25,30,35,50,60,100};
+  Double_t highpt[num]={25,30,35,50,60,100,400};
 
 //  Double_t lowpt[num]= {25,30,35,45,55,65,85,130};
 //  Double_t highpt[num]={30,35,45,55,65,85,130,400};

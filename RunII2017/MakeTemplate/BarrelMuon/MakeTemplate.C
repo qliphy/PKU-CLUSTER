@@ -49,8 +49,8 @@ void MakeTemplate::Loop(TString name)
 //   nentries = 100000;
    int count=0;
    bool jet_flag;
-   double Mchiso = 7.90015;
-   double chisomax=13,chisomin=4;
+   double Mchiso = 7.3318;
+   double chisomax=10,chisomin=Mchiso;//5~10
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
@@ -100,14 +100,14 @@ void MakeTemplate::Loop(TString name)
                  if(photon_sieie[position]<0.01015)
 			{ hsieie[k]->Fill(photon_sieie[position],scalef);}
 	       }//true
-            if(photon_chiso[position]>Mchiso && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] &&
+            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] &&
                photon_pt[position]>lowpt[k] && photon_isprompt[position]==1 )
                   {
                       h4[k]->Fill(photon_sieie[position],scalef);
-                      if(count%1000==0)cout<<"fake contribution from ZA"<<endl;
+//                      if(count%1000==0)cout<<"fake contribution from ZA"<<endl;
                   }//fake contribution from true(ZA)
             }
-         if(photon_chiso[position]>Mchiso && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
             { h2[k]->Fill(photon_sieie[position],scalef);m2[k]++;}//fake
 
          if(photon_chiso[position]<1.141 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
@@ -135,12 +135,12 @@ void MakeTemplate::Loop(TString name)
      } 
 
    if(name.Contains("A")==1){
-      f1= new TFile("./root/2True_template-"+name+".root","recreate");
+      f1= new TFile("./root/True_template-"+name+".root","recreate");
       for(Int_t i=0;i<num;i++){h1[i]->Write();h4[i]->Write();/*hsieie[i]->Write();*/}
       f1->Close();
    }
    if(name.Contains("Muon")==1){
-      f2= new TFile("./root/2Fake_template-"+name+".root","recreate");
+      f2= new TFile("./root/Fake_template-"+name+".root","recreate");
       for(Int_t i=0;i<num;i++){h2[i]->Write();}
       f2->Close();
    

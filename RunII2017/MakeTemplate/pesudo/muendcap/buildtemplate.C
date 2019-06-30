@@ -179,7 +179,7 @@ void select(TTree *tree,TH1D *h1[ptnumber],TH1D *h2[ptnumber][21],TH1D *h3[ptnum
 //		    if( ewk==false && isprompt==1) continue;
 //		    if( tta==false && isprompt==1) continue;
 //		    if( za==false &&  isprompt==1) continue;
-		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] /*&& photon_isprompt[position]!=1  && isprompt!=1*/ && (tta ==false && za==false)) 
+		    if(photon_chiso[position]>lowchiso[j]&&photon_chiso[position]<highchiso[j]&&*biggest_pt<highpt[k] && *biggest_pt>lowpt[k] && photon_isprompt[position]!=1 /* && isprompt!=1*/ && (tta ==false && za==false)) 
 		    { 
 			    h2[k][j]->Fill(photon_sieie[position],scalef);
 		    }  

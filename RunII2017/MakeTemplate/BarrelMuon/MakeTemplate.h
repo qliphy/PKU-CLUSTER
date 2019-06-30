@@ -15,7 +15,7 @@
 #include "TObject.h"
 #include <TH1D.h>
 #include <vector>
-#define num 8
+#define num 7
 using namespace std;
 
 // Header file for the classes stored in the TTree if any.
@@ -508,8 +508,8 @@ public :
  Double_t TrueNumber[num],FakeNumber[num];
 // Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,120};
-  Double_t highpt[num]={25,30,40,50,70,100,120,400};
+  Double_t lowpt[num]= {20,25,30,40,50,70,100};
+  Double_t highpt[num]={25,30,40,50,70,100,400};
 
  Int_t    bin;  
  Double_t xlow; 

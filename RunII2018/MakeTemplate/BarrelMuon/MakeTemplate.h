@@ -508,8 +508,8 @@ public :
  Double_t TrueNumber[num],FakeNumber[num];
 // Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,125};
-  Double_t highpt[num]={25,30,40,50,70,100,125,400};
+  Double_t lowpt[num]= {20,25,30,40,50,65,100,125};
+  Double_t highpt[num]={25,30,40,50,65,100,125,400};
 
  Int_t    bin;  
  Double_t xlow; 

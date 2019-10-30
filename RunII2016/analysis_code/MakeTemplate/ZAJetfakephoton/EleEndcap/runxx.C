@@ -4,8 +4,8 @@
 using namespace std;
 
 void runxx() {
-TString dir="/data/pku/home/anying/cms/file_in_cms/cutLEP/";
-//TString dir = "./rootfiles/";
+//TString dir="/data/pku/home/anying/cms/file_in_cms/files_weighted/";
+TString dir = "./rootfiles/";
 ifstream infile("file");
 string buffer;
 TString name;
@@ -15,8 +15,9 @@ int k=1;
 while (k>0){
 getline (infile, buffer) ;
 name = buffer;
-if(name.Contains("cut")==0) {k=-2; continue;}
-TString filename= name+".root";
+if(name.Contains("out")==0) {k=-2; continue;}
+TString filename= "T-"+name+".root";
+//TString filename= name+".root";
 cout<<name<<endl;
 
 TFile *file1 =new TFile(dir+filename);

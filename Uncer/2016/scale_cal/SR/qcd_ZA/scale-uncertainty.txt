@@ -1,0 +1,9 @@
+bin 1; uncertainty[0] = 0.134163
+bin 2; uncertainty[1] = 0.176699
+bin 3; uncertainty[2] = 0.248159
+bin 4; uncertainty[3] = 0.0743551
+bin 5; uncertainty[4] = 0.119965
+bin 6; uncertainty[5] = 0.125695
+bin 7; uncertainty[6] = 0.0651392
+bin 8; uncertainty[7] = 0.0472221
+bin 9; uncertainty[8] = 0.0955125

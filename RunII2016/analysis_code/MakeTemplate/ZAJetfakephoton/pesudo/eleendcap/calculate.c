@@ -2,16 +2,15 @@
 #include <ostream>
 #include <fstream>
 #include <TROOT.h>
-#define ptnumber 6
+#define ptnumber 4
 using namespace std;
-// Double_t lowpt[ptnumber]= {20,30,40,60,80,120};
-// Double_t highpt[ptnumber]={30,40,60,80,120,400};
+//Double_t lowpt[7] ={25,30,35,40,50,65,100};
+//Double_t highpt[7]={30,35,40,50,65,100,400};
 // Double_t lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
-Double_t lowpt[ptnumber] ={20,25,30,40,50,65};
-Double_t highpt[ptnumber]={25,30,40,50,65,400};
+Double_t lowpt[ptnumber] ={20,25,50,80};
+Double_t highpt[ptnumber]={25,50,80,400};
 Double_t closureFake_test;
-Double_t closureTrue_test;
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso);
 void run_calculate(Int_t a);
 TString b="nosieiecut_eleendcap";
@@ -24,10 +23,9 @@ ofstream file3(dir3 + b+"_total.txt");
 //TString dir = "./resultNew/txt/";
 TString dir = "./txt/";
 TString dir1 = "./roofit/txt/";
-TString dir2 = "./roofit/closure_barrel_roofit/";
+TString dir2 = "./roofit/closure_endcap_roofit/";
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso){
     ofstream myfile(Form(dir2 + "closure-test_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
-    ofstream myfile1(Form(dir2 + "closure-true-test_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
     ifstream f1,f2,f3,f4,f5;
 
     f1.open(Form(dir + b+"truenumber_pt%0.f-%0.f.txt",lowpt,highpt));
@@ -42,7 +40,7 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     if(!f2.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     f2>>fitTrue_number>>fitTrue_error;
     cout<<"fitTrue_number "<<fitTrue_number<<" "<<"fitTrue_error"<<fitTrue_error<<endl;
-    closureTrue_test = TMath::Abs((TrueNumber - fitTrue_number)/fitTrue_error);
+    Double_t closureTrue_test = TMath::Abs((TrueNumber - fitTrue_number)/fitTrue_error);
     file<<Form("%0.f  <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<TrueNumber<<"\t"<<fitTrue_number<<"\t"<<fitTrue_error<<"\t"<<closureTrue_test<<endl;
     cout<<"the value of closure is "<<closureTrue_test<<endl;
     
@@ -66,7 +64,6 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     file3<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<selectData_number<<"\t"<<FakeNumber<<"\t"<<TrueNumber<<"\t"<<fitFake_number<<"\t"<<fitTrue_number<<"\t"<<closureFake_test<<"\t"<<closureTrue_test<<endl;
 
     myfile<<closureFake_test<<endl;
-    myfile1<<closureTrue_test<<endl;
     
  }  
  void run_calculate(Int_t a,Int_t b){
@@ -86,7 +83,7 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
 
  }
 
-int calculate (){
+int calculate(){
     file<<"pt range"<<"\t"<<"chiso range"<<"\t"<<"TrueNumber"<<"\t"<<"fitTrue_number"<<"\t"<<"fitTrue_error"<<"\t"<<"closureTrue_test"<<endl;
     file<<"#######################################################################################"<<endl;    
     file1<<"pt range"<<"\t"<<"chiso range"<<"\t"<<"FakeNumber"<<"\t"<<"fitFake_number"<<"\t"<<"fitFake_Err"<<"\t"<<"closure"<<endl;
@@ -98,11 +95,9 @@ int calculate (){
   for(Int_t i=0;i<ptnumber;i++){
 //  myfile<<"*"<<"\t"<<"3"<<"\t"<<"4"<<"\t"<<"5"<<"\t"<<"6"<<"\t"<<"7"<<"\t"<<"8"<<endl;
     ofstream myfile2(dir2 + Form("closure-test_pt%0.f-%0.f.txt",lowpt[i],highpt[i]));
-    ofstream myfile3(dir2 + Form("closure-true-test_pt%0.f-%0.f.txt",lowpt[i],highpt[i]));
       for(Int_t j=0;j<21;j++){
          run_calculate(i,j);
          myfile2<<closureFake_test<<endl;
-         myfile3<<closureTrue_test<<endl;
        }
   file<<"#######################################################################################"<<endl;    
   file1<<"#######################################################################################"<<endl;    

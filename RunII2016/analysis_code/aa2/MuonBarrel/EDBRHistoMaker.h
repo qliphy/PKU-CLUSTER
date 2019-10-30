@@ -550,7 +550,7 @@ void EDBRHistoMaker::createAllHistos() {
 	hs.setHisto("etaVlep", 12, -1.5, 1.5);
 	hs.setHisto("phiVlep", 16, -3.14, 3.14);
 	hs.setHisto("massVlep", 10, 70, 110);
-	hs.setHisto("photonet", 8, 25, 105);
+	hs.setHisto("photonet", 8, 20, 105);
 	hs.setHisto("photoneta", 12, -1.5, 1.5);
 	hs.setHisto("photonphi", 16, -3.14, 3.14);
 	hs.setHisto("photonsieie", 10, 0, 0.01022);
@@ -705,7 +705,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 }
                 if(drla==10)  drla=-10;
                 if(drla2==10)  drla2=-10;
-		if (drll>0.3 &&drla>0.7 && drla2>0.7 && lep == 13 &&  ( HLT_Mu5 > 0|| HLT_Mu2 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20. && fabs(photoneta) < 1.4442 /*&& jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5  && Mjj > 150*//* && Mjj<400*/) {
+		if (drll>0.3 &&drla>0.7 && drla2>0.7 && lep == 13 &&  ( HLT_Mu5 > 0|| HLT_Mu2 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20. && fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 /*&& Mjj>500*/ && detajj>2.5 && ZGmass>100 && Mjj > 150 && Mjj<400) {
 			numbe_out++;
 			treename->Fill();
 		}
@@ -841,7 +841,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 }
 		if(drla==10) drla=-10;
 		if(drla2==10) drla2=-10;
-		if (drll>0.3 && drla>0.7 && drla>0.7 && lep == 13 && (HLT_Mu2 > 0 || HLT_Mu5>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 /*&& jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj > 150*/ /*&& Mjj<400*/) {
+		if (drll>0.3 && drla>0.7 && drla>0.7 && lep == 13 && (HLT_Mu2 > 0 || HLT_Mu5>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 /*&& Mjj>500 */&& detajj>2.5 && ZGmass>100 && Mjj > 150 && Mjj<400) {
 			numbe_out++;
 			treename->Fill();
                 //if(filename.Contains("ST")){  cout<<"actualWeight"<<actualWeight<<endl;cout<<"lumiWeight:"<<lumiWeight<<"; pileupWeight:"<<pileupWeight<<"; scalef = "<<scalef<<"; muon1_id_scale = "<<muon1_id_scale<<"; muon2_id_scale = "<<muon2_id_scale<<"; muon1_track_scale = "<<muon1_track_scale<<"; muon_hlt_scale = "<<muon_hlt_scale<<endl;}

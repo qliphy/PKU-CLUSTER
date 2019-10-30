@@ -33,6 +33,7 @@ public :
 
    // Declaration of leaf types
    Double_t        scalef;
+   Double_t        pweight[703];
    Int_t           run_period;
    Double_t        ele1_id_scale;
    Double_t        ele2_id_scale;
@@ -218,7 +219,6 @@ public :
    Int_t           HLT_Mu7;
    Int_t           HLT_Mu8;
    Int_t           HLT_Mu9;
-   Int_t           HLT_Mu10;
    Int_t           HLT_Mu11;
    Bool_t          passFilter_HBHE;
    Bool_t          passFilter_HBHEIso;
@@ -232,6 +232,9 @@ public :
    Bool_t          passFilter_duplicateMuon;
    Double_t        lumiWeight;
    Double_t        pileupWeight;
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Double_t        lep1_eta_station2;
    Double_t        lep1_phi_station2;
    Int_t           lep1_sign;
@@ -287,6 +290,7 @@ public :
    TBranch        *b_event;   //!
    TBranch        *b_nVtx;   //!
    TBranch        *b_theWeight;   //!
+   TBranch        *b_pweight;   //!
    TBranch        *b_nump;   //!
    TBranch        *b_numm;   //!
    TBranch        *b_npT;   //!
@@ -470,6 +474,9 @@ public :
    TBranch        *b_passFilter_duplicateMuon_;   //!
    TBranch        *b_lumiWeight;   //!
    TBranch        *b_pileupWeight;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_lep1_eta_station2;   //!
    TBranch        *b_lep1_phi_station2;   //!
    TBranch        *b_lep1_sign;   //!
@@ -609,6 +616,7 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("event", &event, &b_event);
    fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
    fChain->SetBranchAddress("theWeight", &theWeight, &b_theWeight);
+   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
    fChain->SetBranchAddress("nump", &nump, &b_nump);
    fChain->SetBranchAddress("numm", &numm, &b_numm);
    fChain->SetBranchAddress("npT", &npT, &b_npT);
@@ -772,7 +780,6 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_Mu3", &HLT_Mu3, &b_HLT_Mu3);
    fChain->SetBranchAddress("HLT_Mu4", &HLT_Mu4, &b_HLT_Mu4);
    fChain->SetBranchAddress("HLT_Mu5", &HLT_Mu5, &b_HLT_Mu5);
-   fChain->SetBranchAddress("HLT_Mu6", &HLT_Mu6, &b_HLT_Mu6);
    fChain->SetBranchAddress("passFilter_HBHE", &passFilter_HBHE, &b_passFilter_HBHE_);
    fChain->SetBranchAddress("passFilter_HBHEIso", &passFilter_HBHEIso, &b_passFilter_HBHEIso_);
    fChain->SetBranchAddress("passFilter_globalTightHalo", &passFilter_globalTightHalo, &b_passFilter_globalTightHalo_);
@@ -785,6 +792,9 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("passFilter_duplicateMuon", &passFilter_duplicateMuon, &b_passFilter_duplicateMuon_);
    fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
    fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("lep1_eta_station2", &lep1_eta_station2, &b_lep1_eta_station2);
    fChain->SetBranchAddress("lep1_phi_station2", &lep1_phi_station2, &b_lep1_phi_station2);
    fChain->SetBranchAddress("lep1_sign", &lep1_sign, &b_lep1_sign);

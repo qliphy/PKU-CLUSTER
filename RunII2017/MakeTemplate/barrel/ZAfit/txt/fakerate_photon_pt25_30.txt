@@ -1,0 +1,8 @@
+data in window = 6570+-81.0555 64 973 5533 1524 977 820 677
+nDatatotal = 11094
+fake number = 6534.94+-112.503
+true number = 4558.86+-103.353
+fake in window = 2403.62+-41.3798
+true in window = 4075.33+-92.3911
+fakerate = 0.365848+-0.00774859
+chi2ToNDF = 10.5941

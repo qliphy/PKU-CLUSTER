@@ -8,8 +8,8 @@ using namespace std;
 // Double_t highpt[ptnumber]={30,40,60,80,120,400};
 // Double_t lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
- Double_t lowpt[ptnumber]= {20,25,30,35,65};
- Double_t highpt[ptnumber]={25,30,35,65,400};
+ Double_t lowpt[ptnumber]= {20,25,30,40,60};
+ Double_t highpt[ptnumber]={25,30,40,60,400};
 Double_t closureFake_test;
 Double_t closureTrue_test;
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso);
@@ -31,7 +31,7 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     ifstream f1,f2,f3,f4,f5;
 
     f1.open(Form(dir + b+"truenumber_pt%0.f-%0.f.txt",lowpt,highpt));
-    if(!f1.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
+    if(!f1.is_open()){cout<<"can not open the truenumber_pt file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     
     Double_t selectTrue_number,TrueNumber,fitTrue_number,fitTrue_error,ptlow,pthigh,FakeNumber,fitFake_number,fitFake_error,chisolow,chisohigh,selectData_number,fit_fakerate,fit_fakerateErr;
     f1>>ptlow>>pthigh>>selectTrue_number>>TrueNumber;
@@ -39,7 +39,7 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     cout<<"selectTrue_number"<<selectTrue_number<<endl;
     
     f2.open(Form(dir1 + "TrueNumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
-    if(!f2.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
+    if(!f2.is_open()){cout<<"can not open the  TrueNumber_pt file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     f2>>fitTrue_number>>fitTrue_error;
     cout<<"fitTrue_number "<<fitTrue_number<<" "<<"fitTrue_error"<<fitTrue_error<<endl;
     closureTrue_test = TMath::Abs((TrueNumber - fitTrue_number)/fitTrue_error);
@@ -47,13 +47,13 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     cout<<"the value of closure is "<<closureTrue_test<<endl;
     
     f3.open(Form(dir + b+"mfakenumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
-    if(!f3.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
+    if(!f3.is_open()){cout<<"can not open the mfakenumber_pt file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     f3>>ptlow>>pthigh>>chisolow>>chisohigh>>FakeNumber;
 //    cout<<"selectFake_number"<<selectFake_number;
     cout<<" FakeNumber"<<FakeNumber<<endl;
 
     f4.open(Form(dir1 + "FakeNumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
-    if(!f4.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
+    if(!f4.is_open()){cout<<"can not open the FakeNumber_pt file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     f4>>fitFake_number>>fitFake_error>>fit_fakerate>>fit_fakerateErr;
     
      closureFake_test = TMath::Abs((FakeNumber - fitFake_number)/fitFake_error);

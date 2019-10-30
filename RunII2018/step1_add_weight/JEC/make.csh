@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ -o runA `root-config --cflags --glibs` runxx.C
+g++ -o run `root-config --cflags --glibs` runxx.C

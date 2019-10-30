@@ -64,8 +64,8 @@ void xx::Loop()
       if(drj1a==10) drj1a=-1;
       if(drj2a==10) drj2a=-1;
 
-      LEPmu = lep == 13 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 200.;
-      LEPele = lep==11 && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
+      LEPmu = lep == 13 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
+      LEPele = lep==11 && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.&& massVlep<110;
       SignalRegion= Mjj>500 && deltaetajj>2.5 && zepp<1.8;
       PHOTON= photonet>20 &&( (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) || (fabs(photoneta)<1.4442) );
 //      JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;

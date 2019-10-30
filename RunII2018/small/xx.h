@@ -33,6 +33,7 @@ public :
 
    // Declaration of leaf types
    Double_t        scalef;
+   Double_t        pweight[703];
    Int_t           run_period;
    Double_t        ele1_id_scale;
    Double_t        ele2_id_scale;
@@ -43,6 +44,10 @@ public :
    Double_t        muon2_id_scale;
    Double_t        muon1_iso_scale;
    Double_t        muon2_iso_scale;
+   Double_t        muon1_track_scale;
+   Double_t        muon2_track_scale;
+   Double_t        muon_hlt_scale;
+
    Int_t           nevent;
    Int_t           run;
    Int_t           ls;
@@ -226,6 +231,9 @@ public :
    Double_t        lumiWeight;
    Double_t        pileupWeight;
    Double_t        pileupWeight_tmp;
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Double_t        lep1_eta_station2;
    Double_t        lep1_phi_station2;
    Int_t           lep1_sign;
@@ -265,6 +273,7 @@ public :
    // List of branches
    TBranch        *b_l1_weight;
    TBranch        *b_scalef;   //!
+   TBranch        *b_pweight;   //!
    TBranch        *b_run_period;   //!
    TBranch        *b_ele1_id_scale;   //!
    TBranch        *b_ele2_id_scale;   //!
@@ -460,6 +469,9 @@ public :
    TBranch        *b_passFilter_duplicateMuon_;   //!
    TBranch        *b_lumiWeight;   //!
    TBranch        *b_pileupWeight;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_lep1_eta_station2;   //!
    TBranch        *b_lep1_phi_station2;   //!
    TBranch        *b_lep1_sign;   //!
@@ -593,28 +605,22 @@ void xx::Init(TTree *tree)
 
    fout = new TFile(m_dataset, "RECREATE");
    newtree = fChain->CloneTree(0);
-/*   newtree->Branch("ele1_id_scale", &ele1_id_scale, "ele1_id_scale/D");
-   newtree->Branch("ele2_id_scale", &ele2_id_scale, "ele2_id_scale/D");
-   newtree->Branch("ele1_reco_scale", &ele1_reco_scale, "ele1_reco_scale/D");
-   newtree->Branch("ele2_reco_scale", &ele2_reco_scale, "ele2_reco_scale/D");
-   newtree->Branch("photon_id_scale", &photon_id_scale, "photon_id_scale/D");
-   newtree->Branch("muon1_id_scale", &muon1_id_scale, "muon1_id_scale/D");
-   newtree->Branch("muon2_id_scale", &muon2_id_scale, "muon2_id_scale/D");
-   newtree->Branch("muon1_iso_scale", &muon1_iso_scale, "muon1_iso_scale/D");
-   newtree->Branch("muon2_iso_scale", &muon2_iso_scale, "muon2_iso_scale/D");*/
-
 
    fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+//   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
    fChain->SetBranchAddress("run_period", &run_period, &b_run_period);
-   fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale_tmp, &b_ele1_id_scale);
-   fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale_tmp, &b_ele2_id_scale);
-   fChain->SetBranchAddress("ele1_reco_scale", &ele1_reco_scale_tmp, &b_ele1_reco_scale);
-   fChain->SetBranchAddress("ele2_reco_scale", &ele2_reco_scale_tmp, &b_ele2_reco_scale);
-   fChain->SetBranchAddress("photon_id_scale", &photon_id_scale_tmp, &b_photon_id_scale);
-   fChain->SetBranchAddress("muon1_id_scale", &muon1_id_scale_tmp, &b_muon1_id_scale);
-   fChain->SetBranchAddress("muon2_id_scale", &muon2_id_scale_tmp, &b_muon2_id_scale);
-   fChain->SetBranchAddress("muon1_iso_scale", &muon1_iso_scale_tmp, &b_muon1_iso_scale);
-   fChain->SetBranchAddress("muon2_iso_scale", &muon2_iso_scale_tmp, &b_muon2_iso_scale);
+   fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale, &b_ele1_id_scale);
+   fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale, &b_ele2_id_scale);
+   fChain->SetBranchAddress("ele1_reco_scale", &ele1_reco_scale, &b_ele1_reco_scale);
+   fChain->SetBranchAddress("ele2_reco_scale", &ele2_reco_scale, &b_ele2_reco_scale);
+   fChain->SetBranchAddress("photon_id_scale", &photon_id_scale, &b_photon_id_scale);
+   fChain->SetBranchAddress("muon1_id_scale", &muon1_id_scale, &b_muon1_id_scale);
+   fChain->SetBranchAddress("muon2_id_scale", &muon2_id_scale, &b_muon2_id_scale);
+   fChain->SetBranchAddress("muon1_iso_scale", &muon1_iso_scale, &b_muon1_iso_scale);
+   fChain->SetBranchAddress("muon2_iso_scale", &muon2_iso_scale, &b_muon2_iso_scale);
+   fChain->SetBranchAddress("muon1_track_scale", &muon1_track_scale, &b_muon1_track_scale);
+   fChain->SetBranchAddress("muon2_track_scale", &muon2_track_scale, &b_muon2_track_scale);
+   fChain->SetBranchAddress("muon_hlt_scale", &muon_hlt_scale, &b_muon_hlt_scale);
    fChain->SetBranchAddress("nevent", &nevent, &b_nevent);
    fChain->SetBranchAddress("run", &run, &b_run);
    fChain->SetBranchAddress("ls", &ls, &b_ls);
@@ -776,7 +782,6 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_Mu3", &HLT_Mu3, &b_HLT_Mu3);
    fChain->SetBranchAddress("HLT_Mu4", &HLT_Mu4, &b_HLT_Mu4);
    fChain->SetBranchAddress("HLT_Mu5", &HLT_Mu5, &b_HLT_Mu5);
-   fChain->SetBranchAddress("HLT_Mu6", &HLT_Mu6, &b_HLT_Mu6);
    fChain->SetBranchAddress("passFilter_HBHE", &passFilter_HBHE, &b_passFilter_HBHE_);
    fChain->SetBranchAddress("passFilter_HBHEIso", &passFilter_HBHEIso, &b_passFilter_HBHEIso_);
    fChain->SetBranchAddress("passFilter_globalTightHalo", &passFilter_globalTightHalo, &b_passFilter_globalTightHalo_);
@@ -788,7 +793,10 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("passFilter_MetbadMuon", &passFilter_MetbadMuon, &b_passFilter_MetbadMuon_);
    fChain->SetBranchAddress("passFilter_duplicateMuon", &passFilter_duplicateMuon, &b_passFilter_duplicateMuon_);
    fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
-   fChain->SetBranchAddress("pileupWeight", &pileupWeight_tmp, &b_pileupWeight);
+   fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("lep1_eta_station2", &lep1_eta_station2, &b_lep1_eta_station2);
    fChain->SetBranchAddress("lep1_phi_station2", &lep1_phi_station2, &b_lep1_phi_station2);
    fChain->SetBranchAddress("lep1_sign", &lep1_sign, &b_lep1_sign);

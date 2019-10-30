@@ -39,7 +39,9 @@ void plj::Loop()
    double lep2_phi_station2_tmp = 0;
 
    ifstream f1;
-   f1.open("/data/pku/home/anying/cms/analysis_code/plj/plj-plot/EleBarrel/pljweight.txt");
+   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/elebarrel/step1/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/elebarrel/step1/pljweight_up.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/elebarrel/step1/pljweight_down.txt");
    Double_t scalef_f[9];
    for(Int_t i=0;i<9;i++){
       f1>>scalef_f[i];

@@ -42,7 +42,7 @@ void draw::Loop(TString name)
    Int_t cut0=0,cut1=0;
    TString hname="h_"+name;
    Bool_t PHOTON,LEP,SignalRegion;
-   Double_t pt[10]={20,25,30,35,40,50,60,80,120,400};
+   Double_t pt[10]={20,25,30,35,40,50,65,100,125,400};
    h1 = new TH1F(hname,hname,9,pt);
 //   nentries=100;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {

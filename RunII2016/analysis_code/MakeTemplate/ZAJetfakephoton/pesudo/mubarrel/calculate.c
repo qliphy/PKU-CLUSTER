@@ -2,16 +2,14 @@
 #include <ostream>
 #include <fstream>
 #include <TROOT.h>
-#define ptnumber 7
+#define ptnumber 6
 using namespace std;
 //Double_t lowpt[7] ={25,30,35,40,50,65,100};
 //Double_t highpt[7]={30,35,40,50,65,100,400};
 // Double_t lowpt[ptnumber] ={20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
-//Double_t lowpt[ptnumber]= {20,25,30,40,50,70,100,120};
-//Double_t highpt[ptnumber]={25,30,40,50,70,100,120,400}; 
-Double_t lowpt[ptnumber] ={20,25,30,40,50,65,100};
-Double_t highpt[ptnumber]={25,30,40,50,65,100,400};
+Double_t lowpt[ptnumber] ={20,25,30,40,50,65};
+Double_t highpt[ptnumber]={25,30,40,50,65,400};
 Double_t closureFake_test;
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso);
 void run_calculate(Int_t a);
@@ -33,10 +31,10 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     f1.open(Form(dir + b+"truenumber_pt%0.f-%0.f.txt",lowpt,highpt));
     if(!f1.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
     
-    Double_t selectTrue_number,TrueNumber,fitTrue_number,fitTrue_error,ptlow,pthigh,selectFake_number,FakeNumber,fitFake_number,fitFake_error,chisolow,chisohigh,selectData_number,fit_fakerate,fit_fakerateErr;
-    f1>>ptlow>>pthigh>>selectTrue_number>>TrueNumber;
+    Double_t smuctTrue_number,TrueNumber,fitTrue_number,fitTrue_error,ptlow,pthigh,smuctFake_number,FakeNumber,fitFake_number,fitFake_error,chisolow,chisohigh,smuctData_number,fit_fakerate,fit_fakerateErr;
+    f1>>ptlow>>pthigh>>smuctTrue_number>>TrueNumber;
     cout<<"pt range"<<ptlow<<" ~ "<<pthigh<<"  "<<"chiso range"<<lowchiso<<" ~ "<<highchiso<<endl;
-    cout<<"selectTrue_number"<<selectTrue_number<<endl;
+    cout<<"smuctTrue_number"<<smuctTrue_number<<endl;
     
     f2.open(Form(dir1 + "TrueNumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
     if(!f2.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
@@ -48,8 +46,8 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     
     f3.open(Form(dir + b+"mfakenumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
     if(!f3.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
-    f3>>ptlow>>pthigh>>chisolow>>chisohigh>>FakeNumber>>selectFake_number;
-    cout<<"selectFake_number"<<selectFake_number;
+    f3>>ptlow>>pthigh>>chisolow>>chisohigh>>FakeNumber>>smuctFake_number;
+    cout<<"smuctFake_number"<<smuctFake_number;
     cout<<" FakeNumber"<<FakeNumber<<endl;
 
     f4.open(Form(dir1 + "FakeNumber_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
@@ -60,10 +58,10 @@ void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchi
     file1<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<FakeNumber<<"\t"<<fitFake_number<<"\t"<<fitFake_error<<"\t"<<closureFake_test<<endl;
     f5.open(Form(dir + b+"datanumber_pt%0.f-%0.f.txt",lowpt,highpt));
     if(!f5.is_open()){cout<<"can not open the file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;}
-    f5>>ptlow>>pthigh>>selectData_number;
-    Double_t fake_fraction=FakeNumber/selectData_number;
-    file2<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<selectData_number<<"\t"<<FakeNumber<<"\t"<<fake_fraction<<"\t"<<fit_fakerate<<"\t"<<fit_fakerateErr<<"\t"<<TMath::Abs((fake_fraction - fit_fakerate)/fit_fakerateErr)<<endl;
-    file3<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<selectData_number<<"\t"<<FakeNumber<<"\t"<<TrueNumber<<"\t"<<fitFake_number<<"\t"<<fitTrue_number<<"\t"<<closureFake_test<<"\t"<<closureTrue_test<<endl;
+    f5>>ptlow>>pthigh>>smuctData_number;
+    Double_t fake_fraction=FakeNumber/smuctData_number;
+    file2<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<smuctData_number<<"\t"<<FakeNumber<<"\t"<<fake_fraction<<"\t"<<fit_fakerate<<"\t"<<fit_fakerateErr<<"\t"<<TMath::Abs((fake_fraction - fit_fakerate)/fit_fakerateErr)<<endl;
+    file3<<Form("%0.f <pt<%0.f ",lowpt,highpt)<<"\t"<<Form("%0.f<chiso range<%0.f ",lowchiso,highchiso)<<"\t"<<smuctData_number<<"\t"<<FakeNumber<<"\t"<<TrueNumber<<"\t"<<fitFake_number<<"\t"<<fitTrue_number<<"\t"<<closureFake_test<<"\t"<<closureTrue_test<<endl;
 
     myfile<<closureFake_test<<endl;
     

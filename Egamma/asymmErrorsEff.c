@@ -6,7 +6,7 @@ TGraphAsymmErrors* effS_barrel;
 TGraphAsymmErrors* effUS_barrel;
 TGraphAsymmErrors* effS_endcap;
 TGraphAsymmErrors* effUS_endcap;
-void Eff(int i,TFile* file1,TFile*file2,TCanvas* c1,TCanvas* c2){
+void Eff(int i,TFile* file1,TFile*file2,TCanvas* c1,TCanvas* c2,TCanvas*c3){
 TString filename = file1->GetName();
 cout<<filename<<endl;
 TH1D* h1 = (TH1D*) file1->Get(Form("hsN_%i",i+1));
@@ -81,6 +81,7 @@ TString tag1 = "50_120";
 TString tag2 = "120_200";
 TLegend* l1 = new TLegend(0.2,0.25,0.4,0.45);
 TLegend* l2 = new TLegend(0.2,0.25,0.4,0.45);
+TLegend* l3 = new TLegend(0.2,0.25,0.4,0.45);
 c1->cd();
 if(filename.Contains("200"))
 	effS_barrel->SetTitle("seed/gen efficiency vs "+ name + " "+tag2);
@@ -94,10 +95,10 @@ else    effS_barrel->GetYaxis()->SetRangeUser(0,1.1);
 effS_barrel->GetXaxis()->SetTitle(name);
 effS_barrel->GetYaxis()->SetTitle("efficiency");
 effS_barrel->SetLineColor(kRed-7);
-effS_barrel->SetLineWidth(4);
+effS_barrel->SetLineWidth(2);
 effS_barrel->SetLineStyle(1);
 effS_endcap->SetLineColor(kBlue);
-effS_endcap->SetLineWidth(2);
+effS_endcap->SetLineWidth(4);
 effS_endcap->SetLineStyle(2);
 effS_barrel->Draw("ap");
 effS_endcap->Draw("P same");
@@ -120,42 +121,76 @@ else    effUS_barrel->GetYaxis()->SetRangeUser(0,1.1);
 effUS_barrel->GetXaxis()->SetTitle(name);
 effUS_barrel->GetYaxis()->SetTitle("efficiency");
 effUS_barrel->SetLineColor(kRed-7);
-effUS_barrel->SetLineWidth(4);
+effUS_barrel->SetLineWidth(2);
 effUS_barrel->SetLineStyle(1);
 effUS_endcap->SetLineColor(kBlue);
-effUS_endcap->SetLineWidth(2);
+effUS_endcap->SetLineWidth(4);
 effUS_endcap->SetLineStyle(2);
 effUS_barrel->Draw("ap");
 effUS_endcap->Draw("P same");
-l2->AddEntry(effS_barrel,"Barrel","l");
-l2->AddEntry(effS_endcap,"Endcap","l");
+l2->AddEntry(effUS_barrel,"Barrel","l");
+l2->AddEntry(effUS_endcap,"Endcap","l");
 l2->SetTextSize(0.045);
 l2->SetTextFont(30);
 l2->Draw();
+c3->cd();
+effS_barrel->SetLineColor(kRed-7);
+effS_barrel->SetLineWidth(2);
+effS_barrel->SetLineStyle(1);
+effS_endcap->SetLineColor(kRed);
+effS_endcap->SetLineWidth(4);
+effS_endcap->SetLineStyle(2);
+effUS_barrel->SetLineColor(kBlue-7);
+effUS_barrel->SetLineWidth(2);
+effUS_barrel->SetLineStyle(1);
+effUS_endcap->SetLineColor(kBlue);
+effUS_endcap->SetLineWidth(4);
+effUS_endcap->SetLineStyle(2);
+l3->AddEntry(effUS_barrel,"Barrel, US","l");
+l3->AddEntry(effUS_endcap,"Endcap, US","l");
+l3->SetTextSize(0.045);
+l3->SetTextFont(30);
+l3->AddEntry(effS_barrel,"Barrel, Seed","l");
+l3->AddEntry(effS_endcap,"Endcap, Seed","l");
+
+effS_barrel->Draw("ap");
+effS_endcap->Draw("P same");
+effUS_barrel->Draw("P same");
+effUS_endcap->Draw("P same");
+l3->Draw();
+
 if(filename.Contains("200"))
    {
 	   c1->Print("./"+tag2+name+nameS+".pdf");
 	   c2->Print("./"+tag2+name+nameUS+".pdf");
+	   c3->Print("./"+tag2+name+"_comp.pdf");
    }
-else  {c1->Print("./"+tag1+name+nameS+".pdf"); c2->Print("./"+tag1+name+nameUS+".pdf");}
+else  {
+	c1->Print("./"+tag1+name+nameS+".pdf"); c2->Print("./"+tag1+name+nameUS+".pdf");
+	c3->Print("./"+tag1+name+"_comp.pdf");
+      }
 //delete c1;delete c2;
 }
 
 int asymmErrorsEff() {
 	TCanvas* c1[4];
 	TCanvas* c2[4];
+	TCanvas* cc[4];
         const int n =4;
 	for(int i =0;i<n;i++){
         c1[i] = new TCanvas(Form("50_120_seed%i",i),"",900,600);
         c2[i] = new TCanvas(Form("50_120_unseed%i",i),"",900,600);
-	Eff(i,f1,f2,c1[i],c2[i]);
+        cc[i] = new TCanvas(Form("comp%i",i),"",900,600);
+	Eff(i,f1,f2,c1[i],c2[i],cc[i]);
 	}
 	TCanvas* c3[4];
 	TCanvas* c4[4];
+	TCanvas* cc1[4];
 	for(int i =0;i<n;i++){
         c3[i] = new TCanvas(Form("120_200_seed%i",i),"",900,600);
         c4[i] = new TCanvas(Form("120_200_unseed%i",i),"",900,600);
-	Eff(i,f3,f4,c3[i],c4[i]);
+        cc1[i] = new TCanvas(Form("comp%i",i),"",900,600);
+	Eff(i,f3,f4,c3[i],c4[i],cc1[i]);
 	}
 
 	return 1;

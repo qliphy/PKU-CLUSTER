@@ -11,24 +11,26 @@ for(Int_t j=0;j<21;j++){
     if(17<j&&j<20){lowchiso[j]=7;highchiso[j]=j-6;}
     if(j==20)     {lowchiso[j]=8;highchiso[j]=j-7;}
   }
- Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80};
- Double_t highpt[num]={25,30,35,40,45,50,60,80,400};
+ Double_t lowpt[num]= {20,25,30,35,40,45,50,65,100};
+ Double_t highpt[num]={25,30,35,40,45,50,65,100,400};
 
 // Double_t lowpt[num]= {25,30,40,50,65,80,130};
 // Double_t highpt[num]={30,40,50,65,80,130,400};
 // Double_t lowpt[num]= {25,30,35,45,55,65,85,130};
 // Double_t highpt[num]={30,35,45,55,65,85,130,400};
+
  for(Int_t i=0;i<num;i++){
          fit(lowpt[i],highpt[i]);
   }
+  
 //	fit(25,30);
 //	fit(30,35);
 //	fit(35,40);
 //	fit(40,45);
 //	fit(45,50);
 //	fit(50,60);
-//	fit(60,80);
-//	fit(80,120);
+//	fit(65,100);
+//	fit(100,400);
 //	fit(120,400);
 
 }

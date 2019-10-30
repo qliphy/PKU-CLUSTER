@@ -39,7 +39,9 @@ void plj::Loop()
    double lep2_phi_station2_tmp = 0;
 
    ifstream f1;
-   f1.open("/data/pku/home/anying/cms/analysis_code/plj/plj-plot/MuonBarrel/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/mubarrel/step1/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/mubarrel/step1/pljweight_up.txt");
+   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/mubarrel/step1/pljweight_down.txt");
    Double_t scalef_f[9];
    for(Int_t i=0;i<9;i++){
       f1>>scalef_f[i];
@@ -58,12 +60,12 @@ void plj::Loop()
      if(photonet>25 &&  photonet<30)      {int i=1;scalef_tmp = scalef_f[i];}
      if(photonet>30 &&  photonet<35)      {int i=2;scalef_tmp = scalef_f[i];}
      if(photonet>35 &&  photonet<40)      {int i=3;scalef_tmp = scalef_f[i];}
-     if(photonet>40 &&  photonet<45)      {int i=4;scalef_tmp = scalef_f[i];}
-     if(photonet>45 &&  photonet<50)      {int i=4;scalef_tmp = scalef_f[i];}
-     if(photonet>50 &&  photonet<60)      {int i=5;scalef_tmp = scalef_f[i];}
-     if(photonet>60 &&  photonet<80)      {int i=6;scalef_tmp = scalef_f[i];}
-     if(photonet>80 &&  photonet<120)     {int i=7;scalef_tmp = scalef_f[i];}
-     if(photonet>120/*&&  photonet<400*/) {int i=8;scalef_tmp = scalef_f[i];} 
+     if(photonet>40 &&  photonet<50)      {int i=4;scalef_tmp = scalef_f[i];}
+     if(photonet>50 &&  photonet<65)      {int i=5;scalef_tmp = scalef_f[i];}
+     if(photonet>65 &&  photonet<100)     {int i=6;scalef_tmp = scalef_f[i];}
+     if(photonet>100 &&  photonet<125)    {int i=7;scalef_tmp = scalef_f[i];}
+     if(photonet>125 &&  photonet<400)    {int i=8;scalef_tmp = scalef_f[i];}
+
       
       pileupWeight_tmp=1;
 

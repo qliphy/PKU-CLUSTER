@@ -519,6 +519,7 @@ public :
  TH1D* h1[9];
  TH1D* h2[9];
  TH1D* h3[9];
+ TH1D* h4[9];
  TCanvas *c1[9];
  bool LEP,Photon_cut[6],JET[6];
 /* Add some variable and histos*/

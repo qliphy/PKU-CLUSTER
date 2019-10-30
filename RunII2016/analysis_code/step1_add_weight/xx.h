@@ -213,6 +213,10 @@ public :
    Bool_t          passFilter_duplicateMuon;
    Double_t        lumiWeight;
    Double_t        pileupWeight;
+   Double_t        pweight[703];
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Double_t        lep1_eta_station2;
    Double_t        lep1_phi_station2;
    Int_t           lep1_sign;
@@ -456,6 +460,10 @@ public :
    TBranch        *b_passFilter_duplicateMuon_;   //!
    TBranch        *b_lumiWeight;   //!
    TBranch        *b_pileupWeight;   //!
+   TBranch        *b_pweight;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_lep1_eta_station2;   //!
    TBranch        *b_lep1_phi_station2;   //!
    TBranch        *b_lep1_sign;   //!
@@ -509,6 +517,7 @@ public :
      TTree *ExTree;
      TFile *fout;
      double scalef;
+     double scalef_tmp;
 };
 
 #endif
@@ -580,7 +589,6 @@ void xx::Init(TTree *tree)
 //Add
     ExTree->Branch("scalef",&scalef,"scalef/D");
     ExTree->Branch("run_period", &run_period, "run_period/I");
- // ExTree->Branch("pweight", &pweight, "pweight[703]/D");
  
  // lep and photon scales
     ExTree->Branch("ele1_id_scale", &ele1_id_scale, "ele1_id_scale/D");
@@ -628,7 +636,7 @@ void xx::Init(TTree *tree)
    ExTree->Branch("genmuon_pt",&genmuon_pt, "genmuon_pt[6]/D");
    ExTree->Branch("genmuon_eta",&genmuon_eta, "genmuon_eta[6]/D");
    ExTree->Branch("genmuon_phi", &genmuon_phi, "genmuon_phi[6]/D");
-   ExTree->Branch("genmuon_pid", &genmuon_pid, "genmuon_pid[6]/D");
+   ExTree->Branch("genmuon_pid", &genmuon_pid, "genmuon_pid[6]/I");
    ExTree->Branch("genelectron_pt", &genelectron_pt,  "genelectron_pt[6]/D");
    ExTree->Branch("genelectron_eta",&genelectron_eta, "genelectron_eta[6]/D");
    ExTree->Branch("genelectron_phi",&genelectron_phi, "genelectron_phi[6]/D");
@@ -777,6 +785,10 @@ void xx::Init(TTree *tree)
    ExTree->Branch("passFilter_duplicateMuon", &passFilter_duplicateMuon,       "passFilter_duplicateMuon_/O");
    ExTree->Branch("lumiWeight", &lumiWeight,     "lumiWeight/D");
    ExTree->Branch("pileupWeight", &pileupWeight, "pileupWeight/D");
+   ExTree->Branch("pweight", &pweight, "pweight[703]/D");
+   ExTree->Branch("prefWeight", &prefWeight, "prefWeight/D");
+   ExTree->Branch("prefWeightUp", &prefWeightUp, "prefWeightUp/D");
+   ExTree->Branch("prefWeightDown", &prefWeightDown, "prefWeightDown/D");
    ExTree->Branch("lep1_eta_station2", &lep1_eta_station2, "lep1_eta_station2/D");
    ExTree->Branch("lep1_phi_station2", &lep1_phi_station2, "lep1_phi_station2/D");
    ExTree->Branch("lep1_sign", &lep1_sign,                 "lep1_sign/I");
@@ -992,6 +1004,11 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("passFilter_duplicateMuon", &passFilter_duplicateMuon, &b_passFilter_duplicateMuon_);
    fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
    fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
+   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
+
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("lep1_eta_station2", &lep1_eta_station2, &b_lep1_eta_station2);
    fChain->SetBranchAddress("lep1_phi_station2", &lep1_phi_station2, &b_lep1_phi_station2);
    fChain->SetBranchAddress("lep1_sign", &lep1_sign, &b_lep1_sign);

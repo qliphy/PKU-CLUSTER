@@ -30,6 +30,10 @@ void MakeTemplate::Loop(TString name)
 //   style();
    Long64_t nentries = fChain->GetEntriesFast();
    Long64_t nbytes = 0, nb = 0;
+
+   double Mchiso = 6.828;
+   double chisomin = 4;
+   double chisomax = Mchiso;//4~11
    
 //   nentries = 100000;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -64,14 +68,14 @@ void MakeTemplate::Loop(TString name)
                  if(photon_sieie[position]<0.0272)
 			{ hsieie[k]->Fill(photon_sieie[position],scalef);}
 	       }//true
-            if(photon_chiso[position]>4 && photon_chiso[position]<13 && photon_pt[position]<highpt[k] &&
+            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] &&
                photon_pt[position]>lowpt[k] && photon_isprompt[position]==1 )
                   {
                       h4[k]->Fill(photon_sieie[position],scalef);
 //                      cout<<"fake contribution from ZA"<<endl;
                   }//fake contribution
             }
-         if(photon_chiso[position]>5 && photon_chiso[position]<10 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
             { h2[k]->Fill(photon_sieie[position],scalef);m2[k]++;}//fake
 
          if(photon_chiso[position]<1.051 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])

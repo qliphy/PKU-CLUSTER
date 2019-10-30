@@ -1,0 +1,57 @@
+void transformation(){
+
+	TFile*fout=new TFile("transformation.root","RECREATE");
+
+	TFile* fb=TFile::Open("../medium_id_cut/fsr_70110/trans_barrel.root");
+        TH1D* hdatab;
+        TH1D* hmcb;
+        fb->GetObject("DEle",hdatab);
+        fb->GetObject("ZJets",hmcb);
+
+        double xmcb[200], ymcb[200];
+        double xdab[200], ydab[200];
+
+        for(int i=0;i<200;i++){
+                xmcb[i]=(i+1)*1.0/200;
+                xdab[i]=(i+1)*1.0/200;
+        }
+
+        hdatab->Scale(1./hdatab->Integral());
+        hmcb->Scale(hdatab->Integral()/hmcb->Integral());
+        hmcb->Scale(1./hmcb->Integral());
+
+        hdatab->GetQuantiles(200, ydab, xdab);
+        hmcb->GetQuantiles(200, ymcb, xmcb);
+
+        TGraph*g1b=new TGraph(200, ymcb, ydab);
+	g1b->SetNameTitle("barrel","barrel");
+
+	TFile* f=TFile::Open("../medium_id_cut/fsr_70110/trans_endcap.root");
+	TH1D* hdata;
+	TH1D* hmc;
+	f->GetObject("DEle",hdata);
+	f->GetObject("ZJets",hmc);
+
+	double xmc[200], ymc[200];
+	double xda[200], yda[200];
+
+	for(int i=0;i<200;i++){
+		xmc[i]=(i+1)*1.0/200;
+		xda[i]=(i+1)*1.0/200;
+	}
+
+	hdata->Scale(1./hdata->Integral());
+	hmc->Scale(hdata->Integral()/hmc->Integral());
+	hmc->Scale(1./hmc->Integral());
+
+	hdata->GetQuantiles(200, yda, xda);
+	hmc->GetQuantiles(200, ymc, xmc);
+
+	TGraph*g1=new TGraph(200, ymc, yda);
+	g1->SetNameTitle("endcap","endcap");
+
+	fout->cd();
+	g1b->Write();
+	g1->Write();
+	fout->Close();
+}

@@ -1,14 +1,14 @@
-#define num 8
+#define num 6
 ofstream myfile("result.txt");
 //Double_t lowpt[7] ={25,30,35,40,50,65,100};
 //Double_t highpt[7]={30,35,40,50,65,100,400};
-  Double_t lowpt[num]= {20,25,30,40,50,70,100,120};
-  Double_t highpt[num]={25,30,40,50,70,100,120,400};
+Double_t lowpt[num] ={20,25,30,40,50,65};
+Double_t highpt[num]={25,30,40,50,65,400};
 void get(Double_t lowpt,Double_t highpt){
 //TString dir = "./result_endcap/";
-TString dir = "./";
+TString dir = "./closure_barrel_roofit/";
 ifstream f1,f2;
-f2.open(Form("closure-test_pt%0.f-%0.f.txt",lowpt,highpt));
+f2.open(dir+Form("closure-test_pt%0.f-%0.f.txt",lowpt,highpt));
 if(!f2.is_open()) cout<< "can't open the file"<<endl;
 Double_t value[22];
 for(Int_t i=0;i<22;i++){
@@ -37,7 +37,7 @@ for(Int_t i=0;i<22;i++){
     }
 
 int draw_closuretest(){
-  for(Int_t i=0;i<7;i++){
+  for(Int_t i=0;i<num;i++){
      myfile<<fixed<<setprecision(0)<<"pt: "<<lowpt[i]<<" ~ "<<highpt[i]<<endl; 
      run(i);
      myfile<<"############################################################"<<endl;

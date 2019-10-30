@@ -17,6 +17,7 @@ void Jecr(){
 	TString dir = "/home/pku/anying/cms/file_in_cms/files_weighted/";
 //	TString filename = "outJEC-ZA-EWK_meng.root";
 	TString filename = "outZA-EWK_JEC_meng.root";
+//	TString filename = "outJEC-ZA-EWK.root";
 
 	TFile *output = new TFile("output.root", "RECREATE");
 
@@ -580,7 +581,7 @@ void Jecr(){
                 l1.SetPtEtaPhiE(0,0,0,0);
                 l2.SetPtEtaPhiE(0,0,0,0);
                 photon_p4.SetPtEtaPhiE(0,0,0,0);
-                bool in_acceptance = false;
+/*                bool in_acceptance = false;
                 if(genphoton_pt[0]>0 && genjet_pt[0] >=30 &&genjet_pt[1] >=30 && genmuon_pt[0]>0 &&genmuon_pt[1]>0 ){
                         if(large(genelectron_pt[0],genelectron_pt[1])<large(genmuon_pt[0],genmuon_pt[1])){
                                 l1.SetPtEtaPhiM(genmuon_pt[0],genmuon_eta[0],genmuon_phi[0],0.1);
@@ -622,7 +623,7 @@ void Jecr(){
                                         }
                                 }
                         }
-                }
+                }*/
                 // in-acceptance signal
 //                if(!in_acceptance) continue;
 

@@ -39,7 +39,9 @@ void plj::Loop()
    double lep2_phi_station2_tmp = 0;
 
    ifstream f1;
-   f1.open("/data/pku/home/anying/cms/analysis_code/plj/plj-plot/EleEndcap/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/eleendcap/step1/pljweight.txt");
+   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/eleendcap/step1/pljweight_up.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2016/fakephoton/eleendcap/step1/pljweight_down.txt");
    Double_t scalef_f[4];
    for(Int_t i=0;i<4;i++){
       f1>>scalef_f[i];
@@ -55,15 +57,9 @@ void plj::Loop()
       if(jentry%1000000==0) cout<<jentry<<", "<<nentries<<endl;
      
      if(photonet>20 &&  photonet<25)      {int i=0;scalef_tmp = scalef_f[i];}
-     if(photonet>25 &&  photonet<30)      {int i=1;scalef_tmp = scalef_f[i];}
-     if(photonet>30 &&  photonet<35)      {int i=1;scalef_tmp = scalef_f[i];}
-     if(photonet>35 &&  photonet<40)      {int i=1;scalef_tmp = scalef_f[i];}
-     if(photonet>40 &&  photonet<45)      {int i=1;scalef_tmp = scalef_f[i];}
-     if(photonet>45 &&  photonet<50)      {int i=1;scalef_tmp = scalef_f[i];}
-     if(photonet>50 &&  photonet<60)      {int i=2;scalef_tmp = scalef_f[i];}
-     if(photonet>60 &&  photonet<80)      {int i=2;scalef_tmp = scalef_f[i];}
-     if(photonet>80 &&  photonet<120)     {int i=3;scalef_tmp = scalef_f[i];}
-     if(photonet>120/*&&  photonet<400*/) {int i=3;scalef_tmp = scalef_f[i];} 
+     if(photonet>25 &&  photonet<50)      {int i=1;scalef_tmp = scalef_f[i];}
+     if(photonet>50 &&  photonet<80)      {int i=2;scalef_tmp = scalef_f[i];}
+     if(photonet>80/*&&  photonet<400*/)  {int i=3;scalef_tmp = scalef_f[i];} 
       
       pileupWeight_tmp=1;
 

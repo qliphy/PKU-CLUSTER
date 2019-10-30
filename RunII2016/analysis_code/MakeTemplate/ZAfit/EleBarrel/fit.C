@@ -6,15 +6,22 @@
 #include "RooAddPdf.h"
 using namespace RooFit;
 ofstream file3("info_fit.txt");
-TFile* fdata = TFile::Open("/home/pku/anying/cms/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/Data_template-cutlep-outDEle16.root");
-TFile* ftrue = TFile::Open("/home/pku/anying/cms/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/True_template-cutlep-outZA.root");
-TFile* ffake = TFile::Open("/home/pku/anying/cms/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/Fake_template-cutlep-outDEle16.root");
+TFile* fdata = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/Data_template-cutlep-outDEle16.root");
+TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/True_template-cutlep-outZA.root");
+//TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/True_template-outZA-EWK.root");
+TFile* ffake = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/EleBarrel/root/Fake_template-cutlep-outDEle16.root");
+TString name;
 void fit(float lowpt, float highpt){
 //TString b="chiso5-12_";
-
+        TString filename = ftrue->GetName();
+        if(filename.Contains("EWK")) name = "EWK";
+        else if(filename.Contains("TTA")) name = "TTA";
+        else name = "ZA2";
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h3_pt%0.f-%0.f",lowpt,highpt));
 	TH1F* hfake_ = (TH1F*)ffake->Get(Form("h2_pt%0.f-%0.f",lowpt,highpt));
 	TH1F* htrue_ = (TH1F*)ftrue->Get(Form("h1_pt%0.f-%0.f",lowpt,highpt));
+        TH1F* hzaf_  = (TH1F*)ftrue->Get(Form("h4_pt%0.f_%0.f",lowpt,highpt));
+        hfake_->Add(hzaf_,-35.86);
 
 	Int_t nBins = 9;
 	Double_t bins[10];
@@ -134,7 +141,7 @@ void fit(float lowpt, float highpt){
 								+ nFake_inwindow*nFake_inwindow*nDataInWindowErr*nDataInWindowErr/(nDataInWindow
 									*nDataInWindow*nDataInWindow*nDataInWindow));
 	ofstream myfile(TString("./txt/fakerate_") + Form("photon_pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
-	ofstream myfile1(TString("./txt/fakerate_") + Form("pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
+	ofstream myfile1(TString("./txt/fakerate_") + name+ Form("pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
 	ofstream file(TString("./txt/TrueNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
 	ofstream file1(TString("./txt/FakeNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
 

@@ -19,14 +19,15 @@ while (k>0){
 getline (infile, buffer) ;
 infilename = buffer;
 if(infilename.Contains("out")==0) {k=-2; continue;}
-TString outname=/*"cut"+*/infilename+".root";
-TString inname=/*"cutlep-"+*/infilename+".root";
+TString outname="cutla-"+ infilename+".root";
+TString inname= /*"cutlep-"+*/infilename+".root";
 
 cout<<inname<<endl;
 
 TFile *file1 =new TFile(dir+inname);
 //TDirectory * dir1 = (TDirectory*)file1->Get("treeDumper");
-TTree *tree1 = (TTree*) file1->Get("ZPKUCandidates");
+TTree *tree1 = (TTree*) file1->Get("demo");
+//TTree *tree1 = (TTree*) file1->Get("ZPKUCandidates");
 //TTree *tree1 = (TTree*) file1->Get("treeDumper/ZPKUCandidates");
 xx m1(tree1,outname);
 cout<<outname<<endl;

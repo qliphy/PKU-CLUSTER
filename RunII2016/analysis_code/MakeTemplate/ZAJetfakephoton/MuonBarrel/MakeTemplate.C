@@ -44,6 +44,9 @@ void MakeTemplate::Loop(TString name)
    TFile* fout = new TFile("./T-"+name +".root", "RECREATE");
    TTree* ExTree = fChain->CloneTree(0);
    int jet=0;
+   double Mchiso = 9.14;
+   double chisomax = 13;
+   double chisomin = 6;//6~13
    
 //   nentries = 100000;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -78,9 +81,16 @@ void MakeTemplate::Loop(TString name)
          if(name.Contains("A")==1){
             if(photon_isprompt[position]==1 && photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
                { h1[k]->Fill(photon_sieie[position],scalef);m1[k] +=scalef;}//true
-            }
+            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && 
+	       photon_pt[position]<highpt[k] &&  photon_pt[position]>lowpt[k] && 
+               photon_isprompt[position]==1 )
+	    {
+		    h4[k]->Fill(photon_sieie[position],scalef);
+//		      cout<<"fake contribution from ZA"<<endl;
+	    }//fake contribution from true(ZA)
+	 }
 
-         if(photon_chiso[position]>5 && photon_chiso[position]<10 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
             { h2[k]->Fill(photon_sieie[position],scalef);m2[k] +=scalef;}//fake
 
          if(photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
@@ -89,6 +99,7 @@ void MakeTemplate::Loop(TString name)
        }
          vector_pt.clear();
    }
+   ExTree->Write();
    /*ff = new TFile("./root/Three_template.root","recreate");*/
    for(Int_t i=0;i<num;i++){
        //h1[i]->Write();
@@ -112,7 +123,7 @@ void MakeTemplate::Loop(TString name)
 
    if(name.Contains("A")==1){
       f1= new TFile("./root/True_template-"+name+".root","recreate");
-      for(Int_t i=0;i<num;i++){h1[i]->Write();}
+      for(Int_t i=0;i<num;i++){h1[i]->Write();h4[i]->Write();}
       f1->Close();
       delete f1;
    }
@@ -158,6 +169,7 @@ void MakeTemplate::histo(){
          h1[i]=new TH1D(Form("h1_pt%0.f-%0.f",lowpt[i],highpt[i]),"true template",bin,0,xhigh);
          h2[i]=new TH1D(Form("h2_pt%0.f-%0.f",lowpt[i],highpt[i]),"fake template",bin,0,xhigh);
          h3[i]=new TH1D(Form("h3_pt%0.f-%0.f",lowpt[i],highpt[i]),"data template",bin,0,xhigh);
+	 h4[i]=new TH1D(Form("h4_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake contribution from ZA",bin,0,xhigh);
      }
 }
 

@@ -14,7 +14,7 @@
 #include <iostream>
 #include "TObject.h"
 #include <TH1D.h>
-#define num 6
+#define num 9
 using namespace std;
 
 // Header file for the classes stored in the TTree if any.
@@ -503,10 +503,12 @@ public :
    virtual void     Show(Long64_t entry = -1);
   
 /* Add some variable and histos*/
- Double_t m1[9],m2[9],m3[9];
- Double_t TrueNumber[9],FakeNumber[9];
- Double_t lowpt[9]= {20,25,30,35,40,50,60,80,120};
- Double_t highpt[9]={25,30,35,40,50,60,80,120,400};
+ Double_t m1[num],m2[num],m3[num];
+ Double_t TrueNumber[num],FakeNumber[num];
+// Double_t lowpt[num]= {20,25,30,35,40,50,65,100};
+
+ Double_t lowpt[num]= {20,25,30,35,40,50,65,100};
+ Double_t highpt[num]={25,30,35,40,50,65,100,400};
  Int_t    bin;  
  Double_t xlow; 
  Double_t xhigh;
@@ -516,17 +518,18 @@ public :
  vector<double> vector_pt;
  vector<double>::iterator biggest_pt;
  Int_t position,size,m;
- TH1D* h1[9];
- TH1D* h2[9];
- TH1D* h3[9];
- TCanvas *c1[9];
+ TH1D* h1[num];
+ TH1D* h2[num];
+ TH1D* h3[num];
+ TH1D* h4[num];
+ TCanvas *c1[num];
  bool LEP,Photon_cut[6],JET[6];
 /* Add some variable and histos*/
 
 /* Add some function*/
 void histo();
 void style();
-void select(TTree *tree,TH1D *h1[9],TH1D *h2[9]/*[21]*/,TH1D *h3[9]);
+void select(TTree *tree,TH1D *h1[num],TH1D *h2[num]/*[21]*/,TH1D *h3[num]);
 void draw(TCanvas *c,TH1D *h1,TH1D *h2,TH1D *h3,Double_t ptlow,Double_t pthigh);
 void creatfiles();
 void ResetVal();

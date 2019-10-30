@@ -46,6 +46,9 @@ void MakeTemplate::Loop(TString name)
    Long64_t nentries = fChain->GetEntriesFast();
    Long64_t nbytes = 0, nb = 0;
    Int_t jet=0;   
+   double Mchiso = 8.7468;
+   double chisomax = 12;
+   double chisomin = Mchiso;//6~12
 //   nentries = 100000;
    int count=0;
    bool jet_flag;
@@ -98,7 +101,7 @@ void MakeTemplate::Loop(TString name)
                  if(photon_sieie[position]<0.01015)
 			{ hsieie[k]->Fill(photon_sieie[position],scalef);}
 	       }//true
-	    if(photon_chiso[position]>4 && photon_chiso[position]<13 && photon_pt[position]<highpt[k] && 
+	    if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && 
                photon_pt[position]>lowpt[k] && photon_isprompt[position]==1 )
 	          {
                       h4[k]->Fill(photon_sieie[position],scalef);
@@ -106,7 +109,7 @@ void MakeTemplate::Loop(TString name)
 		  }//fake contribution from true(ZA)
 
 	 }
-         if(photon_chiso[position]>4 && photon_chiso[position]<13 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
             { h2[k]->Fill(photon_sieie[position],scalef);m2[k]++;}//fake
 
          if(photon_chiso[position]<1.141 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])

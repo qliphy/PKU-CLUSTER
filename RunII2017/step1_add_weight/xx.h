@@ -37,7 +37,8 @@ public :
    Int_t           event;
    Int_t           nVtx;
    Double_t        theWeight;
-   Double_t        scalef_tmp;
+   Double_t        pweight[703];
+   Double_t        scalef;
    Double_t        nump;
    Double_t        numm;
    Double_t        npT;
@@ -275,6 +276,7 @@ public :
    TBranch        *b_scalef;   //!
    TBranch        *b_nVtx;   //!
    TBranch        *b_theWeight;   //!
+   TBranch        *b_pweight;   //!
    TBranch        *b_nump;   //!
    TBranch        *b_numm;   //!
    TBranch        *b_npT;   //!
@@ -496,7 +498,7 @@ public :
  private:
      TTree *ExTree;
      TFile *fout;
-     double scalef;
+//     double scalef;
 };
 
 #endif
@@ -568,7 +570,7 @@ void xx::Init(TTree *tree)
 //Add
     ExTree->Branch("scalef",&scalef,"scalef/D");
     ExTree->Branch("run_period", &run_period, "run_period/I");
- // ExTree->Branch("pweight", &pweight, "pweight[703]/D");
+    ExTree->Branch("pweight", &pweight, "pweight[703]/D");
  
  // lep and photon scales
     ExTree->Branch("ele1_id_scale", &ele1_id_scale, "ele1_id_scale/D");
@@ -796,10 +798,11 @@ void xx::Init(TTree *tree)
    ExTree->Branch("l1_weight",&l1_weight,"l1_weight/D");
 //inherent branches
 
-   fChain->SetBranchAddress("scalef", &scalef_tmp, &b_scalef);
+   fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
    fChain->SetBranchAddress("event", &event, &b_event);
    fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
    fChain->SetBranchAddress("theWeight", &theWeight, &b_theWeight);
+   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
    fChain->SetBranchAddress("nump", &nump, &b_nump);
    fChain->SetBranchAddress("numm", &numm, &b_numm);
    fChain->SetBranchAddress("npT", &npT, &b_npT);

@@ -356,6 +356,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
 	treename->Branch("jet2phi", &jet2phi, "jet2phi/D");
 	treename->Branch("jet2e", &jet2e, "jet2e/D");
 	treename->Branch("Mjj", &Mjj, "Mjj/D");
+        treename->Branch("actualWeight",&actualWeight);
 	treename->Branch("zepp", &zepp, "zepp/D");
 	treename->Branch("deltaetajj", &deltaetajj, "deltaetajj/D");
 	treename->Branch("delta_phi", &delta_phi, "delta_phi/D");
@@ -701,7 +702,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
 		l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
 		L1 = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
-		if (lep == 11 &&  (HLT_Ele1>0 || HLT_Ele2 > 0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj>150 /*&& Mjj<400*/ && drla>0.7 && drla<10 && drla2>0.7 && drla2<10 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5) {
+		if (lep == 11 &&  (HLT_Ele1>0 || HLT_Ele2 > 0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj>150 && Mjj<400 && drla>0.7 && drla<10 && drla2>0.7 && drla2<10 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5) {
 			//if(Mjj<400)
 			numbe_out++;
 			//cout<<"L1 = "<<L1<<endl;
@@ -848,7 +849,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
                 L1 = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
 
-		if (lep == 11 &&  (HLT_Ele1>0 || HLT_Ele2 > 0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj>150 /*&& Mjj<400*/ && drla>0.7 && drla<10 && drla2>0.7 && drla2<10 && drj1a>0.5 && drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5) {
+		if (lep == 11 &&  (HLT_Ele1>0 || HLT_Ele2 > 0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta) < 1.4442 && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj>150 && Mjj<400 && drla>0.7 && drla<10 && drla2>0.7 && drla2<10 && drj1a>0.5 && drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5) {
 			//if(Mjj<400) 
 			numbe_out++;
 			treename->Fill();

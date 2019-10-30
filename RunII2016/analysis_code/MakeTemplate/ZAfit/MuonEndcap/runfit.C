@@ -1,3 +1,4 @@
+#define num 8
 #include "fit.C"
 void run_fit(){
     float lowchiso[21];
@@ -10,7 +11,12 @@ for(Int_t j=0;j<21;j++){
     if(17<j&&j<20){lowchiso[j]=7;highchiso[j]=j-6;}
     if(j==20)     {lowchiso[j]=8;highchiso[j]=j-7;}
   }
-	fit(20,25);
+ Double_t lowpt[num]={20,25,30,35,40,50,65,100};
+ Double_t highpt[num]={25,30,35,40,50,65,100,400};
+ for(Int_t i=0;i<num;i++){
+         fit(lowpt[i],highpt[i]);
+  }
+/*	fit(20,25);
 	fit(25,30);
 	fit(30,35);
 	fit(35,40);
@@ -18,7 +24,7 @@ for(Int_t j=0;j<21;j++){
 	fit(50,60);
 	fit(60,80);
 	fit(80,120);
-	fit(120,400);
+	fit(120,400);*/
 
 }
 

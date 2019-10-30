@@ -509,7 +509,7 @@ public :
 // Double_t lowpt[num]= {20,25,30,35,40,45,50,60,80,120};
 // Double_t highpt[num]={25,30,35,40,45,50,60,80,120,400};
   Double_t lowpt[num]= {20,25,30,40,50,60,80,120};
-  Double_t highpt[num]={25,30,40,50,60,80,120,400}; 
+  Double_t highpt[num]={25,30,40,50,60,80,120,400};
 //  Double_t lowpt[num]= {25,30,35,45,55,65,85,130};
 //  Double_t highpt[num]={30,35,45,55,65,85,130,400};
 

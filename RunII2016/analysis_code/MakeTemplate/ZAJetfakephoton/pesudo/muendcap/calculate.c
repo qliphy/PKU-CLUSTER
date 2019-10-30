@@ -25,7 +25,7 @@ ofstream file3(dir3 + b+"_total.txt");
 //TString dir = "./resultNew/txt/";
 TString dir = "./txt/";
 TString dir1 = "./roofit/txt/";
-TString dir2 = "./roofit/closure_barrel_roofit/";
+TString dir2 = "./roofit/closure_endcap_roofit/";
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso){
     ofstream myfile(Form(dir2 + "closure-test_pt%0.f-%0.f_chiso%0.f-%0.f.txt",lowpt,highpt,lowchiso,highchiso));
     ifstream f1,f2,f3,f4,f5;

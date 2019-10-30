@@ -6,14 +6,20 @@
 #include "RooAddPdf.h"
 using namespace RooFit;
 ofstream file3("info_fit.txt");
+TString name;
 TFile* fdata = TFile::Open("../root/Data_template-outDEle.root");
 //TFile* ftrue = TFile::Open("./root/True_template-outTTA.root");
-TFile* ftrue = TFile::Open("../root/True_template-outZA.root");
-//TFile* ftrue = TFile::Open("./root/old/True_template-outZA-EWK.root");
+//TFile* ftrue = TFile::Open("../root/True_template-outZA.root");
+//TFile* ftrue = TFile::Open("../root/True_template-outTTA.root");
+TFile* ftrue = TFile::Open("../root/True_template-outZA-EWK.root");
 //TFile* ftrue = TFile::Open("/Users/andy/tmp/True_template-cutLEP-outZA.root");
 TFile* ffake = TFile::Open("../root/Fake_template-outDEle.root");
 void fit(float lowpt, float highpt){
 //TString b="chiso5-12_";
+        TString filename = ftrue->GetName();
+        if(filename.Contains("EWK")) name = "EWK";
+        else if(filename.Contains("TTA")) name = "TTA";
+        else name = "ZA2";
 
 	TH1F* hdata_ = (TH1F*)fdata->Get(Form("h3_pt%0.f_%0.f",lowpt,highpt));
 	TH1F* hfake_ = (TH1F*)ffake->Get(Form("h2_pt%0.f_%0.f",lowpt,highpt));
@@ -144,7 +150,7 @@ void fit(float lowpt, float highpt){
 								+ nFake_inwindow*nFake_inwindow*nDataInWindowErr*nDataInWindowErr/(nDataInWindow
 									*nDataInWindow*nDataInWindow*nDataInWindow));
 	ofstream myfile(TString("./txt/fakerate_") + Form("photon_pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
-	ofstream myfile1(TString("./txt/fakerate_") + Form("pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
+	ofstream myfile1(TString("./txt/fakerate_") + name + Form("pt%0.f_%0.f.txt", lowpt, highpt),ios::out);
 	ofstream file(TString("./txt/TrueNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
 	ofstream file1(TString("./txt/FakeNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
 

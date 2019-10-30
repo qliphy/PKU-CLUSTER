@@ -125,7 +125,7 @@ void xx::Loop()
 		// if (Cut(ientry) < 0) continue;
 		if(jentry%100000==0) cout<<" "<<HLT_Ele1<<" "<<HLT_Mu2<<" "<<fabs(theWeight)/theWeight<<" "<<m_dataset<<" "<<jentry<<" "<<nentries<<endl;
 
-		if(m_dataset.Contains("outDMuonB.root")){ scalef=1.0; run_period=1;}
+	/*	if(m_dataset.Contains("outDMuonB.root")){ scalef=1.0; run_period=1;}
 		if(m_dataset.Contains("outDMuonC.root")){ scalef=1.0; run_period=2;}
 		if(m_dataset.Contains("outDMuonD.root")){ scalef=1.0; run_period=3;}
 		if(m_dataset.Contains("outDMuonE.root")){ scalef=1.0; run_period=4;}
@@ -158,7 +158,7 @@ void xx::Loop()
 		if(m_dataset.Contains("outWZ.root")){ scalef=1000.*27.6/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset.Contains("outZZ.root")){ scalef=1000.*12.14/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset.Contains("ZA-EWK")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZA-sig-muonid-correct.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("outZA-sig-muonid-correct.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}*/
 
 		if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
 		if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;

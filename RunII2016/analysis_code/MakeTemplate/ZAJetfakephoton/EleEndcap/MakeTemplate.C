@@ -44,7 +44,9 @@ void MakeTemplate::Loop(TString name)
    TFile* fout = new TFile("./T-"+name +".root", "RECREATE");
    TTree* ExTree = fChain->CloneTree(0);
    int jet=0;
-   
+   double Mchiso=6.32;
+   double chisomin=Mchiso;
+   double chisomax=9;//3~9   
 //   nentries = 100000;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -83,16 +85,16 @@ void MakeTemplate::Loop(TString name)
          if(name.Contains("A")==1){
             if(photon_isprompt[position]==1 && photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
                { h1[k]->Fill(photon_sieie[position],scalef);m1[k] +=scalef;}//true
-            if(photon_chiso[position]>4 && photon_chiso[position]<11 && photon_pt[position]<highpt[k] &&
+            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] &&
                photon_pt[position]>lowpt[k] && photon_isprompt[position]==1 )
                   {
                       h4[k]->Fill(photon_sieie[position],scalef);
-                      cout<<"fake contribution from ZA"<<endl;
+//                      cout<<"fake contribution from ZA"<<endl;
                   }//fake contribution from true(ZA)
             }
          if(name.Contains("Ele")==1){
 		 scalef = 1; 
-		 if(photon_chiso[position]>5 && photon_chiso[position]<10 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+		 if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
 		 { h2[k]->Fill(photon_sieie[position]);m2[k] +=scalef;}//fake
 
 		 if(photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])

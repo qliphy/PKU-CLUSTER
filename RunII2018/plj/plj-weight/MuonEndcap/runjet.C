@@ -17,7 +17,9 @@ while (k>0){
 getline (infile, buffer) ;
 name = buffer;
 if(name.Contains("out")==0) {k=-2; continue;}
-TString outname=name+"_weighte.root";
+//TString outname=  "cutla-outplj_muendcap_up.root";
+//TString outname="cutla-outplj_muendcap.root";
+TString outname="cutla-outplj_muendcap_down.root";
 TString inname=name+".root";
 
 cout<<inname<<endl;

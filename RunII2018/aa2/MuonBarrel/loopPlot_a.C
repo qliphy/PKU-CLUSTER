@@ -112,7 +112,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fData.at(i) << std::endl; //fData.push_back(pathToTrees + dataLabels[ii] + ".root");
 		sprintf(buffer, "./output-slimmed-rootfiles/histos_%s.root", dataLabels[i].c_str());
-		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_%s.root", dataLabels[i].c_str());
+		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_2018CR_%s.root", dataLabels[i].c_str());
 		fHistosData.push_back(buffer);
 
 		std::cout << "retrieve "<<i+1<<"th data file" << std::endl;
@@ -148,7 +148,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fMC.at(i) << std::endl;
 		sprintf(buffer, "./output-slimmed-rootfiles/histos_%s.root", mcLabels[i].c_str());
-		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_%s.root", mcLabels[i].c_str());
+		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_2018CR_%s.root", mcLabels[i].c_str());
 		fHistosMC.push_back(buffer);
 		std::cout << "test" << std::endl;
 
@@ -177,7 +177,7 @@ void loopPlot() {
 				<< std::endl;
 		std::cout << "The file is " << fMCSig.at(i) << std::endl;
 		sprintf(buffer, "./output-slimmed-rootfiles/histos_%s.root", mcLabelsSig[i].c_str());
-		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_%s.root", mcLabelsSig[i].c_str());
+		sprintf(out_buffer, "./output-slimmed-rootfiles/optimal_2018CR_%s.root", mcLabelsSig[i].c_str());
 		fHistosMCSig.push_back(buffer);
 
 		if (redoHistograms) {

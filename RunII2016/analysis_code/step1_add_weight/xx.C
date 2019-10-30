@@ -153,6 +153,7 @@ void xx::Loop()
 		if(m_dataset=="out1.root"){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outprivate_ZA.root"){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outofficial_ZA.root"){ scalef=1000.*47.46/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("outZA_total.root")){ scalef_tmp=1000.*47.46/float(13442644+9239760-2245300-3263486)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outTTA.root"){ scalef=1000.*3.697/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outTTJets.root"){ scalef=1000.*831.76/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outSTs.root"){ scalef=1000.*3.36/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
@@ -163,7 +164,8 @@ void xx::Loop()
 		if(m_dataset=="outWW.root"){ scalef=1000.*118.7/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outWZ.root"){ scalef=1000.*47.13/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outZZ.root"){ scalef=1000.*16.523/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset=="outZA-EWK.root"){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("EWK")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("aQGC")){ scalef=1000.*1.411/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset=="outZA-sig-muonid-correct.root"){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 
 		if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
@@ -212,8 +214,8 @@ void xx::Loop()
                 PHOTON= photonet>10 ;
                 JET=jet1pt> 10 && jet2pt > 10 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 ;
                 cut0++;
-                if( ! (LEPmu||LEPele) )
-                        continue;
+//                if( ! (LEPmu||LEPele) )
+//                        continue;
 
 		ExTree->Fill();
 	}

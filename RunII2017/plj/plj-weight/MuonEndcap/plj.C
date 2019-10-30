@@ -39,10 +39,11 @@ void plj::Loop()
    double lep2_phi_station2_tmp = 0;
 
    ifstream f1;
-//   f1.open("../../plj-plot/Muon/muon-barrel-pljweight/pljweight.txt");
-   f1.open("../../plj-plot/MuonEndcap/muon-endcap-pljweight/pljweight.txt");
-   Double_t scalef_f[8];
-   for(Int_t i=0;i<8;i++){
+//   f1.open("/home/pku/anying/cms/RunII2017/uncer/muendcap/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/RunII2017/uncer/muendcap/pljweight_up.txt");
+   f1.open("/home/pku/anying/cms/RunII2017/uncer/muendcap/pljweight_down.txt");
+   Double_t scalef_f[7];
+   for(Int_t i=0;i<7;i++){
       f1>>scalef_f[i];
       cout<<"scalef_f["<<"i"<<"] = "<<scalef_f[i]<<endl;
    }
@@ -56,15 +57,12 @@ void plj::Loop()
       if(jentry%1000000==0) cout<<jentry<<", "<<nentries<<endl;
      if(photonet<20)                      {scalef_tmp==0;} 
      if(photonet<25&&photonet>20)         {int i=0;  scalef_tmp =scalef_f[i];}
-     if(photonet>25 &&  photonet<30)      {int i=0+1;scalef_tmp =scalef_f[i];}
-     if(photonet>30 &&  photonet<35)      {int i=1+1;scalef_tmp =scalef_f[i];}
-     if(photonet>35 &&  photonet<40)      {int i=1+1;scalef_tmp =scalef_f[i];}
-     if(photonet>40 &&  photonet<45)      {int i=2+1;scalef_tmp =scalef_f[i];}
-     if(photonet>45 &&  photonet<50)      {int i=2+1;scalef_tmp =scalef_f[i];}
-     if(photonet>50 &&  photonet<70)      {int i=3+1;scalef_tmp =scalef_f[i];}
-     if(photonet>70 &&  photonet<100)      {int i=4+1;scalef_tmp =scalef_f[i];}
-     if(photonet>100 &&  photonet<125)     {int i=5+1;scalef_tmp =scalef_f[i];}
-     if(photonet>125/*&&  photonet<400*/) {int i=6+1;scalef_tmp =scalef_f[i];} 
+     if(photonet>25 &&  photonet<30)      {int i=1;scalef_tmp =scalef_f[i];}
+     if(photonet>30 &&  photonet<35)      {int i=2;scalef_tmp =scalef_f[i];}
+     if(photonet>35 &&  photonet<50)      {int i=3;scalef_tmp =scalef_f[i];}
+     if(photonet>50 &&  photonet<60)      {int i=4;scalef_tmp =scalef_f[i];}
+     if(photonet>60 &&  photonet<100)     {int i=5;scalef_tmp =scalef_f[i];}
+     if(photonet>100/*&&  photonet<400*/) {int i=6;scalef_tmp =scalef_f[i];} 
       
       pileupWeight_tmp=1;
 

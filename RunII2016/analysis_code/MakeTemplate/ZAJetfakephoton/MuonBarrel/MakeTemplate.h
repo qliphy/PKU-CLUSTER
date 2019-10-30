@@ -505,8 +505,8 @@ public :
 /* Add some variable and histos*/
  Double_t m1[num],m2[num],m3[num];
  Double_t TrueNumber[num],FakeNumber[num];
- Double_t lowpt[num] ={20,25,30,35,40,50,60,80,120};
- Double_t highpt[num]={25,30,35,40,50,60,80,120,400};
+ Double_t lowpt[num] ={20,25,30,35,40,50,65,100,125};
+ Double_t highpt[num]={25,30,35,40,50,65,100,125,400};
  Int_t    bin;  
  Double_t xlow; 
  Double_t xhigh;
@@ -519,6 +519,7 @@ public :
  TH1D* h1[num];
  TH1D* h2[num];
  TH1D* h3[num];
+ TH1D* h4[num];
  TCanvas *c1[num];
  bool LEP,Photon_cut[6],JET[6];
 /* Add some variable and histos*/

@@ -43,8 +43,8 @@ void draw::Loop(TString name)
 
    TString hname="h_"+name;
    Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele;
-   Double_t pt[11]={20,25,30,35,40,45,50,60,80,120,400};
-   h1 = new TH1F(hname,hname,10,pt);
+   Double_t pt[9]={20,25,30,35,40,50,65,100,400};
+   h1 = new TH1F(hname,hname,8,pt);
 //   nentries=100;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);

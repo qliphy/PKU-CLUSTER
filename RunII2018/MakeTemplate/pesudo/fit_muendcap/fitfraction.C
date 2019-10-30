@@ -124,8 +124,11 @@ void fitf(float lowpt, float highpt, float lowchiso, float highchiso){
 //            fr = p0* (hfake->Integral(1,hfake->GetXaxis()->FindFixBin(0.0272)-1)/hfake->Integral())/(hdata->Integral(1,hdata->GetXaxis()->FindFixBin(0.0272)-1)/hdata->Integral());
 //            fr = p0* (hfake->Integral(1,hfake->FindFixBin(0.0272))/hfake->Integral())/(hdata->Integral(1,hdata->FindFixBin(0.0272))/hdata->Integral());
             ofstream myfile(dir + Form("txt/fakerate_photon_pt%0.f_%0.f_chiso_%0.f_%0.f.txt",lowpt,highpt,lowchiso,highchiso),ios::out);
+	    ofstream file(dir + TString("TrueNumber_") + Form("pt%0.f-%0.f_chiso%0.f-%0.f.txt", lowpt, highpt,lowchiso,highchiso),ios::out);
+	    ofstream file1(dir + TString("FakeNumber_") + Form("pt%0.f-%0.f_chiso%0.f-%0.f.txt", lowpt, highpt,lowchiso,highchiso),ios::out);
+            file1<<fake_window<<"\t"<<fit_err<<"\t"<<fr<<"\t"<<fr_Error<<endl;
             myfile <<fr<<"\t"<<fr_Error<<"\t"<<hfake->Integral(1,hfake->FindFixBin(0.0272)-1)<<"\t"<<fakeValue<<"\t"<<fake_window<<endl;
-	    file3<<Form("%0.f <pt<%0.f",lowpt,highpt)<<"\t\t"<<Form("%0.f<chiso<%0.f",lowchiso,highchiso)<<"\t"<<fixed<<setprecision(2)<<fr<<"\t"<<fixed<<setprecision(2)<<fr_Error<<endl;
+	    file3<<Form("%0.f<pt<%0.f",lowpt,highpt)<<"\t\t"<<Form("%0.f<chiso<%0.f",lowchiso,highchiso)<<"\t"<<fixed<<setprecision(2)<<fr<<"\t"<<fixed<<setprecision(2)<<fr_Error<<endl;
 	    file2<<Form("%0.f<pt<%0.f ",lowpt,highpt)<<"\t\t"<<Form("%0.f<chiso<%0.f",lowchiso,highchiso)<<"\t"<<fixed<<setprecision(2)<< mcFake<<"\t"<<fixed<<setprecision(2)<<fake_window<<"\t"<<fixed<<setprecision(2)<<mcFake_err<< fixed<<setprecision(2)<<"\t"<< fake_window_Error<<fixed<<setprecision(2)<<"\t"<<fit_err<<endl;
             myfile.close();
 	    char c[200],c2[200],c3[200];
@@ -172,8 +175,8 @@ void fitf(float lowpt, float highpt, float lowchiso, float highchiso){
 void run_fitf(Int_t b,Int_t a){
   float lowchiso[21];
   float highchiso[21];
-  Double_t lowpt[ptnumber]= {20,25,30,35,45};
-  Double_t highpt[ptnumber]={25,30,35,45,400};
+  Double_t lowpt[ptnumber] ={20,25,30,40,60};
+  Double_t highpt[ptnumber]={25,30,40,60,400};
   for(Int_t j=0;j<21;j++){
 	  if(j<6)       {lowchiso[j]=3;highchiso[j]=j+8;}
 	  if(5<j&&j<11) {lowchiso[j]=4;highchiso[j]=j+3;}
@@ -189,7 +192,7 @@ int fitfraction(){
 	file2<<"pt range"<<"\t"<<"chiso range"<<"\t"<<"mcTruth number"<<"\t"<<"fit number"<<"\t"<<"mcTruth error"<<"\t"<<"integral error"<<"\t"<<"fit error"<<endl;
         for(Int_t j=0;j<ptnumber;j++){
 		file2<<"####################################################"<<endl;
-                for(Int_t i=0;i<21;i++){
+                for(Int_t i=0;i<1;i++){
                         run_fitf(j,i);}
         }//run_fitf(1,1);
         return 0;

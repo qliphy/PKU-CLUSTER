@@ -17,7 +17,7 @@ while (k>0){
 	name = buffer;
 	if(name.Contains("out")==0) {k=-2; continue;}
 	TString inname="cutlep-"+name+".root";
-	TString outname= "cutlep-"+name+"_plj.root";
+	TString outname= "cutlep-"+name+"_pljnew.root";
 	cout<<inname<<endl;
 	cout<<outname<<endl;
 	TFile *file1;

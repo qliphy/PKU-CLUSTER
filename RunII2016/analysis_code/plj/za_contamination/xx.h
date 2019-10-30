@@ -225,6 +225,9 @@ public :
    Bool_t          passFilter_duplicateMuon;
    Double_t        lumiWeight;
    Double_t        pileupWeight;
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Double_t        lep1_eta_station2;
    Double_t        lep1_phi_station2;
    Int_t           lep1_sign;
@@ -456,6 +459,9 @@ public :
    TBranch        *b_passFilter_duplicateMuon_;   //!
    TBranch        *b_lumiWeight;   //!
    TBranch        *b_pileupWeight;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_lep1_eta_station2;   //!
    TBranch        *b_lep1_phi_station2;   //!
    TBranch        *b_lep1_sign;   //!
@@ -577,7 +583,6 @@ void xx::Init(TTree *tree)
 
    fout = new TFile(m_dataset, "RECREATE");
    newtree = new TTree("demo","demo");
-   newtree->Branch("l1_weight",&l1_weight,"l1_weight/D");
    newtree->Branch("scalef",&scalef,"scalef/D");
    newtree->Branch("run_period", &run_period, "run_period/I");
  
@@ -776,6 +781,9 @@ void xx::Init(TTree *tree)
    newtree->Branch("passFilter_duplicateMuon", &passFilter_duplicateMuon,       "passFilter_duplicateMuon_/O");
    newtree->Branch("lumiWeight", &lumiWeight,     "lumiWeight/D");
    newtree->Branch("pileupWeight", &pileupWeight, "pileupWeight/D");
+   newtree->Branch("prefWeight", &prefWeight, "prefWeight/D");
+   newtree->Branch("prefWeightUp", &prefWeightUp, "prefWeightUp/D");
+   newtree->Branch("prefWeightDown", &prefWeightDown, "prefWeightDown/D");
    newtree->Branch("lep1_eta_station2", &lep1_eta_station2, "lep1_eta_station2/D");
    newtree->Branch("lep1_phi_station2", &lep1_phi_station2, "lep1_phi_station2/D");
    newtree->Branch("lep1_sign", &lep1_sign,                 "lep1_sign/I");
@@ -1004,6 +1012,9 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("passFilter_duplicateMuon", &passFilter_duplicateMuon, &b_passFilter_duplicateMuon_);
    fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
    fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("lep1_eta_station2", &lep1_eta_station2, &b_lep1_eta_station2);
    fChain->SetBranchAddress("lep1_phi_station2", &lep1_phi_station2, &b_lep1_phi_station2);
    fChain->SetBranchAddress("lep1_sign", &lep1_sign, &b_lep1_sign);

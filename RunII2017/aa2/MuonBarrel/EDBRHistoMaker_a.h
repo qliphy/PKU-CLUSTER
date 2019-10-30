@@ -49,6 +49,7 @@ class EDBRHistoMaker {
 
 		// Declaration of leaf types
 		Double_t scalef;
+		Double_t pweight[703];
 		Int_t nVtx;
 		Double_t theWeight;
 		Double_t lumiWeight;
@@ -164,6 +165,7 @@ class EDBRHistoMaker {
 		TBranch *b_muon2_track_scale;   //!
 		TBranch *b_muon_hlt_scale;   //!
 		TBranch *b_scalef;   //!
+		TBranch *b_pweight;   //!
 		TBranch *b_nVtx;   //!
 		TBranch *b_theWeight;   //!
 		TBranch *b_lumiWeight;   //!
@@ -304,6 +306,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
 	treename = new TTree("outtree","outtree");
 	cout<<"begin make outfile tree"<<endl;
 	treename->Branch("scalef", &scalef, "scalef/D");
+	treename->Branch("pweight", &pweight, "pweight[703]/D");
 	treename->Branch("nVtx", &nVtx, "nVtx/I");
 	treename->Branch("theWeight", &theWeight, "theWeight/D");
 	treename->Branch("lumiWeight", &lumiWeight, "lumiWeight/D");
@@ -410,6 +413,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
         fChain->SetBranchAddress("muon2_track_scale", &muon2_track_scale, &b_muon2_track_scale);
         fChain->SetBranchAddress("muon_hlt_scale", &muon_hlt_scale, &b_muon_hlt_scale);
 	fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+	fChain->SetBranchAddress("pweight", pweight, &b_pweight);
 	fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
 	fChain->SetBranchAddress("theWeight", &theWeight, &b_theWeight);
 	fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
@@ -545,7 +549,7 @@ void EDBRHistoMaker::createAllHistos() {
 	hs.setHisto("ptVlep", 15, 0, 450);
 	hs.setHisto("etaVlep", 12, -1.5, 1.5);
 	hs.setHisto("phiVlep", 16, -3.14, 3.14);
-	hs.setHisto("massVlep", 8, 70, 110);
+	hs.setHisto("massVlep", 10, 70, 110);
 	hs.setHisto("photonet", 8, 20, 105);
 	hs.setHisto("photoneta", 12, -1.5, 1.5);
 	hs.setHisto("photonphi", 16, -3.14, 3.14);
@@ -713,7 +717,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 //data
-		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7  && fabs(jet2eta)<4.7 && jet1pt> 30 && jet2pt > 30  && drj1a>0.5 &&drj2a>0.5 && drj2l>0.5 && drj1l>0.5 && drjj>0.5 && Mjj > 150 /*&& Mjj<400 && ZGmass>100*/) {
+		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7  && fabs(jet2eta)<4.7 && jet1pt> 30 && jet2pt > 30  && drj1a>0.5 &&drj2a>0.5 && drj2l>0.5 && drj1l>0.5 && drjj>0.5 && Mjj > 150 && Mjj<400 && ZGmass>100) {
 			//if(Mjj<400) 
 			sum = sum + actualWeight;
 			numbe_out++;
@@ -863,7 +867,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 // mc
-		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 &&  fabs(jet2eta)<4.7 && jet2pt > 30 && jet1pt> 30 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj > 150 /*&& Mjj < 400 && ZGmass>100 && ngoodmus>1*/){
+		if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 &&  fabs(jet2eta)<4.7 && jet2pt > 30 && jet1pt> 30 && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj > 150 && Mjj < 400 && ZGmass>100){
 			//if(Mjj<400)	
 			if(theWeight>0) npp++;
 			if(theWeight<0) nmm++;

@@ -1,10 +1,9 @@
-void draw(){
-	//TFile* f1 = new TFile("50_120.root");
-//	TFile* f1 = new TFile("120_200_barrel.root");
-//	TFile* f1 = new TFile("120_200_endcap.root");
-	TFile* f1 = new TFile("50_120_barrel.root");
-//	TFile* f1 = new TFile("50_120_endcap.root");
+TFile* file = new TFile("test.root","recreate");
+void draw(TFile*f1){
 	TString filename = f1->GetName();
+        TString region;
+        if(filename.Contains("barrel"))region="barrel";
+        if(filename.Contains("endcap"))region="endcap";
 	TH1D*het[2];
 	TH1D*heta[2];
 	TH1D*hnrgy[2];
@@ -18,11 +17,22 @@ void draw(){
 	TLegend *l1[8];
 	TLine* line[8];
 	TCanvas* c1[8];
+
+	Double_t etbins[7]={0,20,30,50,100,200,400};
+	Double_t etabins[7]={0,0.5,1.0,1.4442,1.566,2.0,2.5};
 	vector<TH1D*> hele;vector<TH1D*> hegHLT;
-	het[0] = (TH1D*)f1->Get("hclusEt_ele");hele.push_back(het[0]);
-	het[1] = (TH1D*)f1->Get("het_eghlt");  hegHLT.push_back(het[1]);
-	heta[0] = (TH1D*)f1->Get("hdetEta_ele");hele.push_back(heta[0]);
-	heta[1] = (TH1D*)f1->Get("heta_eghlt");hegHLT.push_back(heta[1]);
+	het[0] = (TH1D*)f1->Get("hclusEt_ele");
+//	TH1D* het0 =dynamic_cast<TH1D*>(het[0]->Rebin(5,"reco ele",etbins));
+	   hele.push_back(het[0]);
+	het[1] = (TH1D*)f1->Get("het_eghlt");
+//	TH1D* het1 =dynamic_cast<TH1D*>( het[1]->Rebin(5,"hlt ele",etbins));
+	   hegHLT.push_back(het[1]);
+	heta[0] = (TH1D*)f1->Get("hdetEta_ele");
+//	/*TH1D* heta0 =*/ heta[0]->Rebin(6,"reco eta",etabins);
+	   hele.push_back(heta[0]);
+	heta[1] = (TH1D*)f1->Get("heta_eghlt");
+//	/*TH1D* heta1 =*/ heta[1]->Rebin(6,"hlt eta",etabins);
+           hegHLT.push_back(heta[1]);
 	hnrgy[0] = (TH1D*)f1->Get("hclusNrgy_ele");hele.push_back(hnrgy[0]);
 	hnrgy[1] = (TH1D*)f1->Get("hnrgy_eghlt");hegHLT.push_back(hnrgy[1]);
 	hphi[0] = (TH1D*)f1->Get("hdetPhi_ele");hele.push_back(hphi[0]);
@@ -36,15 +46,30 @@ void draw(){
 	hmhits[0] = (TH1D*)f1->Get("hMHits_ele");hele.push_back(hmhits[0]);
 	hmhits[1] = (TH1D*)f1->Get("hMHits_eghlt");hegHLT.push_back(hmhits[1]);
 	char hname[51];
+	vector<double> vec_ymax;
+	vector<double> vec_xmax;
+	TString tag1 = "50_120";
+	TString tag2 = "120_200";
 	for(int i=0;i<8;i++){
-//		if(TEfficiency::CheckConsistency(*hele[i], *hegHLT[i]))
-//			h3[i] = new TEfficiency(*hele[i],*hegHLT[i]);
+		TString name = hegHLT[i]->GetTitle();
+		file->cd();
+		hele[i]->Write();
+		hegHLT[i]->Write();
 
+		vec_ymax.push_back(hegHLT[i]->GetMaximum());
+		vec_ymax.push_back(hele[i]->GetMaximum());
+		sort(vec_ymax.begin(), vec_ymax.end(), greater<double>());
+		double ymax=vec_ymax[0];  
+                hegHLT[i]->GetYaxis()->SetRangeUser(0,ymax*1.4);
+                vec_ymax.clear();
+	}
+	for(int i=0;i<8;i++){
 		TString name = hegHLT[i]->GetTitle();
 		cout<<name<<endl;
+                if(filename.Contains("200"))hegHLT[i]->SetTitle(name +" "+tag2+" "+region);          
+                else hegHLT[i]->SetTitle(name +" "+tag1+" "+region);
 		c1[i] = new TCanvas(hname,name,900,600);
 		l1[i] = new TLegend(0.6,0.7,0.9,0.9);
-
 		TPad *top_pad=new TPad("top_pad", "top_pad",0,0.2, 1.0, 1.0);
 		top_pad->Draw();
 		top_pad->cd();
@@ -53,29 +78,19 @@ void draw(){
 		hele[i]->SetTitle(name+"\t"+filename);
 		hele[i]->SetLineColor(kAzure+6);
 		hele[i]->SetLineWidth(3);
-//		hele[i]->SetMarkerStyle(20);
-		double norm1 =  hele[i]->GetEntries();
-//		hele[i]->Scale(1/norm1);
 		hegHLT[i]->SetLineColor(kAzure-2);
 		hegHLT[i]->SetLineWidth(4);
 		hegHLT[i]->SetLineStyle(5);
-//		hegHLT[i]->SetMarkerStyle(20);
-		double norm2 =  hegHLT[i]->GetEntries();
-//		hegHLT[i]->Scale(1/norm2);
-		double elemax  = hele[i]->GetMaximum();
-		double egHLTmax  = hegHLT[i]->GetMaximum();
+		double norm2 =  hegHLT[i]->Integral();
+		hegHLT[i]->Scale(1/norm2);
+		double norm1 =  hele[i]->Integral();
+		hele[i]->Scale(1/norm1);
+//		hegHLT[i]->Draw("hist");
+//		hele[i]->Draw("hist same");
 		hegHLT[i]->DrawNormalized("hist");
 		hele[i]->DrawNormalized("hist same");
 
-/*                if(elemax > egHLTmax ){
-			hele[i]->DrawNormalized("hist");
-			hegHLT[i]->DrawNormalized("hist same");
-		}
-		else{
-			hegHLT[i]->DrawNormalized("hist");
-			hele[i]->DrawNormalized("hist same");
-		}
-*/		l1[i]->AddEntry(hele[i],"reco ele");
+		l1[i]->AddEntry(hele[i],"reco ele");
 		l1[i]->AddEntry(hegHLT[i],"HLT ele");
 		l1[i]->SetBorderSize(1);
 		l1[i]->SetFillColor(0);
@@ -95,6 +110,8 @@ void draw(){
 		bottom_pad->cd();
 		bottom_pad->SetTopMargin(0);
                 h3[i]->Sumw2();
+		h3[i]->GetYaxis()->SetRangeUser(0.5,1.5);
+//		h3[i]->SetBinError(i+1,h3[i]->GetBinError(i+1)/h3[i]->GetBinContent(i+1));
 		h3[i]->Draw("EP");
 		h3[i]->SetMarkerStyle(20);
 		h3[i]->SetLineStyle(1);
@@ -115,39 +132,47 @@ void draw(){
 		double h3min,h3max;
                 h3min=h3[i]->GetMinimum();
                 h3max=h3[i]->GetMaximum();
-		h3[i]->SetMaximum(h3max+0.5);
-		h3[i]->SetMinimum(h3min-0.5);
+//		h3[i]->SetMaximum(h3max+0.5);
+//		h3[i]->SetMinimum(h3min-0.5);
 		line[i]->SetLineColor(kRed);
 		line[i]->SetLineWidth(2);
 		line[i]->Draw();
 		l1[i]->AddEntry(h3[i],"HLT/reco");
 		top_pad->cd();
 		l1[i]->Draw();
-//		c1[i]->Draw();
+		c1[i]->Draw();
 		c1[i]->Print("./"+filename+name+".pdf");
 	}
+	file->Close();
 }
 void Style(){
-       gStyle->SetPadBorderMode(0);
+//       gStyle->SetPadBorderMode(0);
        gStyle->SetOptStat(0);
        gStyle->SetPadGridX(1);
        gStyle->SetPadGridY(1);
        gStyle->SetPadTickX(1);
        gStyle->SetPadTickY(1);
-       gStyle->SetPadTopMargin(0.07);
-       gStyle->SetPadBottomMargin(0.3);
+//       gStyle->SetPadTopMargin(0.07);
+//       gStyle->SetPadBottomMargin(0.3);
        gStyle->SetPadRightMargin(0.05);
        gStyle->SetPadLeftMargin(0.14);
        gStyle->SetPadTickX(1);
        gStyle->SetPadTickY(1);
-       gStyle->SetAxisColor(1, "XYZ");
-       gStyle->SetStripDecimals(kTRUE);
-       gStyle->SetTickLength(0.03, "XYZ");
-       gStyle->SetNdivisions(510, "XYZ");
+//       gStyle->SetAxisColor(1, "XYZ");
+//       gStyle->SetStripDecimals(kTRUE);
+//       gStyle->SetTickLength(0.03, "XYZ");
+//       gStyle->SetNdivisions(510, "XYZ");
 }
 int drawComp(){
 	Style();
-	draw();
+	TFile* f1 = new TFile("./Seedrootfile/120_200_barrel.root");
+	TFile* f2 = new TFile("./Seedrootfile/120_200_endcap.root");
+	TFile* f3 = new TFile("./Seedrootfile/50_120_barrel.root");
+	TFile* f4 = new TFile("./Seedrootfile/50_120_endcap.root");
+	draw(f1);
+	draw(f2);
+	draw(f3);
+	draw(f4);
 	return 1;
 
 }

@@ -44,6 +44,9 @@ void MakeTemplate::Loop(TString name)
 //   style();
    Long64_t nentries = fChain->GetEntriesFast();
    Long64_t nbytes = 0, nb = 0;
+   double Mchiso = 7.1129;
+   double chisomin = 4;
+   double chisomax = 11;//4~11
    int count=0,a=0;   
 //   nentries = 100000;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -56,6 +59,7 @@ void MakeTemplate::Loop(TString name)
       for(Int_t j=0;j<6;j++){
           if(photon_drla[j]==10) {photon_drla[j]=-10;}
           if(photon_drla2[j]==10) {photon_drla2[j]=-10;}
+	  if(photon_pt[j]>400) photon_pt[j]=399;
           Photon_cut[j]= photon_pev[j]==1 /* photon_pevnew[j]==1*/ && photon_hoe[j]<0.02197 && photon_nhiso[j]<(1.189 + 0.01512*photon_pt[j]+0.00002259*photon_pt[j]*photon_pt[j]) && photon_phoiso[j]<(2.08 + 0.004017*photon_pt[j]) && fabs(photon_eta[j])<1.4442 && photon_pt[j]>20 && photon_pt[j]<400 && photon_drla[j]>0.7 && photon_drla[j]!=10&&photon_drla2[j]>0.7&&photon_drla2[j]<10; 
           if(Photon_cut[j]&&LEP){
              vector_pt.push_back(photon_pt[j]);}
@@ -81,7 +85,7 @@ void MakeTemplate::Loop(TString name)
                  if(photon_sieie[position]<0.01015)
 			{ hsieie[k]->Fill(photon_sieie[position],scalef);}
 	       }//true
-            if(photon_chiso[position]>4 && photon_chiso[position]<13 && photon_pt[position]<highpt[k] &&
+            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] &&
                photon_pt[position]>lowpt[k] && photon_isprompt[position]==1 )
                   {
                       h4[k]->Fill(photon_sieie[position],scalef);
@@ -89,7 +93,7 @@ void MakeTemplate::Loop(TString name)
                   }//fake contribution from true(ZA)
             }
 	 if(name.Contains("D")==1){
-		 if(photon_chiso[position]>5 && photon_chiso[position]<10 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
+		 if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
 		 { h2[k]->Fill(photon_sieie[position],scalef);m2[k]++;}//fake
 
 		 if(photon_chiso[position]<1.141 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
@@ -123,6 +127,11 @@ void MakeTemplate::Loop(TString name)
       for(Int_t i=0;i<num;i++){h1[i]->Write();h4[i]->Write();}
       f1->Close();
    }
+/*   if(name.Contains("A")==1&&name.Contains("EWK")==1){
+      f1= new TFile("./root/True_template-total"+name+".root","recreate");
+      for(Int_t i=0;i<num;i++){h1[i]->Write();h4[i]->Write();}
+      f1->Close();
+   }*/
    if(name.Contains("outDEle")==1){
       f2= new TFile("./root/Fake_template-"+name+".root","recreate");
       for(Int_t i=0;i<num;i++){h2[i]->Write();}

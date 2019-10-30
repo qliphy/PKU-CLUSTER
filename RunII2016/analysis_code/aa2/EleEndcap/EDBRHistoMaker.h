@@ -705,7 +705,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 }
                 if(drla==10)  drla=-10;
                 if(drla2==10)  drla2=-10;
-		if (drll>0.3 &&drla>0.7 && drla2>0.7 && lep == 11 && (HLT_Ele1 > 0 || HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta)<2.5&&fabs(photoneta)>1.566/* && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150&&Mjj<400*/) {
+		if (/*drll>0.3 && drla>0.7 && drla2>0.7 &&*/ lep == 11 && (HLT_Ele1 > 0 || HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150&&Mjj<400) {
 			numbe_out++;
 			treename->Fill();
 		}
@@ -841,7 +841,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 }
 		if(drla==10) drla=-10;
 		if(drla2==10) drla2=-10;
-		if (drll>0.3 && drla>0.7 && drla2>0.7 && lep == 11 && (HLT_Ele1 > 0|| HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& fabs(photoneta)<2.5&&fabs(photoneta)>1.566 /*&& jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7&& Mjj > 150 && Mjj<400*/) {
+		if (/*drll>0.3 && drla>0.7 && drla2>0.7 &&*/ lep == 11 && (HLT_Ele1 > 0|| HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20.&& (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) && jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7&& Mjj > 150 && Mjj<400) {
 			numbe_out++;
 			treename->Fill();
                 //if(filename.Contains("ST")){  cout<<"actualWeight"<<actualWeight<<endl;cout<<"lumiWeight:"<<lumiWeight<<"; pileupWeight:"<<pileupWeight<<"; scalef = "<<scalef<<"; muon1_id_scale = "<<muon1_id_scale<<"; muon2_id_scale = "<<muon2_id_scale<<"; muon1_track_scale = "<<muon1_track_scale<<"; muon_hlt_scale = "<<muon_hlt_scale<<endl;}

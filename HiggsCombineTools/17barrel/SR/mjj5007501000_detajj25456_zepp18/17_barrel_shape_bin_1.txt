@@ -1,0 +1,36 @@
+Combination of 17_barrel_bin_1.txt
+imax 1 number of bins
+jmax 6 number of processes minus 1
+kmax 21 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+shapes *    ch1  FAKE
+----------------------------------------------------------------------------------------------------------------------------------
+bin          ch1      
+observation  86.24    
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                                ch1         ch1         ch1         ch1         ch1         ch1         ch1       
+process                                            VBS         WA          non_prompt  ST          VV          QCD         TTA       
+process                                            0           1           2           3           4           5           6         
+rate                                               16.07       0           17.01       0           0.31        51.32       1.53      
+----------------------------------------------------------------------------------------------------------------------------------
+JER_17                  lnN                        1.02        1.02        -           1.02        1.02        1.02        1.02      
+JES_17                  lnN                        1.02        1.02        -           1.02        1.02        1.02        1.02      
+QCDZA_pdf               lnN                        -           -           -           -           -           1.01        -         
+QCDZA_scale             lnN                        -           -           -           -           -           1.15        -         
+QCDZA_scale_extra       lnN                        -           -           -           -           -           0.98/1.03   -         
+QCD_stat_17_barrel_bin_1   lnN                     -           -           -           -           -           1.06        -         
+TTA_stat_17_barrel_bin_1   lnN                     -           -           -           -           -           -           1.36      
+VBS_stat_17_barrel_bin_1   lnN                     1.03        -           -           -           -           -           -         
+VV_stat_17_barrel_bin_1   lnN                      -           -           -           -           1.99        -           -         
+VVgamma_xs              lnN                        -           -           -           -           1.1         -           -         
+fake_17_barrel          lnN                        -           -           1.08        -           -           -           -         
+interference            lnN                        1.04        -           -           -           -           -           -         
+lumi                    lnN                        1.025       1.025       -           1.025       1.025       1.025       1.025     
+non_prompt_stat_17_barrel_bin_1   lnN              -           -           1.15        -           -           -           -         
+photon_id_17            lnN                        1.03        1.03        -           1.03        1.03        -           1.03      
+pileup                  lnN                        1.01        1.01        -           1.01        1.01        1.01        1.01      
+signal_pdf              lnN                        1.04        -           -           -           -           -           -         
+signal_scale            lnN                        1.04        -           -           -           -           -           -         
+theta17_efficiency      lnN                        1.005       1.005       -           1.005       1.005       1.005       1.005     
+theta17_trigger         lnN                        1.02        1.02        -           1.02        1.02        1.02        1.02      
+ttgamma_xs              lnN                        -           -           -           -           -           -           1.1       

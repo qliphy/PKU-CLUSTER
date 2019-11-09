@@ -7,10 +7,10 @@
 using namespace RooFit;
 using namespace std;
 ofstream file3("info_fit.txt");
-TFile* fdata = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Data_template-cutlep-outDMuon.root");
-//TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/True_template-cutlep-outZA.root");
-TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/True_template-outZA-EWK.root");
-TFile* ffake = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Fake_template-cutlep-outDMuon.root");
+TFile* fdata = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Data_template-cutlep-outDMuon16.root");
+TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/True_template-cutlep-outZA.root");
+//TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/True_template-outZA-EWK.root");
+TFile* ffake = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Fake_template-cutlep-outDMuon16.root");
 TString name;
 void fit(float lowpt, float highpt){
 //TString b="chiso5-12_";
@@ -21,7 +21,7 @@ void fit(float lowpt, float highpt){
 	TH1F* hfake_ = (TH1F*)ffake->Get(Form("h2_pt%0.f-%0.f",lowpt,highpt));
 	TH1F* htrue_ = (TH1F*)ftrue->Get(Form("h1_pt%0.f-%0.f",lowpt,highpt));
         TH1F* hzaf_  = (TH1F*)ftrue->Get(Form("h4_pt%0.f_%0.f",lowpt,highpt));
-        hfake_->Add(hzaf_,-35.86*0.96);
+        hfake_->Add(hzaf_,-35.86);
 	cout<<"OK"<<endl;
 
 /*	Int_t nBins = 9;
@@ -30,7 +30,7 @@ void fit(float lowpt, float highpt){
 		bins[i] = 0.004 + 0.002*i;
 	}*/
 
-        Int_t nBins = 6;
+        Int_t nBins = 6;//6
         Double_t bins[7];
         for (Int_t i=0;i<7;i++){
                 bins[i] = 0.01401 + 0.008*i;
@@ -54,7 +54,7 @@ void fit(float lowpt, float highpt){
 
 	Double_t nData = hdata->GetSumOfWeights();
 //	RooRealVar sieie("sieie", "sieie", 0.004, 0.02);
-        RooRealVar sieie("sieie", "sieie", 0.01401, 0.06201);	
+        RooRealVar sieie("sieie", "sieie", 0.0042, 0.081627);	
 
 	RooDataHist data_hist("datahist", "datahist", sieie, hdata);
 	RooDataHist true_hist("truehist", "truehist", sieie, htrue);
@@ -135,7 +135,7 @@ void fit(float lowpt, float highpt){
 	Double_t nFake_fitErr = nFake.getError();
 
 //	sieie.setRange("window",0.0052,0.0102);
-        sieie.setRange("window",0.01401,0.03001);
+        sieie.setRange("window",0.0042,0.03001);
 
 	RooRealVar *fracFake = (RooRealVar*)efake_pdf.createIntegral(sieie,sieie,"window");
 	Double_t nFake_inwindow = nFake_fit*fracFake->getVal();

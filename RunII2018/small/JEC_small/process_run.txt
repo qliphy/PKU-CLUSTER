@@ -1,0 +1,25 @@
+Submitting job(s).
+1 job(s) submitted to cluster 142265.
+Submitting job(s).
+1 job(s) submitted to cluster 143548.
+JEC_outZA.root
+JEC_cutla-outZA.root
+0; 1185775; cut1 = 0
+1000000; 1185775; cut1 = 173641
+1185775; 206113
+JEC_outTTA.root
+JEC_cutla-outTTA.root
+0; 39334; cut1 = 0
+39334; 3327
+JEC_outWA.root
+JEC_cutla-outWA.root
+0; 6810; cut1 = 0
+6810; 24
+JEC_outST.root
+JEC_cutla-outST.root
+0; 155497; cut1 = 0
+155497; 223
+JEC_outVV.root
+JEC_cutla-outVV.root
+0; 204141; cut1 = 0
+204141; 1061

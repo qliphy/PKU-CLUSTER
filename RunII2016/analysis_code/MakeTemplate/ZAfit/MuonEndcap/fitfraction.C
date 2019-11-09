@@ -11,9 +11,9 @@ using namespace std;
 TString dir = "./fractionfitResult_za/"; 
 ofstream file3( dir + "info_fit1.txt");
 ofstream file2( dir + "info_number.txt");
-TFile* fdata = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Data_template-cutlep-outDMuon.root");
+TFile* fdata = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Data_template-cutlep-outDMuon16.root");
 TFile* ftrue = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/True_template-cutlep-outZA.root");
-TFile* ffake = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Fake_template-cutlep-outDMuon.root");
+TFile* ffake = TFile::Open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAJetfakephoton/MuonEndcap/root/Fake_template-cutlep-outDMuon16.root");
 Double_t fr,fr_Error;
 TString name;
 void fitf(float lowpt, float highpt){
@@ -25,7 +25,8 @@ void fitf(float lowpt, float highpt){
         TH1F* hfake = (TH1F*)ffake->Get(Form("h2_pt%0.f-%0.f",lowpt,highpt));
         TH1F* htrue = (TH1F*)ftrue->Get(Form("h1_pt%0.f-%0.f",lowpt,highpt));
         TH1F* hzaf  = (TH1F*)ftrue->Get(Form("h4_pt%0.f_%0.f",lowpt,highpt));
-        hfake->Add(hzaf,-35.86*0.96);
+        hfake->Add(hzaf,-35.86);
+	htrue->Scale(35.86);
 
         hdata->Sumw2();hfake->Sumw2();htrue->Sumw2(); 
 	cout<<"OK"<<endl;
@@ -77,13 +78,13 @@ void fitf(float lowpt, float highpt){
 
             fit->GetResult( 0, p0, errP0);
             fit->GetResult( 1, p1, errP1);
-	    double fit_err = mcp0->Integral(0, mcp0->FindFixBin(0.03001))*result->Integral()*errP0/mcp0->Integral();
-            fr = p0* (hfake->Integral(0,hfake->FindFixBin(0.03001))/hfake->Integral())/(result->Integral(0,result->FindFixBin(0.03001))/result->Integral());
+	    double fit_err = mcp0->Integral(0, mcp0->FindFixBin(0.03001)-1)*result->Integral()*errP0/mcp0->Integral();
+            fr = p0* (hfake->Integral(0,hfake->FindFixBin(0.03001)-1)/hfake->Integral())/(result->Integral(0,result->FindFixBin(0.03001)-1)/result->Integral());
 
             fakeValue = mcp0->IntegralAndError(0,nBins,fakeError); 
-            fake_window = mcp0->IntegralAndError(0,mcp0->FindFixBin(0.03001),fake_window_Error);
-	    real_window = mcp1->IntegralAndError(0,mcp1->FindFixBin(0.03001),real_window_Error);
-            data_window = result->IntegralAndError(0,result->FindFixBin(0.03001),data_window_Error);
+            fake_window = mcp0->IntegralAndError(0,mcp0->FindFixBin(0.03001)-1,fake_window_Error);
+	    real_window = mcp1->IntegralAndError(0,mcp1->FindFixBin(0.03001)-1,real_window_Error);
+            data_window = result->IntegralAndError(0,result->FindFixBin(0.03001)-1,data_window_Error);
             fr_Error =sqrt(fake_window_Error*fake_window_Error/(data_window*data_window)
                              + fake_window*fake_window*data_window_Error*data_window_Error/(data_window
                               *data_window*data_window*data_window));;
@@ -123,7 +124,7 @@ void fitf(float lowpt, float highpt){
 	    ofstream file(dir + TString("TrueNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
 	    ofstream file1(dir + TString("FakeNumber_") + Form("pt%0.f-%0.f.txt", lowpt, highpt),ios::out);
             file1<<fake_window<<"\t"<<fit_err<<"\t"<<fr<<"\t"<<fr_Error<<endl;
-            myfile <<fr<<"\t"<<fr_Error<<"\t"<<hfake->Integral(0,hfake->FindFixBin(0.03001))<<"\t"<<fakeValue<<"\t"<<fake_window<<endl;
+            myfile <<fr<<"\t"<<fr_Error<<"\t"<<hfake->Integral(0,hfake->FindFixBin(0.03001)-1)<<"\t"<<fakeValue<<"\t"<<fake_window<<endl;
 	    file3<<Form("%0.f<pt<%0.f",lowpt,highpt)<<"\t\t"<<"\t"<<fixed<<setprecision(2)<<fr<<"\t"<<fixed<<setprecision(2)<<fr_Error<<endl;
 //	    file2<<Form("%0.f<pt<%0.f ",lowpt,highpt)<<"\t\t"<<Form("%0.f<chiso<%0.f",lowchiso,highchiso)<<"\t"<<fixed<<setprecision(2)<< mcFake<<"\t"<<fixed<<setprecision(2)<<fake_window<<"\t"<<fixed<<setprecision(2)<<mcFake_err<< fixed<<setprecision(2)<<"\t"<< fake_window_Error<<fixed<<setprecision(2)<<"\t"<<fit_err<<endl;
             myfile.close();

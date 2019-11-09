@@ -53,14 +53,14 @@ void xx::Loop(TString name)
 
       if(drla==10) drla=-1; if(drla2==10) drla2=-1; if(drj1a==10) drj1a=-1;if(drj2a==10) drj2a=-1;
 
-      LEPele = lep==11 && HLT_Ele1>0 && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70. && massVlep<110;
+      LEPele = lep==11 && (HLT_Ele1>0||HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70. && massVlep<110;
       LEPmu = lep==13 && (HLT_Mu1>0||HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles==0 && nloosemus <3  && massVlep >70. && massVlep<110 ;
       SignalRegion= Mjj>500 && deltaetajj>2.5;// && zepp<1.8;
       PHOTON= photonet>20 &&( (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) || (fabs(photoneta)<1.4442) );
       JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
       DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
       if(jentry%1000000==0)   cout<<jentry<<"; "<<nentries<<"; cut1 = "<<cut1<<endl;
-      if( ! ( (LEPmu || LEPele) && PHOTON /*&& JET && DR&& SignalRegion*/  ) )
+      if( ! ( (LEPmu || LEPele) /*&& PHOTON && JET && DR&& SignalRegion*/  ) )
 	      continue;
       if(m_dataset.Contains("contamination")){
 	      if(isprompt!=1 ) continue;

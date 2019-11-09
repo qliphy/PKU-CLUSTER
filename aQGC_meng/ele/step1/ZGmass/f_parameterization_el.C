@@ -18,7 +18,7 @@
 using namespace std;
 void fX0_parameterization_el(int index){
 
-	const TString InData_New = "/eos/uscms/store/user/mlu/ZAjj-more-HLT/AddWeight_step2/";
+	const TString InData_New = "/home/pku/anying/cms/file_in_cms/cutla/cutla-";
 
 	// Specify event selection cuts:
 	TCut the_cut("(lep == 11 && (HLT_Ele1 >0 || HLT_Ele2 >0 ||HLT_Ele3 >0 ||HLT_Ele4 >0 ||HLT_Ele5 >0 ||HLT_Ele6 >0 ||HLT_Ele7 >0 )  && ptlep1 > 25. && ptlep2 > 25. && abs(etalep1) < 2.5 && abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus ==0 && massVlep > 70. && massVlep < 110. && jet1pt>30. && jet2pt>30.&& abs(jet1eta)< 4.7 && abs(jet2eta)<4.7 && Mjj>500. &&deltaetajj>2.5 && photonet>80.&&(abs(photoneta)<1.4442||(abs(photoneta)>1.566&&abs(photoneta)<2.5)))");
@@ -47,7 +47,7 @@ void fX0_parameterization_el(int index){
 	fout = new TFile("signal_proc_el__"+name+".root", "RECREATE");
 	// The input tree
 	TFile *f_file;
-	f_file =  new TFile(InData_New+"outaQGC.root");
+	f_file =  new TFile(InData_New+"outZA_aQGC.root");
 	fano->cd();
 	TTree* torig = (TTree*) f_file->Get("demo");
 	TTree* treef = (TTree*) torig->CopyTree(the_cut);
@@ -89,24 +89,25 @@ void fX0_parameterization_el(int index){
 
 	// Ratio of fT0
 
+        double xxf[17];
 	std::ofstream ParamSetf ;
 //	ParamSetf.open("paramsets_fT0_el.txt");
-	if(index==1) {ParamSetf.open("paramsets_fM0_el.txt");double xf[17] = {-150, -120, -80, -60, -50, -30, -20, -8, 0, 8, 20, 30, 50, 60, 80, 120, 150};}
-        if(index==2) {ParamSetf.open("paramsets_fM1_el.txt");double xf[17] = {-400, -300, -200, -150, -100, -80, -50, -20, 0, 20, 50, 80, 100, 150, 200, 300, 400};}
-        if(index==3) {ParamSetf.open("paramsets_fM2_el.txt");double xf[17] = {-100, -50, -40, -30, -20, -10, -5, -1, 0, 1, 5, 10, 20, 30, 40, 50, 100};}
-        if(index==4) {ParamSetf.open("paramsets_fM3_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};}
-        if(index==5) {ParamSetf.open("paramsets_fM4_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};}
-        if(index==6) {ParamSetf.open("paramsets_fM5_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};}
-        if(index==7) {ParamSetf.open("paramsets_fM6_el.txt");double xf[17] = {-250, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 250};}
-        if(index==8) {ParamSetf.open("paramsets_fM7_el.txt");double xf[17] = {-200, -120, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 120, 200};}
-        if(index==9) {ParamSetf.open("paramsets_fT0_el.txt");double xf[17] = {-20, -10, -6, -5, -3, -2, -1, -0.6, 0, 0.6, 1, 2, 3, 5, 6, 10, 20};}
-        if(index==10) {ParamSetf.open("paramsets_fT1_el.txt");double xf[17] = {-20, -10, -6, -5, -3, -2, -1, -0.6, 0, 0.6, 1, 2, 3, 5, 6, 10, 20};}
-        if(index==11) {ParamSetf.open("paramsets_fT2_el.txt");double xf[17] = {-40, -20, -15, -10, -8, -6, -4, -1, 0, 1, 4, 6, 8, 10, 15, 20, 40};}
-        if(index==12) {ParamSetf.open("paramsets_fT5_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};}
-        if(index==13) {ParamSetf.open("paramsets_fT6_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};}
-        if(index==14) {ParamSetf.open("paramsets_fT7_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};}
-        if(index==15) {ParamSetf.open("paramsets_fT8_el.txt");double xf[17] = {-20, -8, -6, -4, -3, -2, -1, -0.5, 0, 0.5, 1, 2, 3, 4, 6, 8, 20};}
-        if(index==16) {ParamSetf.open("paramsets_fT9_el.txt");double xf[17] = {-20, -8, -6, -4, -3, -2, -1, -0.5, 0, 0.5, 1, 2, 3, 4, 6, 8, 20};}
+	if(index==1) {ParamSetf.open("paramsets_fM0_el.txt");double xf[17] = {-150, -120, -80, -60, -50, -30, -20, -8, 0, 8, 20, 30, 50, 60, 80, 120, 150};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==2) {ParamSetf.open("paramsets_fM1_el.txt");double xf[17] = {-400, -300, -200, -150, -100, -80, -50, -20, 0, 20, 50, 80, 100, 150, 200, 300, 400};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==3) {ParamSetf.open("paramsets_fM2_el.txt");double xf[17] = {-100, -50, -40, -30, -20, -10, -5, -1, 0, 1, 5, 10, 20, 30, 40, 50, 100};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==4) {ParamSetf.open("paramsets_fM3_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==5) {ParamSetf.open("paramsets_fM4_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==6) {ParamSetf.open("paramsets_fM5_el.txt");double xf[17] = {-200, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 200};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==7) {ParamSetf.open("paramsets_fM6_el.txt");double xf[17] = {-250, -100, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 100, 250};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==8) {ParamSetf.open("paramsets_fM7_el.txt");double xf[17] = {-200, -120, -80, -60, -40, -20, -10, -5, 0, 5, 10, 20, 40, 60, 80, 120, 200};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==9) {ParamSetf.open("paramsets_fT0_el.txt");double xf[17] = {-20, -10, -6, -5, -3, -2, -1, -0.6, 0, 0.6, 1, 2, 3, 5, 6, 10, 20};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==10) {ParamSetf.open("paramsets_fT1_el.txt");double xf[17] = {-20, -10, -6, -5, -3, -2, -1, -0.6, 0, 0.6, 1, 2, 3, 5, 6, 10, 20};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==11) {ParamSetf.open("paramsets_fT2_el.txt");double xf[17] = {-40, -20, -15, -10, -8, -6, -4, -1, 0, 1, 4, 6, 8, 10, 15, 20, 40};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==12) {ParamSetf.open("paramsets_fT5_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==13) {ParamSetf.open("paramsets_fT6_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==14) {ParamSetf.open("paramsets_fT7_el.txt");double xf[17] = {-40, -10, -8, -6, -5, -4, -2, -1, 0, 1, 2, 4, 5, 6, 8, 10, 40};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==15) {ParamSetf.open("paramsets_fT8_el.txt");double xf[17] = {-20, -8, -6, -4, -3, -2, -1, -0.5, 0, 0.5, 1, 2, 3, 4, 6, 8, 20};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
+        if(index==16) {ParamSetf.open("paramsets_fT9_el.txt");double xf[17] = {-20, -8, -6, -4, -3, -2, -1, -0.5, 0, 0.5, 1, 2, 3, 4, 6, 8, 20};for(int i=0;i<17;i++){xxf[i]=xf[i];} }
 
 	// Times 10^{-12} (GeV^{-4})
 //	const double xf[17] = {-20, -10, -6, -5, -3, -2, -1, -0.6, 0, 0.6, 1, 2, 3, 5, 6, 10, 20};
@@ -161,7 +162,7 @@ void fX0_parameterization_el(int index){
 		rf[15]=rf[15]/rsm;
 		rf[16]=rf[16]/rsm;
 
-		TGraph *gr = new TGraph(17,xf,rf);
+		TGraph *gr = new TGraph(17,xxf,rf);
 		double low;
 		double high;
 		if(index==1) {low=-150;high=150;};

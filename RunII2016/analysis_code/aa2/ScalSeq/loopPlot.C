@@ -43,23 +43,24 @@ void loopPlot() {
         /// file for scale factors
 
 // Setup names of data files for trees.
-	const int nDATA = 1;
+	const int nDATA = 2;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
 			<< std::endl;
-	std::string dataLabels[nDATA] = { "Data" };
+	std::string dataLabels[nDATA] = { "DMuon16","DEle16" };
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
 		fData.push_back(pathToTrees + "cutla-out" + dataLabels[ii] + ".root");
 	}
 // set mc imformation
-		const int nMC = 6;
+		const int nMC = 9;
 		std::cout << "set data imformation, we have " << nMC << "mc file"
 				<< std::endl;
 		//std::string mcLabels[nMC] = { "ZJets_FX", "ZA" };
 		//std::string mcLabels[nMC] = {"ST","TTA","VV","WA", "ZJets_FX","WJets","TTJets","ZA" };
 		std::string mcLabels[nMC] = {"ST", "TTA", "VV","WA", 
-                                             "plj", "ZA" };
-		double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,1,lumiValue};
+                                             "plj_mubarrel","plj_muendcap","plj_elebarrel",
+                                             "plj_eleendcap", "ZA" };
+		double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,1,1,1,1,lumiValue};
 		//double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue};
 		std::vector< std::string > fMC;
 		for (int ii = 0; ii < nMC; ii++) {

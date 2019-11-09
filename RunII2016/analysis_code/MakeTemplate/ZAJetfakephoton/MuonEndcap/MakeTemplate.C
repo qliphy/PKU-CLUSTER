@@ -48,6 +48,7 @@ void MakeTemplate::Loop(TString name)
    double Mchiso = 5.83;
    double chisomax = 8;
    double chisomin = 3;//3~8   
+   double actualWeight;
 //   nentries = 100000;
 //   cout<<"lowpt[0]"<<lowpt[0]<<endl;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -87,24 +88,31 @@ void MakeTemplate::Loop(TString name)
 //	      cout<<"lowpt["<<k<<"] "<<lowpt[k]<<endl;
 //	      cout<<"highpt["<<k<<"] "<<highpt[k]<<endl;
          if(name.Contains("A")==1){
-            if(photon_isprompt[position]==1 && photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-               { h1[k]->Fill(photon_sieie[position],scalef);m1[k] +=scalef;}//true
-	    if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax &&
-               photon_pt[position]<highpt[k] &&  photon_pt[position]>lowpt[k] &&
-               photon_isprompt[position]==1 )
-	    {
-                    h4[k]->Fill(photon_sieie[position],scalef);
-//                    cout<<"fake contribution from ZA"<<endl;
-	    }//fake contribution from true(ZA)
-	 }
+                 actualWeight  = scalef*prefWeight*pileupWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale*muon_hlt_scale*muon1_track_scale*muon2_track_scale;
+                 if(photon_isprompt[position]==1 && photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){ 
+                          h1[k]->Fill(photon_sieie[position],actualWeight);
+                          m1[k] +=actualWeight;
+                  }//true
+	                if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax &&
+                     photon_pt[position]<highpt[k] &&  photon_pt[position]>lowpt[k] &&
+                     photon_isprompt[position]==1 ){
+                            h4[k]->Fill(photon_sieie[position],actualWeight);
+//                          cout<<"fake contribution from ZA"<<endl;
+	                }//fake contribution from true(ZA)
+	      }else{
+               actualWeight=scalef;
+               if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && 
+                  photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){ 
+                     h2[k]->Fill(photon_sieie[position],actualWeight);
+                     m2[k] +=actualWeight;
+               }//fake
 
-         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-            { h2[k]->Fill(photon_sieie[position],scalef);m2[k] +=scalef;}//fake
-
-         if(photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-            { h3[k]->Fill(photon_sieie[position],scalef);
-              m3[k] += scalef;}//data
-       }
+               if(photon_chiso[position]<0.442 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){
+                     h3[k]->Fill(photon_sieie[position],actualWeight);
+                     m3[k] += actualWeight;
+               }//data
+         }
+     }
          vector_pt.clear();
    }
    /*ff = new TFile("./root/Three_template.root","recreate");*/
@@ -178,7 +186,7 @@ void MakeTemplate::histo(){
          h1[i]=new TH1D(Form("h1_pt%0.f-%0.f",lowpt[i],highpt[i]),"true template",bin,xlow,xhigh);
          h2[i]=new TH1D(Form("h2_pt%0.f-%0.f",lowpt[i],highpt[i]),"fake template",bin,xlow,xhigh);
          h3[i]=new TH1D(Form("h3_pt%0.f-%0.f",lowpt[i],highpt[i]),"data template",bin,xlow,xhigh);
-         h4[i]=new TH1D(Form("h4_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake contribution from ZA",bin,0,xhigh);
+         h4[i]=new TH1D(Form("h4_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake contribution from ZA",bin,xlow,xhigh);
      }
 }
 
@@ -236,9 +244,9 @@ void MakeTemplate::draw(TCanvas *c,TH1D *h1,TH1D *h2,TH1D *h3,Double_t ptlow,Dou
 void MakeTemplate::ResetVal(){
 //	lowpt[num]= {20,25,30,35,40,50,65,100};
 //	highpt[num]={25,30,35,40,50,65,100,400};
-   bin=20;
+   bin=30;
    xlow= 0.0042;
-   xhigh=  0.08;
+   xhigh=  0.08163;
 
    for(Int_t i=0;i<9;i++){
       m1[i]=0;

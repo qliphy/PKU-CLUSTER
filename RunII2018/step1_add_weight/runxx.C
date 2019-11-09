@@ -17,7 +17,7 @@ while (k>0){
 getline (infile, buffer) ;
 name = buffer;
 TString infilename = /*"cutlep-out"+*/name;
-TString outname="cutla-out"+name;
+TString outname=/*"cutla-*/"out"+name;
 if(infilename.Contains("root")==0) {k=-2; continue;}
 
 cout<<outname<<endl;

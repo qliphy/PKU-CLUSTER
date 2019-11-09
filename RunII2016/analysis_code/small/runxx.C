@@ -5,9 +5,8 @@ using namespace std;
 
 void runxx() {
 //TString dir="/data/pku/home/anying/cms/CMSSW_8_0_26_patch2/analysis_code/MakeTemplate/ZAJetfakeohoton/pesudo/";
-//TString dir = "/home/pku/anying/cms/RunII2016/analysis_code/step1_add_weight/";
-//TString dir = "/home/pku/anying/cms/file_in_cms/files_weighted/";
 TString dir = "/home/pku/anying/cms/file_in_cms/cutLEP/";
+//TString dir = "/home/pku/anying/cms/file_in_cms/files_weighted/";
 ifstream infile("file");
 string buffer;
 TString infilename;
@@ -18,7 +17,9 @@ while (k>0){
 getline (infile, buffer) ;
 infilename = buffer;
 if(infilename.Contains(".root")==0) {k=-2; continue;}
+//TString outname="cutla-"+infilename;
 TString outname="cutla-"+infilename;
+//infilename = "cutlep-"+ infilename;
 infilename = "cutlep-"+ infilename;
 
 cout<<infilename<<endl;

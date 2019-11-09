@@ -35,6 +35,9 @@ public :
 
    // Declaration of leaf types
    Double_t        scalef;
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Int_t           run_period;
    Double_t        ele1_id_scale;
    Double_t        ele2_id_scale;
@@ -264,6 +267,9 @@ public :
 
    // List of branches
    TBranch        *b_scalef;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_run_period;   //!
    TBranch        *b_ele1_id_scale;   //!
    TBranch        *b_ele2_id_scale;   //!
@@ -601,6 +607,9 @@ void MakeTemplate::Init(TTree *tree)
    fChain->SetMakeClass(1);
 
    fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("run_period", &run_period, &b_run_period);
    fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale, &b_ele1_id_scale);
    fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale, &b_ele2_id_scale);

@@ -573,7 +573,7 @@ void xx::Init(TTree *tree)
 //Add
     ExTree->Branch("scalef",&scalef,"scalef/D");
     ExTree->Branch("run_period", &run_period, "run_period/I");
-//    ExTree->Branch("pweight", &pweight, "pweight[703]/D");
+    ExTree->Branch("pweight", &pweight, "pweight[703]/D");
  
  // lep and photon scales
     ExTree->Branch("ele1_id_scale", &ele1_id_scale, "ele1_id_scale/D");

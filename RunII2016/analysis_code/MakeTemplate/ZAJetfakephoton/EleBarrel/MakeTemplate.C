@@ -44,8 +44,9 @@ void MakeTemplate::Loop(TString name)
    TFile* fout = new TFile("./T-"+name +".root", "RECREATE");
    TTree* ExTree = fChain->CloneTree(0);
    int jet=0,n=0;
+   double actualWeight;
    Double_t Mchiso=8.2678;
-   Double_t chisomin=Mchiso;
+   Double_t chisomin=5;
    Double_t chisomax=12;//5~12
    
 //   nentries = 100000;
@@ -82,24 +83,26 @@ void MakeTemplate::Loop(TString name)
 //    if(name.Contains("Ele")&&photon_chiso[position]>4&&photon_chiso[position]<10)cout<<"Fake template"<<"; "<<photon_chiso[position]<<"; "<<photon_pt[position]<<endl;
       for(Int_t k=0;k<9;k++){
          if(name.Contains("A")==1){
-            if(photon_isprompt[position]==1 && photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-               { h1[k]->Fill(photon_sieie[position],scalef);m1[k] +=scalef;}//true
-            if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax &&
-               photon_pt[position]<highpt[k] &&  photon_pt[position]>lowpt[k] &&
-               photon_isprompt[position]==1 )
-            {
-                    h4[k]->Fill(photon_sieie[position],scalef);
-//                    cout<<"fake contribution from ZA"<<endl;
-	    }//fake contribution from true(ZA)
+		 actualWeight = scalef*ele1_id_scale*ele2_id_scale*ele1_reco_scale*ele2_reco_scale*prefWeight;
+		 if(photon_isprompt[position]==1 && photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){
+			 h1[k]->Fill(photon_sieie[position],actualWeight);m1[k] +=actualWeight;
+		 }//true
+		 if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax &&
+				 photon_pt[position]<highpt[k] &&  photon_pt[position]>lowpt[k] &&
+				 photon_isprompt[position]==1 ){
+			 h4[k]->Fill(photon_sieie[position],actualWeight);
+			 //                    cout<<"fake contribution from ZA"<<endl;
+		 }//fake contribution from true(ZA)
 	 }
 
          if(name.Contains("Ele")==1){
-         if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-            { h2[k]->Fill(photon_sieie[position]);m2[k]++;}//fake
+		 actualWeight=scalef;
+		 if(photon_chiso[position]>chisomin && photon_chiso[position]<chisomax && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){
+			 h2[k]->Fill(photon_sieie[position]);m2[k]++;}//fake
 
-         if(photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k])
-            { h3[k]->Fill(photon_sieie[position]);
-              m3[k]++;}//data
+		 if(photon_chiso[position]<0.441 && photon_pt[position]<highpt[k] && photon_pt[position]>lowpt[k]){
+			 h3[k]->Fill(photon_sieie[position]);
+			 m3[k]++;}//data
 	 }
        }
          vector_pt.clear();
@@ -174,13 +177,13 @@ void MakeTemplate::style(){
 
 void MakeTemplate::histo(){
   bin=20;
-  xlow= 0.;
-  xhigh= 0.02;
+  xlow= 0.0002;
+  xhigh= 0.0202;
   for(Int_t i=0;i<9;i++){
-         h1[i]=new TH1D(Form("h1_pt%0.f-%0.f",lowpt[i],highpt[i]),"true template",bin,0,xhigh);
-         h2[i]=new TH1D(Form("h2_pt%0.f-%0.f",lowpt[i],highpt[i]),"fake template",bin,0,xhigh);
-         h3[i]=new TH1D(Form("h3_pt%0.f-%0.f",lowpt[i],highpt[i]),"data template",bin,0,xhigh);
-         h4[i]=new TH1D(Form("h4_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake contribution from ZA",bin,0,xhigh);
+         h1[i]=new TH1D(Form("h1_pt%0.f-%0.f",lowpt[i],highpt[i]),"true template",bin,xlow,xhigh);
+         h2[i]=new TH1D(Form("h2_pt%0.f-%0.f",lowpt[i],highpt[i]),"fake template",bin,xlow,xhigh);
+         h3[i]=new TH1D(Form("h3_pt%0.f-%0.f",lowpt[i],highpt[i]),"data template",bin,xlow,xhigh);
+         h4[i]=new TH1D(Form("h4_pt%0.f_%0.f",lowpt[i],highpt[i]),"fake contribution from ZA",bin,xlow,xhigh);
      }
 }
 
@@ -240,8 +243,8 @@ void MakeTemplate::ResetVal(){
 //   lowpt[7] ={25,30,35,40,50,65,100};
 //   highpt[7]={30,35,40,50,65,100,400};
    bin=20;
-   xlow=0.;
-   xhigh=0.02;
+   xlow=0.0002;
+   xhigh=0.0202;
    for(Int_t i=0;i<9;i++){
       m1[i]=0;
       m2[i]=0;

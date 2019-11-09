@@ -84,3 +84,15 @@ open the ele ID file: 2018_ElectronMedium.root
 open the ele RECO file: egammaEffi.txt_EGM2D_updatedAll.root
 open the photon ID file: 2018_PhotonsMedium.root
  0 1 0.000383233 0.994352 cutlep-outZA-EWK-pweight.root 0 51209
+cutlep-outZA-EWK-pweight.root
+cutlep-outZA-EWK-pweight.root
+outZA-EWK-pweight.root
+outZA-EWK-pweight.root
+numberofnp:286824  numberofnm:575
+open the file: puweight.root
+open the muon ID file: EfficienciesStudies_2018_rootfiles_RunABCD_SF_ID.root
+open the muon ISO file: EfficienciesStudies_2018_rootfiles_RunABCD_SF_ISO.root
+open the ele ID file: 2018_ElectronMedium.root
+open the ele RECO file: egammaEffi.txt_EGM2D_updatedAll.root
+open the photon ID file: 2018_PhotonsMedium.root
+ 0 1 6.95323e-310 0.994352 outZA-EWK-pweight.root 0 287399

@@ -813,8 +813,8 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 //	        if(outFileName.find("ZJets") != std::string::npos){
 //                      scalef=0.07487*fabs(theWeight)/theWeight;
 //                }
-//		actualWeight = lumiWeight * pileupWeight * scalef;
-		actualWeight = scalef;
+		actualWeight = lumiWeight * pileupWeight * scalef;
+//		actualWeight = scalef;
 		detajj = fabs(jet1eta - jet2eta);
 		if (fabs(jet1phi-jet2phi)>Pi) drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(2*Pi-fabs(jet1phi-jet2phi))*(2*Pi-fabs(jet1phi-jet2phi)));
                 else drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(fabs(jet1phi-jet2phi))*(fabs(jet1phi-jet2phi)));

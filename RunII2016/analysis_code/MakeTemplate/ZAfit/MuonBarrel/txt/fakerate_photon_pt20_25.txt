@@ -1,8 +1,8 @@
-data in window = 7541+-86.8389 29 535 6977 2022 1385 1131 587
-nDatatotal = 12899
-fake number = 7725.68+-121.118
-true number = 5172.95+-110.083
-fake in window = 2967.95+-46.5296
-true in window = 4697.5+-99.9652
-fakerate = 0.393576+-0.00765591
-chi2ToNDF = 13.9488
+data in window = 8163+-90.3493 33 594 7536 2182 1517 1238 647
+nDatatotal = 14008
+fake number = 8417.28+-125.45
+true number = 5590.28+-113.632
+fake in window = 3206.96+-47.796
+true in window = 5091.38+-103.491
+fakerate = 0.392865+-0.00729322
+chi2ToNDF = 14.9114

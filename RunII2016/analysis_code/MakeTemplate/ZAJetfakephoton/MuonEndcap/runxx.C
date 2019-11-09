@@ -4,7 +4,7 @@
 using namespace std;
 
 void runxx() {
-TString dir="/data/pku/home/anying/cms/file_in_cms/files_weighted/";
+TString dir="/data/pku/home/anying/cms/file_in_cms/cutLEP/";
 //TString dir = "./rootfiles/";
 ifstream infile("file");
 string buffer;

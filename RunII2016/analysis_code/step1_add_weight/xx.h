@@ -785,7 +785,7 @@ void xx::Init(TTree *tree)
    ExTree->Branch("passFilter_duplicateMuon", &passFilter_duplicateMuon,       "passFilter_duplicateMuon_/O");
    ExTree->Branch("lumiWeight", &lumiWeight,     "lumiWeight/D");
    ExTree->Branch("pileupWeight", &pileupWeight, "pileupWeight/D");
-   ExTree->Branch("pweight", &pweight, "pweight[703]/D");
+//   ExTree->Branch("pweight", &pweight, "pweight[703]/D");
    ExTree->Branch("prefWeight", &prefWeight, "prefWeight/D");
    ExTree->Branch("prefWeightUp", &prefWeightUp, "prefWeightUp/D");
    ExTree->Branch("prefWeightDown", &prefWeightDown, "prefWeightDown/D");

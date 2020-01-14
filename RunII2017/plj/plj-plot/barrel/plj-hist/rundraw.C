@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 void runjet() {
-TString dir="/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+TString dir="/eos/user/y/yian/2017cutla/";
 
 ifstream infile("file");
 string buffer; 
@@ -19,7 +19,7 @@ TString inname;
 //if(name.Contains("plj")) {inname = name +".root";}
 //else {inname = "cutla-" + name +".root";}
 inname = name +".root";
-TString outname = name+"_hb.root";
+TString outname = name+"_barrel.root";
 cout<<name<<endl;
 cout<<outname<<endl;
 TFile *file1 =new TFile(dir+inname);

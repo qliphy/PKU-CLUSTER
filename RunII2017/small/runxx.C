@@ -5,8 +5,8 @@ using namespace std;
 
 void runxx() {
 //gROOT->LoadMacro("xx.C");
-TString dir ="/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/";
-//TString dir = "../";
+TString dir ="/eos/user/y/yian/2017cutla/";
+//TString dir = "./";
 //TString dir = "../plj/plj-production/";
 //TString dir = "/uscms_data/d3/qliphy/andy/CMSSW_9_4_9_cand2/plj/plj-production/";
 ifstream infile("file");
@@ -19,8 +19,8 @@ while (k>0){
 getline (infile, buffer) ;
 infilename = buffer;
 if(infilename.Contains("out")==0) {k=-2; continue;}
-TString outname="cutla-"+ infilename+".root";
-TString inname= /*"cutlep-"+*/infilename+".root";
+TString outname="cutlaj-"+ infilename+".root";
+TString inname= "cutla-"+infilename+".root";
 
 cout<<inname<<endl;
 

@@ -1,6 +1,6 @@
 void th2draw(){
 
-TFile* file = new TFile("2d_jec.root");
+TFile* file = new TFile("2d_ZA_jec.root");
 TFile* f = new TFile("drawth2.root","RECREATE");
 TH2D* h2[3];
 TCanvas* c[3];

@@ -41,7 +41,8 @@ void plj::Loop()
    ifstream f1;
 //   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/endcap/step1/pljweight_down.txt");
 //   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/endcap/step1/pljweight_up.txt");
-   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/endcap/step1/pljweight.txt");
+//   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/endcap/step1/pljweight.txt");
+   f1.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/endcap/pljweight.txt");
    Double_t scalef_f[7];
    for(Int_t i=0;i<7;i++){
       f1>>scalef_f[i];

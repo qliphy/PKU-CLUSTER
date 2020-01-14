@@ -1,6 +1,6 @@
 Double_t fakerate[9];
-Double_t lowpt[9]= {20,25,30,35,40,45,50,60,100};
-Double_t highpt[9]={25,30,35,40,45,50,60,100,400};
+Double_t lowpt[9]= {20,25,30,35,40,45,50,65,100};
+Double_t highpt[9]={25,30,35,40,45,50,65,100,400};
 Double_t bin_data[9],bin_plj[9],bin_za[9];
 Double_t weight[9];
 TFile* f1 = new TFile("./plj-hist/cutla-outDEle_plj_he.root");
@@ -42,7 +42,7 @@ void draw(){
 void open(Int_t i){
     
     ifstream f1;
-    f1.open(Form("./eleEndcap-ff/fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
+    f1.open(Form("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2018/MakeTemplate/ElectronEndcap/ZAfit/txt/fakerate_ZA_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
 //    f1.open(Form("./eleBarrel-ff/fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
     if(!f1.is_open()) cout<<"can not open the file: "<<Form("fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i])<<endl;
    // if(f1.is_open()) cout<<"open the file: "<<Form("fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i])<<endl;
@@ -56,7 +56,7 @@ for(Int_t i=0;i<9;i++){
 draw();
 ofstream file("./ele-endcap-pljweight/pljweight.txt");
 //ofstream file("./ele-barrel-pljweight/pljweight.txt");
-const char *name[9]={"20~25","25~30","30~35","35~40","40~45","45~50","50~60","60~100","100~400"};
+const char *name[9]={"20~25","25~30","30~35","35~40","40~45","45~50","50~65","65~100","100~400"};
 for(Int_t i=0;i<9;i++){
 //   weight[i]=bin_data[i]*fakerate[i]/bin_plj[i];
 //   cout<<"bin "<<name[i]<<" ;"<<"data : "<<bin_data[i]<<"; plj : "<<bin_plj[i]<<"; fakerate : "<<fakerate[i]<<"; weight : "<<weight[i]<<endl;

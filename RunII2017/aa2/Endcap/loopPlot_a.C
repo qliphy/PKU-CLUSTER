@@ -36,7 +36,7 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+	std::string pathToTrees = "/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/small/";
 	std::string outputDir = "./fig-output_a/";
 	
 	RoccoR  rc("./RoccoR2017.txt");
@@ -49,7 +49,7 @@ void loopPlot() {
 	std::string dataLabels[nDATA] = { "Muon" ,"Ele"};
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
-		fData.push_back(pathToTrees + "cutla-outD" + dataLabels[ii] + ".root");
+		fData.push_back(pathToTrees + "cutlaj-outD" + dataLabels[ii] + ".root");
 	}
 // set mc imformation
 		const int nMC = 6;
@@ -66,7 +66,7 @@ void loopPlot() {
 		double kFactorsMC_array[nMC] = {lumiValue, lumiValue,lumiValue,lumiValue,1,lumiValue};
 		std::vector< std::string > fMC;
 		for (int ii = 0; ii < nMC; ii++) {
-			fMC.push_back(pathToTrees +"cutla-out"+ mcLabels[ii] + ".root");
+			fMC.push_back(pathToTrees +"cutlaj-out"+ mcLabels[ii] + ".root");
 		}
 		std::vector<double> kFactorsMC;
 		for (int index = 0; index < nMC; index++) {
@@ -81,7 +81,7 @@ void loopPlot() {
 	double kFactorsSig_array[nMCSig] = { 1 };
 	std::vector < std::string > fMCSig;
 	for (int ii = 0; ii < nMCSig; ii++) {
-		fMCSig.push_back(pathToTrees + "cutla-out" + mcLabelsSig[ii] + ".root");
+		fMCSig.push_back(pathToTrees + "cutlaj-out" + mcLabelsSig[ii] + ".root");
 	}
 	std::vector<double> kFactorsMCSig;
 	for (int index = 0; index < nMCSig; index++) {

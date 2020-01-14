@@ -39,7 +39,7 @@ void MakeTemplate::Loop(TString name)
    if (fChain == 0) return;
    ResetVal();   
    histo();
-   TFile* fout = new TFile("./rootfiles/"+name+".root", "RECREATE");
+   TFile* fout = new TFile("./"+name+".root", "RECREATE");
    TTree* ExTree = fChain->CloneTree(0);
 //   style();
    Long64_t nentries = fChain->GetEntriesFast();

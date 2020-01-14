@@ -37,8 +37,6 @@ public :
    Int_t           event;
    Int_t           nVtx;
    Double_t        theWeight;
-   Double_t        pweight[703];
-   Double_t        scalef;
    Double_t        nump;
    Double_t        numm;
    Double_t        npT;
@@ -208,6 +206,10 @@ public :
    Bool_t          passFilter_duplicateMuon;
    Double_t        lumiWeight;
    Double_t        pileupWeight;
+   Double_t        pweight[703];
+   Double_t        prefWeight;
+   Double_t        prefWeightUp;
+   Double_t        prefWeightDown;
    Double_t        lep1_eta_station2;
    Double_t        lep1_phi_station2;
    Double_t        lep2_eta_station2;
@@ -273,10 +275,8 @@ public :
 
    // List of branches
    TBranch        *b_event;   //!
-   TBranch        *b_scalef;   //!
    TBranch        *b_nVtx;   //!
    TBranch        *b_theWeight;   //!
-   TBranch        *b_pweight;   //!
    TBranch        *b_nump;   //!
    TBranch        *b_numm;   //!
    TBranch        *b_npT;   //!
@@ -446,6 +446,10 @@ public :
    TBranch        *b_passFilter_duplicateMuon_;   //!
    TBranch        *b_lumiWeight;   //!
    TBranch        *b_pileupWeight;   //!
+   TBranch        *b_pweight;   //!
+   TBranch        *b_prefWeight;   //!
+   TBranch        *b_prefWeightUp;   //!
+   TBranch        *b_prefWeightDown;   //!
    TBranch        *b_lep1_eta_station2;   //!
    TBranch        *b_lep1_phi_station2;   //!
    TBranch        *b_lep2_eta_station2;   //!
@@ -498,7 +502,7 @@ public :
  private:
      TTree *ExTree;
      TFile *fout;
-//     double scalef;
+     double scalef;
 };
 
 #endif
@@ -509,13 +513,23 @@ xx::xx(TTree *tree,TString dataset) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
+
+#ifdef SINGLE_TREE
+      // The following code should be used if you want this class to access
+      // a single tree instead of a chain
       TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("WAJ-fxfx.root");
       if (!f || !f->IsOpen()) {
          f = new TFile("WAJ-fxfx.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("WAJ-fxfx.root:/treeDumper");
-      dir->GetObject("ZPKUCandidates",tree);
+      f->GetObject("treeDumper/ZPKUCandidates",tree);
+#else // SINGLE_TREE
 
+      // The following code should be used if you want this class to access a chain
+      // of trees.
+      TChain * chain = new TChain("treeDumper/ZPKUCandidates","");
+      chain->Add("./DEle16B.root/treeDumper/ZPKUCandidates");
+      tree = chain;
+#endif // SINGLE_TREE
    }
    
 
@@ -761,6 +775,9 @@ void xx::Init(TTree *tree)
    ExTree->Branch("passFilter_duplicateMuon", &passFilter_duplicateMuon,       "passFilter_duplicateMuon_/O");
    ExTree->Branch("lumiWeight", &lumiWeight,     "lumiWeight/D");
    ExTree->Branch("pileupWeight", &pileupWeight, "pileupWeight/D");
+   ExTree->Branch("prefWeight", &prefWeight, "prefWeight/D");
+   ExTree->Branch("prefWeightUp", &prefWeightUp, "prefWeightUp/D");
+   ExTree->Branch("prefWeightDown", &prefWeightDown, "prefWeightDown/D");
    ExTree->Branch("lep1_eta_station2", &lep1_eta_station2, "lep1_eta_station2/D");
    ExTree->Branch("lep1_phi_station2", &lep1_phi_station2, "lep1_phi_station2/D");
    ExTree->Branch("lep1_sign", &lep1_sign,                 "lep1_sign/I");
@@ -795,14 +812,14 @@ void xx::Init(TTree *tree)
    ExTree->Branch("lhe_photon_py", &lhe_photon_py, "lhe_photon_py/D");
    ExTree->Branch("lhe_photon_pz", &lhe_photon_pz, "lhe_photon_pz/D");
    ExTree->Branch("lhe_photon_e", &lhe_photon_e,   "lhe_photon_e/D");
+
    ExTree->Branch("l1_weight",&l1_weight,"l1_weight/D");
 //inherent branches
 
-   fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+//   fChain->SetBranchAddress("scalef", &scalef_tmp, &b_scalef);
    fChain->SetBranchAddress("event", &event, &b_event);
    fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
    fChain->SetBranchAddress("theWeight", &theWeight, &b_theWeight);
-   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
    fChain->SetBranchAddress("nump", &nump, &b_nump);
    fChain->SetBranchAddress("numm", &numm, &b_numm);
    fChain->SetBranchAddress("npT", &npT, &b_npT);
@@ -972,6 +989,10 @@ void xx::Init(TTree *tree)
    fChain->SetBranchAddress("passFilter_duplicateMuon", &passFilter_duplicateMuon, &b_passFilter_duplicateMuon_);
    fChain->SetBranchAddress("lumiWeight", &lumiWeight, &b_lumiWeight);
    fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
+   fChain->SetBranchAddress("pweight", pweight, &b_pweight);
+   fChain->SetBranchAddress("prefWeight", &prefWeight, &b_prefWeight);
+   fChain->SetBranchAddress("prefWeightUp", &prefWeightUp, &b_prefWeightUp);
+   fChain->SetBranchAddress("prefWeightDown", &prefWeightDown, &b_prefWeightDown);
    fChain->SetBranchAddress("lep1_eta_station2", &lep1_eta_station2, &b_lep1_eta_station2);
    fChain->SetBranchAddress("lep1_phi_station2", &lep1_phi_station2, &b_lep1_phi_station2);
    fChain->SetBranchAddress("lep2_eta_station2", &lep2_eta_station2, &b_lep2_eta_station2);

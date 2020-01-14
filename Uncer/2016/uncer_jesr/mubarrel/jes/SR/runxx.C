@@ -4,8 +4,9 @@
 using namespace std;
 
 void runxx() {
-TString dir="/home/pku/anying/cms/file_in_cms/files_weighted/";
-//TString dir = "../../";
+//TString dir="/data/pku/home/anying/cms/CMSSW_8_0_26_patch2/analysis_code/MakeTemplate/ZAJetfakeohoton/pesudo/";
+TString dir = "/eos/user/y/yian/2016cutla/";
+//TString dir = "/home/pku/anying/cms/file_in_cms/files_weighted/";
 ifstream infile("file");
 string buffer;
 TString infilename;
@@ -15,19 +16,20 @@ int k=1;
 while (k>0){
 getline (infile, buffer) ;
 infilename = buffer;
-if(infilename.Contains(".root")==0) {k=-2; continue;}
+TString filename;
+if(infilename.Contains("Z")==0) {k=-2; continue;}
 //TString outname="cutla-"+infilename;
-//infilename = "cutla-"+ infilename;
-infilename =  infilename;
+filename = "JEC_cutla-out"+ infilename+".root";
+//infilename =  infilename;
 
 cout<<infilename<<endl;
 
-TFile *file1 =new TFile(dir+infilename);
-//TTree *tree1 = (TTree*) file1->Get("ZPKUCandidates");
-TTree *tree1 = (TTree*) file1->Get("demo");
+TFile *file1 =new TFile(dir+filename);
+TTree *tree1 = (TTree*) file1->Get("ZPKUCandidates");
+//TTree *tree1 = (TTree*) file1->Get("demo");
 jesrUncer m1(tree1);
 //m1.Loop(h2);
-m1.makefile();
+m1.makefile(infilename);
 }
 }
 

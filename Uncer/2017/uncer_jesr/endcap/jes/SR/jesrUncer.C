@@ -67,12 +67,12 @@ void jesrUncer::Loop(TH2D* th2[3])
 	   if (fabs(jet1phi_JEC_down-jet2phi_JEC_down)>Pi) 
 		   drjj_JEC_down = sqrt((jet1eta_JEC_down-jet2eta_JEC_down)*(jet1eta_JEC_down-jet2eta_JEC_down)+(2*Pi-fabs(jet1phi_JEC_down-jet2phi_JEC_down))*(2*Pi-fabs(jet1phi_JEC_down-jet2phi_JEC_down)));
 	   else drjj_JEC_down = sqrt((jet1eta_JEC_down-jet2eta_JEC_down)*(jet1eta_JEC_down-jet2eta_JEC_down)+(fabs(jet1phi_JEC_down-jet2phi_JEC_down))*(fabs(jet1phi_JEC_down-jet2phi_JEC_down)));
-	   JET = jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 150 && drla > 0.7 && drla2 > 0.7 && drj1a > 0.5 && drj2a > 0.5 && drjj> 0.5 && drj1l > 0.5 && drj2l > 0.5 && drj1l2 > 0.5 && drj2l2 > 0.5;
-	   JET_new = jet1pt_new> 30 && jet2pt_new > 30 && fabs(jet1eta_new)< 4.7 && fabs(jet2eta_new)<4.7 && Mjj_new > 150 && drla > 0.7 && drla2 > 0.7 && drj1a_new > 0.5 && drj2a_new > 0.5 && drjj_new> 0.5 && drj1l_new > 0.5 && drj2l_new > 0.5 && drj1l2_new > 0.5 && drj2l2_new > 0.5;
-	   JET_down = jet1pt_JEC_down> 30 && jet2pt_JEC_down > 30 && fabs(jet1eta_JEC_down)< 4.7 && fabs(jet2eta_JEC_down)<4.7 && Mjj_JEC_down > 150 && drla > 0.7 && drla2 > 0.7 && drj1a_JEC_down > 0.5 && drj2a_JEC_down > 0.5  && drjj_JEC_down> 0.5 && drj1l_JEC_down > 0.5 && drj2l_JEC_down > 0.5 && drj1l2_JEC_down > 0.5 && drj2l2_JEC_down > 0.5;
-	   JET_up = jet1pt_JEC_up> 30 && jet2pt_JEC_up > 30 && fabs(jet1eta_JEC_up)< 4.7 && fabs(jet2eta_JEC_up)<4.7 && Mjj_JEC_up > 150 && drla > 0.7 && drla2 > 0.7 && drj1a_JEC_up > 0.5 && drj2a_JEC_up > 0.5  && drjj_JEC_up> 0.5 && drj1l_JEC_up > 0.5 && drj2l_JEC_up > 0.5 && drj1l2_JEC_up > 0.5 && drj2l2_JEC_up > 0.5;
+	   JET = jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && Mjj > 500 && drla > 0.7 && drla2 > 0.7 && drj1a > 0.5 && drj2a > 0.5 && drjj> 0.5 && drj1l > 0.5 && drj2l > 0.5 && drj1l2 > 0.5 && drj2l2 > 0.5 && deltaeta>2.5;
+	   JET_new = jet1pt_new> 30 && jet2pt_new > 30 && fabs(jet1eta_new)< 4.7 && fabs(jet2eta_new)<4.7 && Mjj_new > 500 && drla > 0.7 && drla2 > 0.7 && drj1a_new > 0.5 && drj2a_new > 0.5 && drjj_new> 0.5 && drj1l_new > 0.5 && drj2l_new > 0.5 && drj1l2_new > 0.5 && drj2l2_new > 0.5 && deltaeta_new >2.5;
+	   JET_down = jet1pt_JEC_down> 30 && jet2pt_JEC_down > 30 && fabs(jet1eta_JEC_down)< 4.7 && fabs(jet2eta_JEC_down)<4.7 && Mjj_JEC_down > 500 && drla > 0.7 && drla2 > 0.7 && drj1a_JEC_down > 0.5 && drj2a_JEC_down > 0.5  && drjj_JEC_down> 0.5 && drj1l_JEC_down > 0.5 && drj2l_JEC_down > 0.5 && drj1l2_JEC_down > 0.5 && drj2l2_JEC_down > 0.5 && deltaeta_JEC_down>2.5;
+	   JET_up = jet1pt_JEC_up> 30 && jet2pt_JEC_up > 30 && fabs(jet1eta_JEC_up)< 4.7 && fabs(jet2eta_JEC_up)<4.7 && Mjj_JEC_up > 500 && drla > 0.7 && drla2 > 0.7 && drj1a_JEC_up > 0.5 && drj2a_JEC_up > 0.5  && drjj_JEC_up> 0.5 && drj1l_JEC_up > 0.5 && drj2l_JEC_up > 0.5 && drj1l2_JEC_up > 0.5 && drj2l2_JEC_up > 0.5 && deltaeta_JEC_up>2.5;
 
-           if(  !( ( drla>0.7 && drla>0.7 && lep == 13 && HLT_Mu2 > 0 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20.&&( /*(fabs(photoneta) < 1.4442) ||*/ (fabs(photoneta)>1.566&&fabs(photoneta)<2.5)) )||
+           if(  !( ( drla>0.7 && drla2>0.7 && lep == 13 && (HLT_Mu1>0||HLT_Mu2 > 0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110. && photonet > 20.&&( /*(fabs(photoneta) < 1.4442) ||*/ (fabs(photoneta)>1.566&&fabs(photoneta)<2.5)) )||
                  ((drla>0.7 && drla2>0.7 && lep == 11 &&  ( HLT_Ele1 > 0|| HLT_Ele2 > 0) && ptlep1 > 25. && ptlep2 > 25. && fabs(etalep1) < 2.5 && fabs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0 && massVlep > 70. && massVlep < 110. && photonet > 20. &&( /*(fabs(photoneta) < 1.4442) ||*/ ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 ) ) )) ))
 		   continue;
            if(Mjj_new > 2000) Mjj_new = 1999; if(deltaeta_new > 6.5) deltaeta_new = 6.1;
@@ -99,7 +99,7 @@ void jesrUncer::Loop(TH2D* th2[3])
 	   deltaeta_JER[2]= deltaeta_JER_down;
 
            JET_JEC[0]=JET_new;JET_JEC[1]=JET_up;JET_JEC[2]=JET_down;
-	   actualWeight = scalef*lumiWeight* pileupWeight /* *muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale*/;
+	   actualWeight = scalef/*lumiWeight* pileupWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale*/;
 //	   cout<<jentry<<"; "<<fChain->GetEntries()<<endl;
 //	   cout<<"scalef = "<<scalef<<"; pileupWeight = "<<pileupWeight<<"; actualWeight = "<<actualWeight<<endl;
 	   for(int i=0;i<3;i++){
@@ -133,8 +133,8 @@ void jesrUncer::Loop(TH2D* th2[3])
    }
    cout<<"OK"<<endl;
 }
-void jesrUncer::makefile(){
-	TFile *file = new TFile("2d_jec.root","RECREATE");
+void jesrUncer::makefile(TString name){
+	TFile *file = new TFile("2d_"+name+"_jec.root","RECREATE");
         TH2D* h2[3];
 	Loop(h2);
 	cout<<"OK"<<endl;

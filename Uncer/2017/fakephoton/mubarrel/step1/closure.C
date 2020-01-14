@@ -18,8 +18,8 @@ void run_calculate(Int_t a,Int_t b);
 TString b="nosieiecut_mubarrel";
 TString dir4 = "./txt/";
 ofstream file1(dir4 + b+"_closure_FakeUncer.txt");
-TString dir = "/home/pku/anying/cms/RunII2017/MakeTemplate/pesudo/mubarrel/txt/";
-TString dir1 = "/home/pku/anying/cms/RunII2017/MakeTemplate/pesudo/mubarrel/roofit/txt/";
+TString dir = "/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/MakeTemplate/pesudo/mubarrel/txt/";
+TString dir1 = "/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/MakeTemplate/pesudo/mubarrel/roofit/txt/";
 void calculate(Double_t lowpt,Double_t highpt,Double_t lowchiso,Double_t highchiso,int i){
     ifstream f1,f2,f3,f4,f5;
     Double_t ptlow,pthigh;

@@ -23,3 +23,37 @@ JEC_outVV.root
 JEC_cutla-outVV.root
 0; 204141; cut1 = 0
 204141; 1061
+JEC_cutla-outZA.root
+JEC_cutla-outZA.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 0
+JEC_cutla-outZA.root
+JEC_cutla-outZA.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 206113; cut1 = 0
+206113; 206113
+JEC_cutla-outZA-EWK.root
+JEC_cutla-outZA-EWK.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 11021; cut1 = 0
+11021; 11021
+JEC_cutla-outTTA.root
+JEC_cutla-outTTA.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 3327; cut1 = 0
+3327; 3327
+JEC_cutla-outWA.root
+JEC_cutla-outWA.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 24; cut1 = 0
+24; 24
+JEC_cutla-outST.root
+JEC_cutla-outST.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 223; cut1 = 0
+223; 223
+JEC_cutla-outVV.root
+JEC_cutla-outVV.root
+open the photon ID file: 2018_PhotonsMedium.root
+0; 1061; cut1 = 0
+1061; 1061

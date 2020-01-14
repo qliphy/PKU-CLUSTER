@@ -555,7 +555,7 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
                 int j =3*i;
 			h1 =(TH1D*) histosMC.at(j)->Clone();
 			h1->Add(histosMC.at(j+1),1);
-			h1->Add(histosMC.at(i+2),1);
+			h1->Add(histosMC.at(j+2),1);
 		}
 		double yields = h1->GetSumOfWeights();
 		char y[100];sprintf(y,"%.2f",yields);

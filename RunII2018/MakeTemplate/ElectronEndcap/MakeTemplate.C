@@ -25,7 +25,7 @@ void MakeTemplate::Loop(TString name)
    if (fChain == 0) return;
    ResetVal();   
    histo();
-   TFile* fout = new TFile("./rootfiles/"+name+".root", "RECREATE");
+   TFile* fout = new TFile("./"+name+".root", "RECREATE");
    TTree* ExTree = fChain->CloneTree(0);
 //   style();
    Long64_t nentries = fChain->GetEntriesFast();
@@ -33,7 +33,7 @@ void MakeTemplate::Loop(TString name)
 
    double Mchiso = 6.828;
    double chisomin = 4;
-   double chisomax = Mchiso;//4~11
+   double chisomax = 11;//4~11
    
 //   nentries = 100000;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {

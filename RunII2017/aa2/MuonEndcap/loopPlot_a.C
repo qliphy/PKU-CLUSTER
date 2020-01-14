@@ -7,7 +7,7 @@
 #include "TFile.h"
 #include "TCollection.h"
 #include "TKey.h"
-#include "EDBRHistoMaker.h"
+#include "EDBRHistoMaker_a.h"
 #include "EDBRHistoPlotter.h"
 #include "test.C"
 #include "CMSTDRStyle.h"
@@ -36,7 +36,7 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+	std::string pathToTrees = "/eos/user/y/yian/2017cutla/";
 	std::string outputDir = "./fig-output_a/";
 	
 	RoccoR  rc("./RoccoR2017.txt");

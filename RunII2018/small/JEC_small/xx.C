@@ -5,6 +5,7 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <iostream>
+#include "ele_channel_scale.C"
 
 using namespace std;
 void xx::Loop(TString name)
@@ -34,6 +35,11 @@ void xx::Loop(TString name)
 //by  b_branchname->GetEntry(ientry); //read only this branch
    if (fChain == 0) return;
 
+   TFile* ID_photon_file = TFile::Open("./SF/2018_PhotonsMedium.root");
+   TH2F* ID_photon=0;
+   ID_photon_file->GetObject("EGamma_SF2D", ID_photon);
+   cout<<"open the photon ID file: 2018_PhotonsMedium.root"<<endl;
+
    Long64_t nentries = fChain->GetEntriesFast();
    int cut0=0,cut1=0;
    bool LEPele,LEPmu,JET,PHOTON,SignalRegion,DR;
@@ -57,6 +63,7 @@ void xx::Loop(TString name)
       PHOTON= photonet>20 &&( (fabs(photoneta)<2.5&&fabs(photoneta)>1.566) || (fabs(photoneta)<1.4442) );
       JET=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
       DR =drla>0.7 && drla2>0.7 && drj1a>0.5 && drj2a>0.5;
+      photon_id_scale=get_photon_ID(photoneta,photonet,ID_photon);
       if(jentry%1000000==0)   cout<<jentry<<"; "<<nentries<<"; cut1 = "<<cut1<<endl;
       if( ! ( (LEPmu || LEPele) && PHOTON/* && JET && DR&& SignalRegion*/  ) )
 	      continue;
@@ -69,4 +76,5 @@ void xx::Loop(TString name)
 
     }
    cout<<cut0<<"; "<<cut1<<endl;
+   ID_photon_file->Close();
 }

@@ -163,6 +163,7 @@ class EDBRHistoMaker {
 		TBranch *b_muon2_track_scale;   //!
 		TBranch *b_muon_hlt_scale;   //!
 		TBranch *b_scalef;   //!
+		TBranch *b_actualWeight;   //!
 		TBranch *b_pweight;   //!
 		TBranch *b_nVtx;   //!
 		TBranch *b_theWeight;   //!
@@ -304,6 +305,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
 	treename = new TTree("outtree","outtree");
 	cout<<"begin make outfile tree"<<endl;
 	treename->Branch("scalef", &scalef, "scalef/D");
+	treename->Branch("actualWeight", &actualWeight, "actualWeight/D");
         treename->Branch("pweight", &pweight, "pweight[703]/D");
 	treename->Branch("nVtx", &nVtx, "nVtx/I");
 	treename->Branch("theWeight", &theWeight, "theWeight/D");
@@ -417,6 +419,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
         fChain->SetBranchAddress("muon2_track_scale", &muon2_track_scale, &b_muon2_track_scale);
         fChain->SetBranchAddress("muon_hlt_scale", &muon_hlt_scale, &b_muon_hlt_scale);
 	fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+	fChain->SetBranchAddress("actualWeight", &actualWeight, &b_actualWeight);
         fChain->SetBranchAddress("pweight", pweight, &b_pweight);
 	fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
 	fChain->SetBranchAddress("theWeight", &theWeight, &b_theWeight);
@@ -667,7 +670,7 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
 		else
 			nn = -1;
 
-		actualWeight = lumiWeight * pileupWeight * scalef;
+//		actualWeight = lumiWeight * pileupWeight * scalef;
 		detajj = fabs(jet1eta - jet2eta);
 		if (fabs(jet1phi-jet2phi)>Pi) drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(2*Pi-fabs(jet1phi-jet2phi))*(2*Pi-fabs(jet1phi-jet2phi)));
                 else drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(fabs(jet1phi-jet2phi))*(fabs(jet1phi-jet2phi)));
@@ -805,7 +808,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 //	        if(outFileName.find("ZJets") != std::string::npos){
 //                      scalef=0.07487*fabs(theWeight)/theWeight;
 //                }
-		actualWeight = lumiWeight * pileupWeight * scalef;
+//		actualWeight = lumiWeight * pileupWeight * scalef;
 		detajj = fabs(jet1eta - jet2eta);
 		if (fabs(jet1phi-jet2phi)>Pi) drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(2*Pi-fabs(jet1phi-jet2phi))*(2*Pi-fabs(jet1phi-jet2phi)));
                 else drjj = sqrt((jet1eta-jet2eta)*(jet1eta-jet2eta)+(fabs(jet1phi-jet2phi))*(fabs(jet1phi-jet2phi)));
@@ -857,12 +860,12 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 		else
 			continue;
 
-                if(lep==13) actualWeight = actualWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale* /*muon1_track_scale*muon2_track_scale*muon_hlt_scale*/photon_id_scale;//*1.054;
-                if(lep==11) actualWeight = actualWeight*ele1_id_scale*ele2_id_scale*ele1_reco_scale*ele2_reco_scale*photon_id_scale;
-                if(filename.Contains("plj")) {
-                     actualWeight = scalef;
+//                if(lep==13) actualWeight = actualWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale* /*muon1_track_scale*muon2_track_scale*muon_hlt_scale*/photon_id_scale;//*1.054;
+//               if(lep==11) actualWeight = actualWeight*ele1_id_scale*ele2_id_scale*ele1_reco_scale*ele2_reco_scale*photon_id_scale;
+//               if(filename.Contains("plj")) {
+//                    actualWeight = scalef;
                      //if(jentry%1000==0) cout<<"photonet = "<<photonet<<"; actualWeight = "<<actualWeight<<endl;
-                }
+//                }
 		sum =sum + actualWeight;
 
 		if (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0) {

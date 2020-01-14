@@ -21,7 +21,7 @@ void loopPlot() {
 
 	//#####################EDIT THE OPTIONS##############################
 
-	double lumiValue = 57.1;
+	double lumiValue = 58.7;
 	/// Should we scale the histograms to data?
 	bool scaleToData = false;
 	// Should we scale only wjets to make total MC = DATA?
@@ -35,7 +35,7 @@ void loopPlot() {
 	bool dopileupreweight = false;
 
 	/// Path to wherever the files with the trees are. 
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/2018cutla/";
+	std::string pathToTrees = "/eos/user/y/yian/2018cutla/";
 	std::string outputDir = "./fig-output/";
 	
 	RoccoR  rc("./RoccoR2017.txt");

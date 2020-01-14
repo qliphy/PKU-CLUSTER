@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 void runjet() {
-TString dir="/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+TString dir="/eos/user/y/yian/2017cutla/";
 
 ifstream infile("file");
 string buffer; 

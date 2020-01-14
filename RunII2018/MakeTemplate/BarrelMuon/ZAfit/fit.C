@@ -184,7 +184,7 @@ void fit(float lowpt, float highpt){
         textFR->Draw();
 
     char buffer[256];
-	sprintf(buffer, "./eps/pt%0.f-%0.f.eps",lowpt,highpt);
+	sprintf(buffer, "./eps/pt%0.f-%0.f.pdf",lowpt,highpt);
 	c1->Print(buffer);
 
 }

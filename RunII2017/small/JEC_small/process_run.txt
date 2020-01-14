@@ -1131,3 +1131,7 @@ JEC_outVV.root
 JEC_cutla-outVV.root
 0; 217946; cut1 = 0
 217946; 1112
+JEC_cutla-outZA.root
+JEC_cutla-outZA.root
+0; 476064; cut1 = 0
+476064; 476064

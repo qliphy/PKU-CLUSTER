@@ -9,9 +9,9 @@ ofstream f0("./pljweight.txt");
 ofstream fup("./pljweight_up.txt");
 ofstream fdown("./pljweight_down.txt");
 
-TFile* f1 = new TFile("/home/pku/anying/cms/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outDEle16_plj_h.root");
-TFile* f2 = new TFile("/home/pku/anying/cms/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outDEle16_h.root");
-TFile* f3 = new TFile("/home/pku/anying/cms/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outZA_plj_h.root");
+TFile* f1 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outDEle16_plj_h.root");
+TFile* f2 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outDEle16_h.root");
+TFile* f3 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/plj/plj-plot/EleEndcap/plj-hist/cutla-outZA_plj_h.root");
 
 TH1F* h1 = (TH1F*)f1->Get("h_outDEle16_plj");
 TH1F* h2 = (TH1F*)f2->Get("h_outDEle16");

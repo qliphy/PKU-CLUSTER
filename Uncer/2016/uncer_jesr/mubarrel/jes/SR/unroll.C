@@ -19,15 +19,15 @@ void cmsLumi(bool channel)
         latex.SetNDC();
         latex.SetTextSize(0.04);
         latex.SetLineWidth(2);
-        float lumiel=41.52;
-        float lumimu=41.52;
+        float lumiel=35.86;
+        float lumimu=35.86;
         int beamcomenergytev=13;
         latex.SetTextAlign(31); 
         latex.SetTextAlign(11);
         latex.DrawLatex(0.18,0.82,"Preliminary");
         latex.DrawLatex(0.18,0.86,"CMS");
         latex.SetTextSize(0.03);
-        latex.DrawLatex(0.76,0.92,Form("42.52 fb^{-1} (%d TeV)", (beamcomenergytev)));
+        latex.DrawLatex(0.76,0.92,Form("35.86 fb^{-1} (%d TeV)", (beamcomenergytev)));
 }
 
 TH1D* unroll(TH2D* th2_in,Double_t* xbin, Double_t* ybin,  Int_t xbins_in, Int_t ybins_in,char *hname)//,char* htitle)
@@ -45,22 +45,22 @@ TH1D* unroll(TH2D* th2_in,Double_t* xbin, Double_t* ybin,  Int_t xbins_in, Int_t
 		    Double_t y_temp = 0.5*(ybin[iy-1]+ybin[iy]);
 		    h1->SetBinContent(ix+(iy-1)*nbinsx,th2->GetBinContent(th2->FindBin(x_temp, y_temp)));//void SetBinContent(Int_t bin, Double_t content),the FindBin function can return Global bin number corresponding to x,y
 		    h1->SetBinError(ix+(iy-1)*nbinsx,th2->GetBinError(th2->FindBin(x_temp, y_temp)));
-//		    cout<<"ix = "<<ix<<", iy = "<<iy<<"; bin = "<<ix+(iy-1)*nbinsx<<", BinContent"<<41.52*th2->GetBinContent(th2->FindBin(x_temp, y_temp))<<endl;
+//		    cout<<"ix = "<<ix<<", iy = "<<iy<<"; bin = "<<ix+(iy-1)*nbinsx<<", BinContent"<<35.86*th2->GetBinContent(th2->FindBin(x_temp, y_temp))<<endl;
 	    }
     }
-    for(Int_t i=0;i<6;i++){
+    for(Int_t i=0;i<7;i++){
         h1_out->SetBinContent(i+1,h1->GetBinContent(i+1));
         h1_out->SetBinError(i+1,h1->GetBinError(i+1));
     } 
-    h1_out->SetBinContent(7,h1->GetBinContent(7) + h1->GetBinContent(8) );
-    h1_out->SetBinError(7,sqrt(h1->GetBinError(7)*h1->GetBinError(7) + h1->GetBinError(8)*h1->GetBinError(8)) );
+    h1_out->SetBinContent(7,h1->GetBinContent(7) + h1->GetBinContent(8));
+//    h1_out->SetBinError(7,sqrt(h1->GetBinError(7)*h1->GetBinError(7) + h1->GetBinError(8)*h1->GetBinError(8)) );
     h1_out->SetBinContent(8,h1->GetBinContent(9));
-    cout<<h1->GetBinContent(7)<<"; "<<h1->GetBinContent(8)<<"; "<<h1_out->GetBinContent(7)<<endl;
+//    cout<<h1->GetBinContent(7)<<"; "<<h1->GetBinContent(8)<<"; "<<h1_out->GetBinContent(7)<<endl;
     delete h1;
     return h1_out;
 }
 
-int unroll(){
+void unroll_name(TString filename){
    /* ifstream file1;
     file1.open("./scalefactor.txt");
     if(!file1.is_open()) cout<<"can not open the file"<<endl;
@@ -71,28 +71,29 @@ int unroll(){
       }*/
 	setTDRStyle();
 	gStyle->SetPadBorderMode(0);
-    gStyle->SetOptStat(0);
+	gStyle->SetOptStat(0);
 	gStyle->SetPadTickX(1);
-    gStyle->SetPadTickY(1);
-    gStyle->SetPadTickX(1);
-    gStyle->SetPadTickY(1);
-    gStyle->SetAxisColor(1, "XYZ");
-    gStyle->SetStripDecimals(kTRUE);
-    gStyle->SetTickLength(0.03, "XYZ");
-    gStyle->SetNdivisions(510, "XYZ");
+	gStyle->SetPadTickY(1);
+	gStyle->SetPadTickX(1);
+	gStyle->SetPadTickY(1);
+	gStyle->SetAxisColor(1, "XYZ");
+	gStyle->SetStripDecimals(kTRUE);
+	gStyle->SetTickLength(0.03, "XYZ");
+	gStyle->SetNdivisions(510, "XYZ");
 
-	TFile* fout = new TFile("aa.root","RECREATE");
+	TFile* fout = new TFile("aa_"+filename+".root","RECREATE");
 	Double_t ZA_scale= 1;
 	std::ostringstream strs;
 	std::string lumivalue = strs.str();
-	Double_t lumi=41.52;
+	Double_t lumi=35.86;
 //	Double_t mjj_bins[4]={500, 800, 1200, 2000};
 	Double_t mjj_bins[4]={500, 800, 1200,2000};
     Double_t detajj_bins[4]={2.5,4.5,6,6.5};
-	const char *name[9]={"Mjj 500~800","Mjj 800~1200","Mjj 1200~2000","Mjj 500~800","Mjj 800~1200","Mjj 1200~2000","Mjj 500~800","Mjj 800~1200","Mjj 1200~2000"};
+	const char *name[8]={"Mjj 500~800","Mjj 800~1200","Mjj 1200~2000","Mjj 500~800","Mjj 800~1200","Mjj 1200~2000","Mjj 500~1200","Mjj 1200~2000"};
 //	const char *name[6]={"Mjj 500~800","Mjj 800~1200","Mjj 500~800","Mjj 800~1200","Mjj 500~800","Mjj 800~1200"};
 
-	TFile* f_ZA=TFile::Open("2d_jec.root");
+	TFile* f_ZA=TFile::Open("2d_"+filename+"_jec.root");
+//	TFile* f_ZA=TFile::Open("2d_jec.root");
 	TH2D* th2_ZA[num];
 	TH1D* t_ZA[num];
     TCanvas* cc[num];
@@ -113,11 +114,16 @@ int unroll(){
         else if(i==1)    ll[i]->AddEntry(t_ZA[i],"mjj_JEC_up");
         else if(i==2)    ll[i]->AddEntry(t_ZA[i],"mjj_JEC_down");
         ll[i]->Draw();
-        cc[i]->Print(Form("./figs/tmp-hist2d_%d.eps",i+1));
+        cc[i]->Print(Form("./figs/tmp-hist2d_"+filename+"_%d.eps",i+1));
         for(Int_t k=0;k < t_ZA[i]->GetNbinsX()*t_ZA[i]->GetNbinsY();k++){
 //        file2<<t_ZA[i]->GetBinContent(k+1)*scale_factor[i]<<endl;}
         file2<<t_ZA[i]->GetBinContent(k+1)<<endl;}
       }
+     vector<double> vec_ymax;
+     vec_ymax.push_back(t_ZA[0]->GetMaximum());
+     vec_ymax.push_back(t_ZA[1]->GetMaximum());
+     vec_ymax.push_back(t_ZA[2]->GetMaximum());
+     sort(vec_ymax.begin(), vec_ymax.end(), greater<double>());
      TCanvas* c1 = new TCanvas("c1","Mjj vs deltajj",900,600);
      TLine* line = new TLine(t_ZA[0]->GetXaxis()->GetXmin(),0,t_ZA[0]->GetXaxis()->GetXmax(),0);
      c1->SetFrameFillColor(41);
@@ -125,7 +131,7 @@ int unroll(){
      t_ZA[0]->SetTitle("Mjj vs detajj");
      t_ZA[0]->SetLineWidth(1);
      t_ZA[0]->SetLineColor(kRed);
-     t_ZA[0]->GetYaxis()->SetRangeUser(0,0.28);
+     t_ZA[0]->GetYaxis()->SetRangeUser(0,vec_ymax[0]+0.3*vec_ymax[0]);
      t_ZA[0]->Draw("HIST");
      t_ZA[0]->GetXaxis()->SetTitle("mjj(GeV)");
      t_ZA[0]->GetXaxis()->SetTitleSize(0.065);
@@ -153,8 +159,8 @@ int unroll(){
        line->SetLineColor(2);
        line->SetLineWidth(1);
        line->Draw();
-       c1->Print("./figs/hist-2d.eps");
-       c1->Print("./figs/hist-2d.pdf");
+       c1->Print("./figs/hist-2d_"+filename+".eps");
+       c1->Print("./figs/hist-2d_"+filename+".pdf");
 
 //	TH1D* t_ZA=unroll(th2_ZA, mjj_bins, detajj_bins, 3,3);
 //    for(Int_t i=0;i<num;i++){
@@ -190,9 +196,14 @@ int unroll(){
 
     for(Int_t i=0;i<num;i++){
 	t_ZA[i]->Write();}
-    hs->Write();
+	hs->Write();
 	fout->Close();
+        vec_ymax.clear();
+}
+int unroll(){
+
+//unroll_name("ZA_v3");
+//unroll_name("ZA_tot");
+unroll_name("ZA-EWK");
 return 0;
-
-
 }

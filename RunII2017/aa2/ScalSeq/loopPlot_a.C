@@ -36,20 +36,20 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+	std::string pathToTrees = "/eos/user/y/yian/2017cutla/";
 	std::string outputDir = "./fig-output_a/";
 	
 	RoccoR  rc("./RoccoR2017.txt");
         /// file for scale factors
 
 // Setup names of data files for trees.
-	const int nDATA = 1;
+	const int nDATA = 2;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
 			<< std::endl;
-	std::string dataLabels[nDATA] = { "Data" };
+	std::string dataLabels[nDATA] = { "Muon17","Ele17" };
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
-		fData.push_back(pathToTrees + "cutla-out" + dataLabels[ii] + ".root");
+		fData.push_back(pathToTrees + "cutla-outD" + dataLabels[ii] + ".root");
 	}
 // set mc imformation
 		const int nMC = 6;

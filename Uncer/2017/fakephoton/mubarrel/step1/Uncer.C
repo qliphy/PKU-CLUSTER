@@ -9,16 +9,16 @@ ofstream f0("./pljweight.txt");
 ofstream fup("./pljweight_up.txt");
 ofstream fdown("./pljweight_down.txt");
 
-TFile* f1 = new TFile("/home/pku/anying/cms/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outDMuon_plj_hb.root");
-TFile* f2 = new TFile("/home/pku/anying/cms/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outDMuon_hb.root");
-TFile* f3 = new TFile("/home/pku/anying/cms/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outZA_contamination_hb.root");
+TFile* f1 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outDMuon17_pljnew_hb.root");
+TFile* f2 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outDMuon17_hb.root");
+TFile* f3 = new TFile("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/MuonBarrel/plj-hist/cutla-outZA_pljnew_hb.root");
 
-TH1F* h1 = (TH1F*)f1->Get("h_cutla-outDMuon_plj");
-TH1F* h2 = (TH1F*)f2->Get("h_cutla-outDMuon");
-TH1D* h3 = (TH1D*)f3->Get("h_cutla-outZA_contamination");
+TH1F* h1 = (TH1F*)f1->Get("h_cutla-outDMuon17_pljnew");
+TH1F* h2 = (TH1F*)f2->Get("h_cutla-outDMuon17");
+TH1D* h3 = (TH1D*)f3->Get("h_cutla-outZA_pljnew");
 
 f4<<"pt"<<"\t"<<"closure"<<"\t\t"<<"sideband"<<"\t"<<"template"<<"\t"<<"total"<<endl;
-f5<<"pt"<<"\t"<<"plj"<<"\t\t"<<"plj_up"<<"\t\t"<<"plj_downnn"<<endl;
+f5<<"pt"<<"\t"<<"plj"<<"\t\t"<<"plj_up"<<"\t\t"<<"plj_down"<<endl;
 cout<<"closure test uncertainty"<<endl;
 
 Double_t bin_data[num],bin_plj[num],bin_za[num];

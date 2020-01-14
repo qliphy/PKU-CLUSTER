@@ -19,6 +19,8 @@ th1_ZA_sig = t_list.At(6)
 print '>>>>begin to read bin content to the txt file>>>>'
 jer=[1.021,1.003,1.016,1.043,1.017,1.002,1.015]
 jes=[1.022,1.033,1.047,1.068,1.015,1.063,1.048]
+jes_ZA=[1.18,1.15,1.34,1.24,1.50,1.35,1.65]
+jer_ZA=[1.13,1.05,1.19,1.136,1.329,1.353,1.388]
 pdf_QCD=[1.01,1.01,1.03,1.01,1.01,1.02,1.01]
 pdf_ewk=[1.04,1.04,1.04,1.04,1.04,1.04,1.05]
 scale_QCD=[1.15,1.21,1.18,1.09,1.10,1.10,1.03]
@@ -97,8 +99,8 @@ for i in range(1,8):
    f.write('VV_stat_%s_%s_bin_%d\tlnN\t-\t-\t-\t-\t%0.2f\t-\t-\n'%('17','barrel',i,VV_binerror))
    f.write('ST_stat_%s_%s_bin_%d\tlnN\t-\t-\t-\t-\t-\t%0.2f\t-\n'%('17','barrel',i,ST_binerror))
    f.write('WA_stat_%s_%s_bin_%d\tlnN\t-\t-\t-\t-\t-\t-\t%0.2f\n'%('17','barrel',i,WA_binerror))
-   f.write('JES_17\tlnN\t%0.2f\t%0.2f\t-\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n'%(jes[i-1],jes[i-1],jes[i-1],jes[i-1],jes[i-1],jes[i-1]))
-   f.write('JER_17\tlnN\t%0.2f\t%0.2f\t-\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n'%(jer[i-1],jer[i-1],jer[i-1],jer[i-1],jer[i-1],jer[i-1]))
+   f.write('JES_17\tlnN\t%0.2f\t%0.2f\t-\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n'%(jes[i-1],jes_ZA[i-1],jes[i-1],jes[i-1],jes[i-1],jes[i-1]))
+   f.write('JER_17\tlnN\t%0.2f\t%0.2f\t-\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n'%(jer[i-1],jer_ZA[i-1],jer[i-1],jer[i-1],jer[i-1],jer[i-1]))
    f.write('QCDZA_pdf\tlnN\t-\t%0.2f\t-\t-\t-\t-\t-\n'%(pdf_QCD[i-1]))
    f.write('QCDZA_scale\tlnN\t-\t%0.2f\t-\t-\t-\t-\t-\n'%(scale_QCD[i-1]))
    f.write('QCDZA_scale_extra\tlnN\t-\t%0.2f/%0.2f\t-\t-\t-\t-\t-\n'%(QCDZA_scale_extra_down[i-1],QCDZA_scale_extra_up[i-1]))

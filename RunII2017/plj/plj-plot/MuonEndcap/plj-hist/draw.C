@@ -58,10 +58,11 @@ void draw::Loop(TString name)
       if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
       l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
       LEPele = lep==11 &&(HLT_Ele1>0 ||  HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70. && massVlep < 110; 
-      LEPmu =  lep == 13 && (HLT_Mu1>0|| HLT_Mu2>0)  && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
+      LEPmu =  lep == 13 && /*(HLT_Mu1>0|| HLT_Mu2>0)  && */ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
       PHOTON_barrel= /*photonet<400&&*/photonet>20 &&(/*(fabs(photoneta)<2.5&&fabs(photoneta)>1.566) ||*/ (fabs(photoneta)<1.4442) ) ;
       PHOTON_endcap= /*photonet<400&&*/photonet>20 &&(fabs(photoneta)<2.5&&fabs(photoneta)>1.566);
       JETS=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
+      if(name.Contains("ZA"))scalef = scalef*muon1_id_scale*muon2_id_scale*muon2_iso_scale*muon1_iso_scale*muon1_track_scale*muon2_track_scale*photon_id_scale*prefWeight;
       ijet=0;
       for(Int_t j=0;j<6;j++)
       {

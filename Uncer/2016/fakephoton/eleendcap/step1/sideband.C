@@ -5,9 +5,9 @@ ofstream file("./txt/sideband-uncertainty.txt");
 void open(double lowpt,double highpt,TString name1,TString name2,TString name3){
 
 	ifstream f1,f2,f3;
-        f1.open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name1+Form("pt%0.f_%0.f.txt",lowpt,highpt));
-        f2.open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name2+Form("pt%0.f_%0.f.txt",lowpt,highpt));
-        f3.open("/home/pku/anying/cms/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name3+Form("pt%0.f_%0.f.txt",lowpt,highpt));
+        f1.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name1+Form("pt%0.f_%0.f.txt",lowpt,highpt));
+        f2.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name2+Form("pt%0.f_%0.f.txt",lowpt,highpt));
+        f3.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2016/analysis_code/MakeTemplate/ZAfit/EleEndcap/txt/fakerate_"+name3+Form("pt%0.f_%0.f.txt",lowpt,highpt));
         double ff1,ff2,ff3;
         f1>>ff1;f2>>ff2;f3>>ff3;
 	fakefraction = ff3;

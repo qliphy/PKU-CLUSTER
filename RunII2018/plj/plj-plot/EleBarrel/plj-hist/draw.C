@@ -42,7 +42,7 @@ void draw::Loop(TString name)
    double actualWeight=1;
    int cut0=0,cut1=0;
    TString hname="h_"+name;
-   Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele;
+   Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele,SignalRegion;
    Double_t pt[10]={20,25,30,35,40,45,50,60,80,400};
    h1 = new TH1F(hname,hname,9,pt);
 //   nentries=100;
@@ -64,10 +64,10 @@ void draw::Loop(TString name)
       LEPmu =  lep == 13 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
       PHOTON_barrel= /*photonet<400&&*/photonet>20 &&(/*(fabs(photoneta)<2.5&&fabs(photoneta)>1.566) ||*/ (fabs(photoneta)<1.4442) ) ;
       PHOTON_endcap= /*photonet<400&&*/photonet>20 &&(fabs(photoneta)<2.5&&fabs(photoneta)>1.566);
-     // if(LEPmu&&PHOTON_barrel==true)
-     // if(LEPmu&&PHOTON_endcap==true)
-        if(LEPele&&PHOTON_barrel==true)
-     // if(LEPele&&PHOTON_endcap==true)
+      SignalRegion= Mjj>500 && deltaetajj>2.5 && zepp<2.4;
+//      if(SignalRegion) continue;
+
+      if( (LEPele&&PHOTON_barrel&& !SignalRegion) )
 	{h1->Fill(photonet,actualWeight);   cut1++;} 
    }
    cout<<cut0<<"; "<<cut1<<endl;

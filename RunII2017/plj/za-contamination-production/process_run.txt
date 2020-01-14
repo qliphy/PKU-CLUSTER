@@ -307,3 +307,45 @@ numberofnp:24884406  numberofnm:5603637
  0 0 1 outZA_pljnew.root 30200000 30488043
  1 0 -1 outZA_pljnew.root 30300000 30488043
  0 1 -1 outZA_pljnew.root 30400000 30488043
+cutlep-outZA.root
+outZA_plj.root
+outZA_plj.root
+numberofnp:395812  numberofnm:75609
+ 1 0 -1 outZA_plj.root 0 471421
+ 1 0 1 outZA_plj.root 100000 471421
+ 1 0 1 outZA_plj.root 200000 471421
+ 1 0 1 outZA_plj.root 300000 471421
+ 1 0 1 outZA_plj.root 400000 471421
+cutlep-outZA.root
+outZA_plj.root
+outZA_plj.root
+numberofnp:1843177  numberofnm:435994
+ 1 0 1 outZA_plj.root 0 2279171
+ 1 0 1 outZA_plj.root 100000 2279171
+ 0 1 1 outZA_plj.root 200000 2279171
+ 1 0 -1 outZA_plj.root 300000 2279171
+ 1 0 1 outZA_plj.root 400000 2279171
+ 0 1 1 outZA_plj.root 500000 2279171
+ 0 1 1 outZA_plj.root 600000 2279171
+ 1 0 1 outZA_plj.root 700000 2279171
+ 1 0 1 outZA_plj.root 800000 2279171
+ 1 0 1 outZA_plj.root 900000 2279171
+ 0 1 -1 outZA_plj.root 1000000 2279171
+ 0 1 1 outZA_plj.root 1100000 2279171
+ 0 1 1 outZA_plj.root 1200000 2279171
+ 1 0 -1 outZA_plj.root 1300000 2279171
+ 0 1 1 outZA_plj.root 1400000 2279171
+ 1 0 1 outZA_plj.root 1500000 2279171
+ 0 1 1 outZA_plj.root 1600000 2279171
+ 0 1 1 outZA_plj.root 1700000 2279171
+ 1 0 1 outZA_plj.root 1800000 2279171
+ 1 0 1 outZA_plj.root 1900000 2279171
+ 0 1 -1 outZA_plj.root 2000000 2279171
+ 0 1 1 outZA_plj.root 2100000 2279171
+ 0 1 1 outZA_plj.root 2200000 2279171
+cutlep-outZA.root
+cutlep-outZA_plj.root
+cutlep-outZA_plj.root
+numberofnp:1545231  numberofnm:388183
+ 0 1 1 cutlep-outZA_plj.root 0 1933414
+ 1 0 1 cutlep-outZA_plj.root 100000 1933414

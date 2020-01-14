@@ -529,12 +529,26 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
 	// histosMCSig.at(0)->Draw("SAME HIST");
 
 	// For the legend, we have to tokenize the name "histos_XXX.root"
-	TLegend* leg = new TLegend(0.8, 0.7, 0.94, 0.88);
-	leg->SetMargin(0.4);
-	if (isDataPresent_)
-		leg->AddEntry(sumDATA, "Data", "ep");
+	TLegend* leg1 = new TLegend(0.7, 0.55, 0.94, 0.9);
+	TLegend* leg2 = new TLegend(0.3, 0.7, 0.5, 0.9);
+        leg1->SetTextSize(0.035);
+	leg1->SetMargin(0.4);
+        leg2->SetTextSize(0.035);
+	if (isDataPresent_){
+                double yieldsData = sumDATA->GetSumOfWeights();
+                char yData[100];sprintf(yData,"%0.f",yieldsData);
+                TString samplesData = "Data";
+                TString LabelData = samplesData +" ["+ yData+"]";
+
+		leg2->AddEntry(sumDATA, LabelData, "ep");
+	}
 	for (size_t i = 0; i != histosMC.size(); ++i) {
-		leg->AddEntry(histosMC.at(i), labels.at(i).c_str(), "f");
+		double yields = histosMC.at(i)->GetSumOfWeights();
+		char y[100];sprintf(y,"%.2f",yields);
+                TString samples = labels.at(i).c_str();
+                TString LabelMC = samples +" ["+ y+"]";
+		leg1->AddEntry(histosMC.at(i), LabelMC, "f");
+		cout<<LabelMC<<endl;
 	}
 
 	if (histosMCSig.size() > 0) {
@@ -543,16 +557,24 @@ void EDBRHistoPlotter::makeStackPlots(std::string histoName) {
 			sprintf(rescalingLabel, " (x%g)", kFactorsSig_.at(i));
 			std::string rescalingStr(rescalingLabel);
 			if (kFactorsSig_.at(i) != 2.0) {
-				if (i == 0)
-					leg->AddEntry(histosMCSig.at(i), "EWK_ZA", "lf");
+				if (i == 0){
+					double yieldsMCSig = histosMCSig.at(i)->GetSumOfWeights();
+					char ySig[100];sprintf(ySig,"%.2f",yieldsMCSig);
+					TString samplesMCSig = "EWK_ZA";
+					TString LabelSig = samplesMCSig +" ["+ ySig+"]";
+
+					leg2->AddEntry(histosMCSig.at(i), LabelSig, "lf");
+				}
 			} else
-				leg->AddEntry(histosMCSig.at(i), (labelsSig.at(i)).c_str(),
+				leg2->AddEntry(histosMCSig.at(i), (labelsSig.at(i)).c_str(),
 						"lf");
 		}
 	}
 
-	leg->SetFillColor(kWhite);
-	leg->Draw();
+	leg1->SetFillColor(kWhite);
+	leg1->Draw();
+	leg2->SetFillColor(kWhite);
+	leg2->Draw("same");
 
 	// Nice labels
 	// TMathText* l = makeCMSPreliminaryTop(13, 0.50, 0.935);

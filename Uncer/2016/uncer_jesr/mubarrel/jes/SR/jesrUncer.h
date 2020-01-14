@@ -923,7 +923,7 @@ public :
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
    virtual void     Loop(TH2D* th2[3]);
-   virtual void     makefile();
+   virtual void     makefile(TString name);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    TH2D* hist[3];
@@ -1414,7 +1414,7 @@ void jesrUncer::Init(TTree *tree)
    fChain->SetBranchAddress("lep2_sign", &lep2_sign, &b_lep2_sign);
    fChain->SetBranchAddress("l1_weight", &l1_weight, &b_l1_weight);
    fChain->SetBranchAddress("run_period", &run_period, &b_run_period);
-//   fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
+   fChain->SetBranchAddress("scalef", &scalef, &b_scalef);
    fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale, &b_ele1_id_scale);
    fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale, &b_ele2_id_scale);
    fChain->SetBranchAddress("ele1_reco_scale", &ele1_reco_scale, &b_ele1_reco_scale);

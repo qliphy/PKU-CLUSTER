@@ -1922,3 +1922,8 @@ cutlep-outZJets_FX.root
 137000000; 137409999; cut1 = 22396525
 The total nevents are      : 137409999
 The qualified nevents      : 22463464
+outZA-aQGC.root
+cutlaj-outZA-aQGC.root
+0; 775586; cut1 = 0
+The total nevents are      : 775586
+The qualified nevents      : 37002

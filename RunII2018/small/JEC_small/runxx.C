@@ -6,7 +6,7 @@ using namespace std;
 void runxx() {
 //gROOT->LoadMacro("xx.C");
 //TString dir = "../";
-TString dir = "/data/pku/home/anying/cms/file_in_cms/2018RunIIrootfiles/";
+TString dir = "/eos/user/y/yian/2018cutla/PhotonIDScaleBug/";
 ifstream infile("file");
 string buffer; 
 TString infilename;
@@ -18,7 +18,7 @@ getline (infile, buffer) ;
 infilename = buffer;
 if(infilename.Contains("root")==0) {k=-2; continue;}
 TString outname="JEC_cutla-out"+infilename;
-TString inname="JEC_out"+infilename;
+TString inname="JEC_cutla-out"+infilename;
 
 cout<<inname<<endl;
 

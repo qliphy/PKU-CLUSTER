@@ -4,7 +4,7 @@
 using namespace std;
 void runjet() {
 //TString dir="/eos/uscms/store/user/qliphy/andy/2017/cutlep/";
-TString dir = "/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+TString dir = "/eos/user/y/yian/2017cutla/";
 
 ifstream infile("file");
 string buffer; 
@@ -16,7 +16,7 @@ while (k>0){
 getline (infile, buffer) ;
 name = buffer;
 if(name.Contains("out")==0) {k=-2; continue;}
-TString outname=name+"_weightb.root";
+TString outname=name+"_mubarrel.root";
 TString inname=name+".root";
 
 cout<<inname<<endl;

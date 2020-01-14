@@ -41,7 +41,7 @@ void plj::Loop()
    ifstream f1;
 //   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/barrel/step1/pljweight_down.txt");
 //   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/barrel/step1/pljweight_up.txt");
-   f1.open("/home/pku/anying/cms/Uncer/2017/fakephoton/barrel/step1/pljweight.txt");
+   f1.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/barrel/pljweight.txt");
    Double_t scalef_f[7];
    for(Int_t i=0;i<7;i++){
       f1>>scalef_f[i];
@@ -54,7 +54,7 @@ void plj::Loop()
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      if(jentry%1000000==0) cout<<jentry<<", "<<nentries<<endl;
+     if(jentry%1000000==0) cout<<jentry<<", "<<nentries<<endl;
      if(photonet<20)                      {scalef_tmp==0;} 
      if(photonet<25&&photonet>20)         {int i=0;scalef_tmp =scalef_f[i];}
      if(photonet>25 &&  photonet<30)      {int i=1;scalef_tmp =scalef_f[i];}

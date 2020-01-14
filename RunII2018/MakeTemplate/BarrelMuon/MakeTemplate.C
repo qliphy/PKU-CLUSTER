@@ -48,7 +48,7 @@ void MakeTemplate::Loop(TString name)
    Int_t jet=0;   
    double Mchiso = 8.7468;
    double chisomax = 12;
-   double chisomin = Mchiso;//6~12
+   double chisomin = 6;//6~12
 //   nentries = 100000;
    int count=0;
    bool jet_flag;

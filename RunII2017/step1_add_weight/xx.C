@@ -125,7 +125,7 @@ void xx::Loop()
 		// if (Cut(ientry) < 0) continue;
 		if(jentry%100000==0) cout<<" "<<HLT_Ele1<<" "<<HLT_Mu2<<" "<<fabs(theWeight)/theWeight<<" "<<m_dataset<<" "<<jentry<<" "<<nentries<<endl;
 
-	/*	if(m_dataset.Contains("outDMuonB.root")){ scalef=1.0; run_period=1;}
+		if(m_dataset.Contains("outDMuonB.root")){ scalef=1.0; run_period=1;}
 		if(m_dataset.Contains("outDMuonC.root")){ scalef=1.0; run_period=2;}
 		if(m_dataset.Contains("outDMuonD.root")){ scalef=1.0; run_period=3;}
 		if(m_dataset.Contains("outDMuonE.root")){ scalef=1.0; run_period=4;}
@@ -158,7 +158,8 @@ void xx::Loop()
 		if(m_dataset.Contains("outWZ.root")){ scalef=1000.*27.6/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset.Contains("outZZ.root")){ scalef=1000.*12.14/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 		if(m_dataset.Contains("ZA-EWK")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
-		if(m_dataset.Contains("outZA-sig-muonid-correct.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}*/
+		if(m_dataset.Contains("ZA-aQGC")){ scalef=1000.*1.073/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
+		if(m_dataset.Contains("outZA-sig-muonid-correct.root")){ scalef=1000.*0.1097/float(npp-nmm)*fabs(theWeight)/theWeight; run_period=8;}
 
 		if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
 		if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
@@ -188,7 +189,7 @@ void xx::Loop()
 			muon2_track_scale=get_muon_track_scale(etalep2,track_SF);
 			muon_hlt_scale=muon_HLT_scale(ptlep1,ptlep2,di_lep_trigger);
 		}
-
+                if(photonet>500) double photonet_=499;
 		if(photonet>0) photon_id_scale=get_photon_ID(photoneta,photonet,ID_photon);
 		//////  lep and photon scacles
 /*
@@ -204,8 +205,8 @@ void xx::Loop()
 		}
 		if(!(m_dataset.Contains("DEle")||m_dataset.Contains("DMuon")) && lep!=13){mu1_rochester_scale=-1e2;mu2_rochester_scale=-1e2;}
 */
-		LEPmu = lep==13 && (HLT_Mu1>0||HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles==0 && nloosemus <3  && massVlep >70. ;
-		LEPele = lep==11 && HLT_Ele1>0 && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
+		LEPmu = lep==13 && (HLT_Mu1>0||HLT_Mu3>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.4 &&abs(etalep2) < 2.4 && nlooseeles==0 && nloosemus <3  && massVlep >70. ;
+		LEPele = lep==11 && (HLT_Ele1>0||HLT_Ele2>0) && ptlep1 > 20. && ptlep2 > 20.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70.;
 		SignalRegion= deltaetajj>2.5 && zepp<1.8&&Mjj>500;
 		PHOTON= photonet>10 ;
 		JET=jet1pt> 10 && jet2pt > 10 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 ;

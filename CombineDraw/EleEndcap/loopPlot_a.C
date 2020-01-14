@@ -21,9 +21,9 @@ void loopPlot() {
 
 	//#####################EDIT THE OPTIONS##############################
 
-	double lumiValue1 = 57.1;
+	double lumiValue1 = 58.7;
 	double lumiValue2 = 41.52;
-	double lumiValue3 = 35.86;
+	double lumiValue3 = 38.6;
 	double lumiValue = lumiValue1+lumiValue2+lumiValue3;
 	/// Should we scale the histograms to data?
 	bool scaleToData = false;
@@ -39,7 +39,7 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/CombineDraw/EleEndcap/rootfiles/";
+	std::string pathToTrees = "../ScalSeq/rootfiles/";
 	std::string outputDir = "./fig-output_a/";
 	
 //	RoccoR  rc("./RoccoR2017.txt");
@@ -49,7 +49,7 @@ void loopPlot() {
 	const int nDATA = 3;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
 			<< std::endl;
-	std::string dataLabels[nDATA] = { "2018CR_Ele","2017CR_Ele","2016CR_Ele16" };
+	std::string dataLabels[nDATA] = { "2018_Ele","2017_Ele17","2016_DEle16" };
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
 		fData.push_back(pathToTrees + "optimal_" + dataLabels[ii] + ".root");
@@ -61,13 +61,13 @@ void loopPlot() {
 		//std::string mcLabels[nMC] = { "ZJets_FX", "ZA" };
 		//std::string mcLabels[nMC] = {"ST","TTA","VV","WA", "ZJets_FX","WJets_FX","TTJets_FX","ZA" };
 		//double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue};
-std::string mcLabels[nMC] ={"2018CR_ST","2017CR_ST","2016CR_ST","2018CR_TTA","2017CR_TTA","2016CR_TTA","2018CR_VV","2017CR_VV","2016CR_VV","2018CR_WA","2017CR_WA","2016CR_WA","2018CR_plj_eleendcap","2017CR_plj_eleendcap","2016CR_plj_eleendcap","2018CR_ZA","2017CR_ZA","2016CR_ZA"};
+std::string mcLabels[nMC] ={"2018_ST","2017_ST","2016_ST","2018_TTA","2017_TTA","2016_TTA","2018_VV","2017_VV","2016_VV","2018_WA","2017_WA","2016_WA","2018_plj_eleendcap","2017_plj_eleendcap","2016_plj_eleendcap","2018_ZA","2017_ZA","2016_ZA"};
  double kFactorsMC_array[nMC+1] ={lumiValue1,lumiValue2,lumiValue3,lumiValue1,lumiValue2,lumiValue3,lumiValue1,lumiValue2,lumiValue3,
 	                          lumiValue1,lumiValue2,lumiValue3,1,1,1,
 	                          lumiValue1,lumiValue2,lumiValue3};
-//		std::string mcLabels[nMC] = {"2018CR_ST", "2018CR_TTA", "2018CR_VV","2018CR_WA","2018CR_plj_eleendcap","2018CR_ZA",
-//			"2017CR_ST", "2017CR_TTA", "2017CR_VV","2017CR_WA","2017CR_plj_eleendcap","2017CR_ZA",
-//			"2016CR_ST", "2016CR_TTA", "2016CR_VV","2016CR_WA","2016CR_plj_eleendcap","2016CR_ZA", };//,"Contamination_ZA"};
+//		std::string mcLabels[nMC] = {"2018_ST", "2018_TTA", "2018_VV","2018_WA","2018_plj_mubarrel","2018_ZA",
+//			"2017_ST", "2017_TTA", "2017_VV","2017_WA","2017_plj_mubarrel","2017_ZA",
+//			"2016_ST", "2016_TTA", "2016_VV","2016_WA","2016_plj_mubarrel","2016_ZA", };//,"Contamination_ZA"};
 //		double kFactorsMC_array[nMC+1] = { lumiValue1,lumiValue1,lumiValue1,lumiValue1,1,lumiValue1,
 //                                                   lumiValue2,lumiValue2,lumiValue2,lumiValue2,1,lumiValue2,
 //						   lumiValue3,lumiValue3,lumiValue3,lumiValue3,1,lumiValue3};
@@ -82,7 +82,7 @@ std::string mcLabels[nMC] ={"2018CR_ST","2017CR_ST","2016CR_ST","2018CR_TTA","20
 			kFactorsMC.push_back(kFactorsMC_array[index]);
 		}
                 std::string ll[6] ={"ST", "TTA", "VV","WA",
-			"plj_eleendcap","ZA"}; 
+			"plj_elebarrel","ZA"}; 
                 std::vector<std::string> mcTotalLabels;
                 for (int index = 0; index < 6; index++) {
                         mcTotalLabels.push_back(ll[index]);
@@ -92,7 +92,7 @@ std::string mcLabels[nMC] ={"2018CR_ST","2017CR_ST","2016CR_ST","2018CR_TTA","20
 	const int nMCSig = 3;
 	std::cout << "set data imformation, we have " << nMCSig << "mcsig file"
 			<< std::endl;
-	std::string mcLabelsSig[nMCSig] = { "2018CR_ZA-EWK","2017CR_ZA-EWK","2016CR_ZA-EWK" };
+	std::string mcLabelsSig[nMCSig] = { "2018_ZA-EWK","2017_ZA-EWK","2016_ZA-EWK" };
 	double kFactorsSig_array[nMCSig] = { lumiValue1,lumiValue2,lumiValue3};
 	std::vector < std::string > fMCSig;
 	for (int ii = 0; ii < nMCSig; ii++) {

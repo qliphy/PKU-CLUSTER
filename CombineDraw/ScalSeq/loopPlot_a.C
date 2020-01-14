@@ -21,10 +21,10 @@ void loopPlot() {
 
 	//#####################EDIT THE OPTIONS##############################
 
-	double lumiValue1 = 59.97;
+	double lumiValue1 = 58.7;
 	double lumiValue2 = 41.52;
-	double lumiValue3 = 34.43;
-	double lumiValue = 135.92;
+	double lumiValue3 = 38.6;
+	double lumiValue = 138.82;
 	/// Should we scale the histograms to data?
 	bool scaleToData = false;
 	// Should we scale only wjets to make total MC = DATA?
@@ -39,16 +39,16 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/CombineDraw/ScalSeq/rootfiles/";
+	std::string pathToTrees = "/afs/cern.ch/user/y/yian/work/PKU-Cluster/CombineDraw/ScalSeq/rootfiles/";
 	std::string outputDir = "./fig-output_a/";
 	RoccoR  rc("./RoccoR2017.txt");
         /// file for scale factors
 
 // Setup names of data files for trees.
-	const int nDATA = 3;
+	const int nDATA = 6;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
 			<< std::endl;
-	std::string dataLabels[nDATA] = { "2018_Data","2017_Data","2016_Data" };
+	std::string dataLabels[nDATA] = { "2018_Muon","2018_Ele","2017_Muon17","2017_Ele17","2016_DMuon16","2016_DEle16" };
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
 		fData.push_back(pathToTrees + "optimal_" + dataLabels[ii] + ".root");

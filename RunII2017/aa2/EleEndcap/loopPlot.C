@@ -35,7 +35,7 @@ void loopPlot() {
 	bool dopileupreweight = false;
 
 	/// Path to wherever the files with the trees are. 
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/2017cutla/";
+	std::string pathToTrees = "/eos/user/y/yian/2017cutla/";
 	std::string outputDir = "./fig-output/";
 	
 	RoccoR  rc("./RoccoR2017.txt");

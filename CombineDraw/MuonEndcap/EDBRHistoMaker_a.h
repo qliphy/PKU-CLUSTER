@@ -163,6 +163,7 @@ class EDBRHistoMaker {
 		TBranch *b_muon2_track_scale;   //!
 		TBranch *b_muon_hlt_scale;   //!
 		TBranch *b_scalef;   //!
+		TBranch *b_actualWeight;   //!
 		TBranch *b_nVtx;   //!
 		TBranch *b_theWeight;   //!
 		TBranch *b_lumiWeight;   //!
@@ -392,7 +393,7 @@ void EDBRHistoMaker::Init(TTree *tree) {
 	cout<<"make outfile tree end"<<endl;
 
 	fChain->SetBranchAddress("ele1_id_scale", &ele1_id_scale, &b_ele1_id_scale);
-//        fChain->SetBranchAddress("actualWeight", &actualWeight, &b_actualWeight);
+        fChain->SetBranchAddress("actualWeight", &actualWeight, &b_actualWeight);
         fChain->SetBranchAddress("ele2_id_scale", &ele2_id_scale, &b_ele2_id_scale);
         fChain->SetBranchAddress("ele1_reco_scale", &ele1_reco_scale, &b_ele1_reco_scale);
         fChain->SetBranchAddress("ele2_reco_scale", &ele2_reco_scale, &b_ele2_reco_scale);
@@ -704,9 +705,6 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                         isnotwets = 1;
                 }
 
-		if(filename.Contains("18")) actualWeight = scalef;
-                else actualWeight =   scalef;
-
                 lep1_phi_station2_tmp = lep1_phi_station2;
                 lep2_phi_station2_tmp = lep2_phi_station2;
                 if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
@@ -715,17 +713,14 @@ void EDBRHistoMaker::Loop(std::string outFileName) {
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 //data
-
-		sum = sum + actualWeight;
-		/*if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30  && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj>150 && Mjj<400 && ZGmass>100 && Mjj>400 && detajj>2.5 && zepp<2.4 && delta_phi>1.9) {
+		if (drll>0.3 && lep == 13 /*&&  (HLT_Mu1>0|| HLT_Mu2>0)*/ && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 )  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30  && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj>150 && Mjj<400 && ZGmass>100 /*&& Mjj>400 && detajj>2.5 && zepp<2.4 && delta_phi>1.9*/) {
 			//if(Mjj<400) 
 			sum = sum + actualWeight;
 			numbe_out++;
 			treename->Fill();
 		}
 		else
-			continue;*/
-                 //actualWeight = actualWeight*0.948;
+			continue;
 
 		if (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0) {
 			(theHistograms["ptVlep"])->Fill(ptVlep, actualWeight);
@@ -856,9 +851,6 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                         isnotwets = 1;
                 }
 
-		if(filename.Contains("18")) actualWeight = scalef;
-		else actualWeight = lumiWeight * pileupWeight * scalef;
-
                 lep1_phi_station2_tmp = lep1_phi_station2;
                 lep2_phi_station2_tmp = lep2_phi_station2;
                 if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
@@ -867,7 +859,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
                 if(drla==10) drla=-10;
                 if(drla2==10) drla2=-10;
 // mc
-		/*if (drll>0.3 && lep == 13 &&  (HLT_Mu1>0|| HLT_Mu2>0) && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& fabs(photoneta) < 1.4442  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30  && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj>150 && Mjj<400 && ZGmass>100 && Mjj>400 && detajj>2.5 && zepp<2.4 && delta_phi>1.9) {
+		if (drll>0.3 && lep == 13 /*&&  (HLT_Mu1>0|| HLT_Mu2>0)*/ && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4 && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.  && drla2>0.7 && drla>0.7 && photonet > 20.&& ( fabs(photoneta)<2.5&&fabs(photoneta)>1.566 )  && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7 && jet1pt>30 && jet2pt>30  && drj1a>0.5 &&drj2a>0.5 && drj1l>0.5 && drj2l>0.5 && drjj>0.5 && Mjj>150 && Mjj<400 && ZGmass>100 /*&& Mjj>400 && detajj>2.5 && zepp<2.4 && delta_phi>1.9*/) {
 			//if(Mjj<400)	
 			if(theWeight>0) npp++;
 			if(theWeight<0) nmm++;
@@ -875,10 +867,7 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 			treename->Fill();
 		}
 		else
-			continue;*/
-		actualWeight = actualWeight*muon1_id_scale*muon2_id_scale*muon1_iso_scale*muon2_iso_scale*photon_id_scale;
-                if(filename.Contains("plj")) 
-                     actualWeight = scalef;
+			continue;
 		sum = (sum + actualWeight);
 
 		if (isnotwets > 0 || iswjets > 0 || iszjets > 0 || isttjets > 0) {
@@ -913,7 +902,6 @@ void EDBRHistoMaker::Loop_SFs_mc(std::string outFileName){
 		}
           //if(Mjj<400) 
 	}
-	cout << "after cut: " << numbe_out << "; actualweight" << actualWeight<<"; theWeight>0 "<<npp<<"; theWeight<0 "<<nmm<<"; (npp-nmm) = "<<npp-nmm<<"; yields = "<<(npp-nmm)*scalef*59.97<<endl;
-		cout<< " result " << sum <<"; yields "<<sum*59.97<<endl;
+	cout << "after cut: " << numbe_out << "; actualweight" << actualWeight<<"; result " << sum<<endl;
 	this->saveAllHistos(outFileName);
 }

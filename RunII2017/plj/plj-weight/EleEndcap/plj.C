@@ -24,9 +24,9 @@ void plj::Loop()
    double lep2_phi_station2_tmp = 0;
 
    ifstream f1;
-//   f1.open("/home/pku/anying/cms/RunII2017/uncer/eleendcap/pljweight.txt");
+   f1.open("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/plj/plj-plot/EleEndcap/pljweight.txt");
 //   f1.open("/home/pku/anying/cms/RunII2017/uncer/eleendcap/pljweight_up.txt");
-   f1.open("/home/pku/anying/cms/RunII2017/uncer/eleendcap/pljweight_down.txt");
+//   f1.open("/home/pku/anying/cms/RunII2017/uncer/eleendcap/pljweight_down.txt");
    Double_t scalef_f[6];
    for(Int_t i=0;i<6;i++){
       f1>>scalef_f[i];

@@ -1,20 +1,18 @@
-#define ptnumber 7
+#define ptnumber 8
 Double_t fakerate[ptnumber];
 //Double_t lowpt[ptnumber]= {20,25,30,35,40,45,50,60,80,120};
 //Double_t highpt[ptnumber]={25,30,35,40,45,50,60,80,120,400};
-  Double_t lowpt[ptnumber]= {20,25,30,40,50,70,100};
-  Double_t highpt[ptnumber]={25,30,40,50,70,100,400};
+  Double_t lowpt[ptnumber]= {20,25,30,35,40,50,60,100};
+  Double_t highpt[ptnumber]={25,30,35,40,50,60,100,400};
 Double_t bin_data[ptnumber],bin_plj[ptnumber],bin_za[ptnumber];
 Double_t weight[ptnumber];
-TFile* f1 = new TFile("./plj-hist/cutla-outDMuon_plj_hb.root");
-TFile* f2 = new TFile("./plj-hist/cutla-outDMuon_hb.root");
-TFile* f3 = new TFile("./plj-hist/cutla-outZA_contamination_hb.root");
-//TFile* f1 = new TFile("./plj-hist/cutla-outpljnew_he.root");
-//TFile* f2 = new TFile("./plj-hist/cutla-outDMuon_he.root");
+TFile* f1 = new TFile("./plj-hist/cutla-outplj_barrel.root");
+TFile* f2 = new TFile("./plj-hist/cutla-outData_barrel.root");
+TFile* f3 = new TFile("./plj-hist/cutla-outZA_plj_barrel.root");
  
-TH1F* h1 = (TH1F*)f1->Get("h_cutla-outDMuon_plj");
-TH1F* h2 = (TH1F*)f2->Get("h_cutla-outDMuon");
-TH1D* h3 = (TH1D*)f3->Get("h_cutla-outZA_contamination");
+TH1F* h1 = (TH1F*)f1->Get("h_cutla-outplj");
+TH1F* h2 = (TH1F*)f2->Get("h_cutla-outData");
+TH1D* h3 = (TH1D*)f3->Get("h_cutla-outZA_plj");
 void draw(){
 
 /* TCanvas* c1 = new TCanvas("c1","plj vs data",900,700);
@@ -46,7 +44,7 @@ void open(Int_t i){
     
     ifstream f1;
 //    f1.open(Form("./muonEndcap-ff/fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
-    f1.open(Form("./muonBarrel-ff/fakerate_ZA_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
+    f1.open(Form("/afs/cern.ch/user/y/yian/work/PKU-Cluster/RunII2017/MakeTemplate/With_sieieCorr/barrel/ZAfit/txt/fakerate_ZA_pt%0.f_%0.f.txt",lowpt[i],highpt[i]));
     if(!f1.is_open()) cout<<"can not open the file: "<<Form("fakerate_ZA_pt%0.f_%0.f.txt",lowpt[i],highpt[i])<<endl;
    // if(f1.is_open()) cout<<"open the file: "<<Form("fakerate_pt%0.f_%0.f.txt",lowpt[i],highpt[i])<<endl;
     f1>>fakerate[i];cout<<"fakerate = "<<fakerate[i]<<endl;
@@ -59,13 +57,13 @@ for(Int_t i=0;i<ptnumber;i++){
 draw();
 ofstream file("./pljweight.txt");
 //const char *name[ptnumber]={"20~25","25~30","30~35","35~40","40~45","45~50","50~60","60~80","80~120","120~400"};
-const char *name[ptnumber]={"20~25","25~30","30~40","40~50","50~70","70~100","100~400"};
+const char *name[ptnumber]={"20~25","25~30","30~35","35~40","40~50","50~60","60~100","100~400"};
 for(Int_t i=0;i<ptnumber;i++){
 //   weight[i]=bin_data[i]*fakerate[i]/bin_plj[i];
    weight[i]=bin_data[i]*fakerate[i]/(bin_plj[i]-bin_za[i]);
 //   weight[i]=bin_data[i]*fakerate[i]/bin_plj[i];
    cout<<"bin "<<name[i]<<" ;"<<"data : "<<bin_data[i]<<"; plj : "<<bin_plj[i]<<"; za contamination :"<<bin_za[i]<<"; fakerate : "<<fakerate[i]<<"; weight : "<<weight[i]<<endl;
-   file<<name[i]<<"\t"<<weight[i]<<endl;
+   file<<weight[i]<<endl;
   }
 return 0;
 }

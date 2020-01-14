@@ -43,8 +43,8 @@ void draw::Loop(TString name)
    TString hname="h_"+name;
    Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele,SignalRegion,JETS,JET[6];
 //   Double_t pt[11]={20,25,30,35,40,45,50,60,80,120,400};
-   Double_t pt[8] = {20,25,30,40,50,70,100,400};
-   h1 = new TH1F(hname,hname,7,pt);
+   Double_t pt[9] = {20,25,30,35,40,50,60,100,400};
+   h1 = new TH1F(hname,hname,8,pt);
 //   nentries=100;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -58,12 +58,12 @@ void draw::Loop(TString name)
       if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
       l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
       LEPele = lep==11 &&(HLT_Ele1>0 ||  HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70. && massVlep < 110; 
-      LEPmu =  lep == 13 && (HLT_Mu1>0|| HLT_Mu2>0)  && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
+      LEPmu =  lep == 13 && /*(HLT_Mu1>0|| HLT_Mu2>0)  &&*/ ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
       PHOTON_barrel= /*photonet<400&&*/photonet>20 &&(/*(fabs(photoneta)<2.5&&fabs(photoneta)>1.566) ||*/ (fabs(photoneta)<1.4442) ) ;
       PHOTON_endcap= /*photonet<400&&*/photonet>20 &&(fabs(photoneta)<2.5&&fabs(photoneta)>1.566);
       JETS=jet1pt> 30 && jet2pt > 30 && fabs(jet1eta)< 4.7 && fabs(jet2eta)<4.7;
       ijet=0;
-      if(name.Contains("ZA"))scalef = scalef*muon1_id_scale*muon2_id_scale*muon2_iso_scale*muon1_iso_scale*muon1_track_scale*muon2_track_scale*muon_hlt_scale*photon_id_scale;
+      if(name.Contains("ZA"))scalef = scalef*muon1_id_scale*muon2_id_scale*muon2_iso_scale*muon1_iso_scale*muon1_track_scale*muon2_track_scale*photon_id_scale*prefWeight;
       for(Int_t j=0;j<6;j++)
       {
        JET[j]=ak4jet_pt[j]>30 && fabs(ak4jet_eta[j])<4.7;

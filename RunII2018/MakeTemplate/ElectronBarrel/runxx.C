@@ -4,8 +4,8 @@
 using namespace std;
 
 void runxx() {
-TString dir="./rootfiles/";
-//TString dir = "/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/";
+//TString dir="./rootfiles/";
+TString dir = "/eos/user/y/yian/2018cutla/";
 ifstream infile("file");
 string buffer;
 TString name;
@@ -16,8 +16,8 @@ while (k>0){
 getline (infile, buffer) ;
 name = buffer;
 if(name.Contains("out")==0) {k=-2; continue;}
-//TString filename="cutlep-" + name+".root";
-TString filename = name + ".root";
+TString filename="cutlep-" + name+".root";
+//TString filename = name + ".root";
 cout<<name<<endl;
 
 TFile *file1 =new TFile(dir+filename);

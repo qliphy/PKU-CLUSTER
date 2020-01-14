@@ -21,7 +21,7 @@ void loopPlot() {
 
 	//#####################EDIT THE OPTIONS##############################
 
-	double lumiValue = 59.97;
+	double lumiValue = 58.7;
 	/// Should we scale the histograms to data?
 	bool scaleToData = false;
 	// Should we scale only wjets to make total MC = DATA?
@@ -36,30 +36,30 @@ void loopPlot() {
 
 	/// Path to wherever the files with the trees are. 
 	//std::string pathToTrees = "./output-slimmed-rootfiles/root/";
-	std::string pathToTrees = "/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/2018cutla/";
+	std::string pathToTrees = "/eos/user/y/yian/2018cutla/";
 	std::string outputDir = "./fig-output_a/";
 	
 	RoccoR  rc("./RoccoR2017.txt");
         /// file for scale factors
 
 // Setup names of data files for trees.
-	const int nDATA = 1;
+	const int nDATA = 2;
 	std::cout << "set data imformation, we have " << nDATA << "data file"
 			<< std::endl;
-	std::string dataLabels[nDATA] = { "Data" };
+	std::string dataLabels[nDATA] = { "Muon","Ele" };
 	std::vector < std::string > fData;
 	for (int ii = 0; ii < nDATA; ii++) {
-		fData.push_back(pathToTrees + "cutla-out" + dataLabels[ii] + ".root");
+		fData.push_back(pathToTrees + "cutla-outD" + dataLabels[ii] + ".root");
 	}
 // set mc imformation
-		const int nMC = 6;
+		const int nMC = 9;
 		std::cout << "set data imformation, we have " << nMC << "mc file"
 				<< std::endl;
 		//std::string mcLabels[nMC] = { "ZJets_FX", "ZA" };
 		//std::string mcLabels[nMC] = {"ST","TTA","VV","WA", "ZJets_FX","WJets_FX","TTJets_FX","ZA" };
 		//double kFactorsMC_array[nMC] = { lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue,lumiValue};
 		std::string mcLabels[nMC] = {"ST", "TTA", "VV","WA",
-                                            "plj","ZA"};
+                                            "plj_mubarrel","plj_elebarrel","plj_muendcap","plj_eleendcap","ZA"};
 		/*std::string mcLabels[nMC] = {"ZA"}; 
 		double kFactorsMC_array[nMC] = { lumiValue};*/
 

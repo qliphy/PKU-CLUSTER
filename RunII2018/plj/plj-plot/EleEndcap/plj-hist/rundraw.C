@@ -4,7 +4,7 @@
 using namespace std;
 void runjet() {
 //TString dir="/uscms_data/d3/qliphy/andy/CMSSW_9_4_9_cand2/small/cutla/";
-TString dir = "/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/2018cutla/";
+TString dir = "/eos/user/y/yian/2018cutla/";
 ifstream infile("file");
 string buffer; 
 TString name;

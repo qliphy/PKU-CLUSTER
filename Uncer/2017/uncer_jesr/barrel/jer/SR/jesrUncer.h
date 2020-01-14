@@ -923,7 +923,7 @@ public :
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
    virtual void     Loop(TH2D* th2[3]);
-   virtual void     makefile();
+   virtual void     makefile(TString name);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    TH2D* hist[3];

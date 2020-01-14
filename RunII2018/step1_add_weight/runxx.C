@@ -6,7 +6,7 @@ using namespace std;
 void runxx() {
 //gROOT->LoadMacro("xx.C");
 //TString dir="/data/pku/home/anying/cms/file_in_cms/files_weighted/";
-TString dir ="/home/pku/anying/cms/file_in_cms/2018RunIIrootfiles/";
+TString dir ="/eos/user/y/yian/2018cutla/";
 ifstream infile("file");
 string buffer; 
 TString name;

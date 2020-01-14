@@ -42,7 +42,7 @@ void draw::Loop(TString name)
    int cut0=0,cut1=0;
 
    TString hname="h_"+name;
-   Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele;
+   Bool_t PHOTON_barrel,PHOTON_endcap,LEPmu,LEPele,SignalRegion;
    Double_t pt[7]={20,25,30,35,50,60,400};
    h1 = new TH1F(hname,hname,6,pt);
 //   nentries=100;
@@ -58,13 +58,15 @@ void draw::Loop(TString name)
       if(lep1_phi_station2<0) lep1_phi_station2_tmp = lep1_phi_station2+6.28319;
       if(lep2_phi_station2<0) lep2_phi_station2_tmp = lep2_phi_station2+6.28319;
       l1_weight = L1_weight(lep1_phi_station2_tmp, lep2_phi_station2_tmp, lep1_eta_station2, lep2_eta_station2);
-      if(name.Contains("ZA_contamination")) scalef = scalef * ele1_id_scale*ele2_id_scale*ele1_reco_scale*ele2_reco_scale*photon_id_scale;
+      if(name.Contains("ZA")) scalef = scalef * ele1_id_scale*ele2_id_scale*ele1_reco_scale*ele2_reco_scale*photon_id_scale*prefWeight;
       else scalef =1;
 
       LEPele = lep==11 && (HLT_Ele1>0||HLT_Ele2>0) && ptlep1 > 25. && ptlep2 > 25.&& fabs(etalep1) < 2.5 &&abs(etalep2) < 2.5 && nlooseeles < 3 && nloosemus == 0  && massVlep >70. && massVlep < 110; 
       LEPmu =  lep == 13 && ptlep1 > 20. && ptlep2 > 20. && fabs(etalep1) < 2.4 && fabs(etalep2) < 2.4  && nlooseeles == 0 && nloosemus < 3 && massVlep > 70. && massVlep < 110.;
       PHOTON_barrel= /*photonet<400&&*/photonet>20 &&(/*(fabs(photoneta)<2.5&&fabs(photoneta)>1.566) ||*/ (fabs(photoneta)<1.4442) ) ;
       PHOTON_endcap= /*photonet<400&&*/photonet>20 &&(fabs(photoneta)<2.5&&fabs(photoneta)>1.566);
+      SignalRegion= Mjj>500 && deltaetajj>2.5 && zepp<2.4;
+      if(SignalRegion) continue;
      // if(LEPmu&&PHOTON_barrel==true)
      // if(LEPmu&&PHOTON_endcap==true)
      // if(LEPele&&PHOTON_barrel==true)

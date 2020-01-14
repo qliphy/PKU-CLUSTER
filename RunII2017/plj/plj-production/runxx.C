@@ -2,8 +2,8 @@
 #include <fstream>
 void runxx() {
 //gROOT->LoadMacro("xx.C");
-TString dir="/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/";
-//TString dir="/eos/uscms/store/user/qliphy/andy/2017/";
+//TString dir="/home/pku/anying/cms/file_in_cms/2017RunIIrootfiles/";
+TString dir="/eos/user/y/yian/2016legacy/";
 //TString dir="/uscms_data/d3/qliphy/andy/CMSSW_9_4_9_cand2/small/cutla/";
 
 ifstream infile("file");
@@ -15,9 +15,9 @@ int k=1;
 while (k>0){
 	getline (infile, buffer) ;
 	name = buffer;
-	if(name.Contains("out")==0) {k=-2; continue;}
-	TString outname= name+"_pljnew.root";
-	TString inname=/*"cutlep-out"+*/name+".root";
+	if(name.Contains("D")==0) {k=-2; continue;}
+	TString outname="cutlep-out"+ name+"_plj.root";
+	TString inname="cutlep-out"+name+".root";
 	cout<<inname<<endl;
 	cout<<outname<<endl;
 	TFile *file1;
